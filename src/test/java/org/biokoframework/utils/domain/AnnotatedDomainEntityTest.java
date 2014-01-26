@@ -33,7 +33,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.domain.annotation.field.EntityValidatorRulesFactory;
 import org.biokoframework.utils.fields.Fields;
 import org.biokoframework.utils.validator.Validator;

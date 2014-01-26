@@ -25,25 +25,22 @@
  * 
  */
 
-package org.biokoframework.utils.domain;
+package org.biokoframework.utils.repository;
 
-import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
+import org.biokoframework.utils.domain.ErrorEntity;
+import org.biokoframework.utils.exception.BiokoException;
 
-@SuppressWarnings("serial")
-public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
+public class RepositoryException extends BiokoException {
 
-	@Field
-	public static final String		VALUE 			= "value";
-	@Field(type=AnnotatedPersonExample.class)
-	public static final String		A_FOREIGN_KEY	= "aForeignKey";
-	
-	public AnnotedEntityWithForeignKeyExample(Fields input) {
-		super(input);
+	private static final long serialVersionUID = 1L;
+
+	public RepositoryException(ErrorEntity error) {
+		super(error);
 	}
-	
-	public AnnotedEntityWithForeignKeyExample() {
-		super(Fields.empty());
+
+	public RepositoryException(Exception exception) {
+		super(exception);
 	}
-	
+
+
 }

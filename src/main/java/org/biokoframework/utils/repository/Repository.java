@@ -25,25 +25,40 @@
  * 
  */
 
-package org.biokoframework.utils.domain;
+package org.biokoframework.utils.repository;
 
-import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings("serial")
-public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
+import org.biokoframework.utils.domain.DomainEntity;
+import org.biokoframework.utils.exception.ValidationException;
+import org.biokoframework.utils.repository.query.Query;
 
-	@Field
-	public static final String		VALUE 			= "value";
-	@Field(type=AnnotatedPersonExample.class)
-	public static final String		A_FOREIGN_KEY	= "aForeignKey";
-	
-	public AnnotedEntityWithForeignKeyExample(Fields input) {
-		super(input);
-	}
-	
-	public AnnotedEntityWithForeignKeyExample() {
-		super(Fields.empty());
-	}
-	
+/**
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Jan 26, 2014
+ *
+ */
+public interface Repository<DE extends DomainEntity> {
+
+	public DE save(DE anEntity) throws ValidationException, RepositoryException;
+
+	public DE delete(String anEntityKey);
+
+	public DE retrieve(String anEntityKey);
+
+	public DE retrieveByForeignKey(String foreignKeyName, String foreignKeyValue);
+
+	public ArrayList<DE> getEntitiesByForeignKey(String foreignKeyName, String foreignKeyValue);
+
+	public abstract String report();
+
+	public abstract ArrayList<DE> getAll();
+
+	public abstract List<DE> call(DomainEntity aDomainEntity, String aMethod) throws ValidationException, RepositoryException;
+
+	public abstract DE retrieve(DE anEntityT);
+
+	public abstract Query<DE> createQuery();
+
 }

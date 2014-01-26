@@ -35,8 +35,6 @@ import java.util.LinkedHashMap;
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.fields.FieldNames;
 import org.biokoframework.utils.fields.Fields;
-import org.biokoframework.utils.json.JSonBuilder;
-import org.biokoframework.utils.json.JSonParser;
 import org.junit.Ignore;
 import org.junit.Test;
 

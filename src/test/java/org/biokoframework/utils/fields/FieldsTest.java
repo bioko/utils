@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
-import org.biokoframework.utils.fields.Fields;
 import org.biokoframework.utils.json.FieldsMother;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

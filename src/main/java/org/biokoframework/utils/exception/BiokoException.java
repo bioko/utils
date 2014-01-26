@@ -25,25 +25,58 @@
  * 
  */
 
-package org.biokoframework.utils.domain;
+package org.biokoframework.utils.exception;
 
-import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings("serial")
-public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
+import org.biokoframework.utils.domain.ErrorEntity;
 
-	@Field
-	public static final String		VALUE 			= "value";
-	@Field(type=AnnotatedPersonExample.class)
-	public static final String		A_FOREIGN_KEY	= "aForeignKey";
+/**
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Jan 26, 2014
+ *
+ */
+public class BiokoException extends Exception {
 	
-	public AnnotedEntityWithForeignKeyExample(Fields input) {
-		super(input);
+	private static final long serialVersionUID = 1L;
+
+	private Exception _exception;
+	
+	private List<ErrorEntity> _errors = new ArrayList<ErrorEntity>();
+	
+	public BiokoException(ErrorEntity error) {
+		super(error.toJSONString());
+		_errors.add(error);
 	}
 	
-	public AnnotedEntityWithForeignKeyExample() {
-		super(Fields.empty());
+	public BiokoException(List<ErrorEntity> errors) {
+		_errors = new ArrayList<ErrorEntity>(errors);
+	}
+	
+	public BiokoException(Exception exception) {
+		super(exception);
+		_exception = exception;
+	}
+
+	public BiokoException(ErrorEntity error, Exception exception) {
+		super(exception);
+		_errors.add(error);
+		_exception = exception;
+	}
+	
+	public BiokoException(List<ErrorEntity> errors, Exception exception) {
+		super(exception);
+		_errors = new ArrayList<ErrorEntity>(errors);		
+		_exception = exception;
+	}
+	
+	public List<ErrorEntity> getErrors() {
+		return _errors;
+	}
+	
+	public Exception exception() {
+		return _exception;
 	}
 	
 }

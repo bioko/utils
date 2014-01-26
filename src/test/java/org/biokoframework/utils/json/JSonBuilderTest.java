@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.fields.Fields;
-import org.biokoframework.utils.json.JSonBuilder;
 import org.junit.Test;
 
 

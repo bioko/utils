@@ -38,9 +38,6 @@ import java.util.Map;
 
 import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.fields.Fields;
-import org.biokoframework.utils.validator.Validator;
-import org.biokoframework.utils.validator.ValidatorErrorBuilder;
-import org.biokoframework.utils.validator.ValidatorRule;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 

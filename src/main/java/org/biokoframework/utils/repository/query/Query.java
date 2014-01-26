@@ -25,25 +25,31 @@
  * 
  */
 
-package org.biokoframework.utils.domain;
+package org.biokoframework.utils.repository.query;
 
-import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
+import java.util.ArrayList;
 
-@SuppressWarnings("serial")
-public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
+import org.biokoframework.utils.domain.DomainEntity;
+import org.biokoframework.utils.repository.Repository;
 
-	@Field
-	public static final String		VALUE 			= "value";
-	@Field(type=AnnotatedPersonExample.class)
-	public static final String		A_FOREIGN_KEY	= "aForeignKey";
+public interface Query<DE extends DomainEntity> {
 	
-	public AnnotedEntityWithForeignKeyExample(Fields input) {
-		super(input);
-	}
+	public Query<DE> from(Repository<DE> repository, Class<DE> entityClass);
+
+	public Constraint<DE> where(String fieldName);
 	
-	public AnnotedEntityWithForeignKeyExample() {
-		super(Fields.empty());
-	}
+	public ArrayList<DE> getAll();
+
+	
+	public Query<DE> select();
+	public Query<DE> update();
+	public Query<DE> delete();
+
+	public void setValue(String placeholder, String value);
+
+	public Constraint<DE> and(String fieldName);
+	public Constraint<DE> or(String fieldName);
+
+
 	
 }

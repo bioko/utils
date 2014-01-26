@@ -27,7 +27,6 @@
 
 package org.biokoframework.utils.domain;
 
-import org.biokoframework.utils.domain.DomainEntity;
 
 
 

@@ -25,25 +25,44 @@
  * 
  */
 
-package org.biokoframework.utils.domain;
+package org.biokoframework.utils.repository.query;
 
-import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
+import org.biokoframework.utils.domain.DomainEntity;
 
-@SuppressWarnings("serial")
-public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
+public interface Constraint<DE extends DomainEntity> {
 
-	@Field
-	public static final String		VALUE 			= "value";
-	@Field(type=AnnotatedPersonExample.class)
-	public static final String		A_FOREIGN_KEY	= "aForeignKey";
+	public Constraint<DE> setFieldName(String fieldName);
+
+	public Query<DE> placeholder(String placeholder);
 	
-	public AnnotedEntityWithForeignKeyExample(Fields input) {
-		super(input);
-	}
+	public Constraint<DE> isEqual();
+	public Query<DE> isEqual(String value);
+	public Constraint<DE> isNotEqual();
+	public Query<DE> isNotEqual(String value);
+
+	public Constraint<DE> like();
+	public Query<DE> like(String value);
+	public Constraint<DE> notLike();
+	public Query<DE> notLike(String value);
+
+	public Constraint<DE> not();
+
+	public Query<DE> ilike(String value);
+	public Constraint<DE> ilike();
+
+	public Query<DE> slike(String value);
+	public Constraint<DE> slike();
+
+	public Query<DE> lt(String string);
+	public Constraint<DE> lt();
+
+	public Query<DE> lte(String string);
+	public Constraint<DE> lte();
 	
-	public AnnotedEntityWithForeignKeyExample() {
-		super(Fields.empty());
-	}
+	public Query<DE> gt(String string);
+	public Constraint<DE> gt();
+
+	public Query<DE> gte(String string);
+	public Constraint<DE> gte();
 	
 }
