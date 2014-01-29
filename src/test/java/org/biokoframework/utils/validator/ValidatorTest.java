@@ -73,7 +73,7 @@ public class ValidatorTest {
 		
 		assertThat(myDummyEntityValidator.validate(dummyEntityFields), equalTo(false));
 		ErrorEntity error = ValidatorErrorBuilder.buildMandatoryFieldsMissingError("aMissingField");
-		assertArrayEquals(createSingleErrorEntityArray("aMissingField", error.get(ErrorEntity.ERROR_CODE), error.get(ErrorEntity.ERROR_MESSAGE)).toArray(), 
+		assertArrayEquals(createSingleErrorEntityArray("aMissingField", error.get(ErrorEntity.ERROR_CODE).toString(), error.get(ErrorEntity.ERROR_MESSAGE).toString()).toArray(), 
 				myDummyEntityValidator.getErrors().toArray());
 	}
 	
@@ -94,7 +94,7 @@ public class ValidatorTest {
 		
 		assertThat(valid, equalTo(false));
 		ErrorEntity error = ValidatorErrorBuilder.buildWrongTypeError("aWrongTypedField");
-		assertArrayEquals(createSingleErrorEntityArray("aWrongTypedField", error.get(ErrorEntity.ERROR_CODE), error.get(ErrorEntity.ERROR_MESSAGE)).toArray(), 
+		assertArrayEquals(createSingleErrorEntityArray("aWrongTypedField", error.get(ErrorEntity.ERROR_CODE).toString(), error.get(ErrorEntity.ERROR_MESSAGE).toString()).toArray(), 
 				myDummyEntityValidator.getErrors().toArray());
 		
 		
@@ -116,7 +116,7 @@ public class ValidatorTest {
 		
 		assertThat(myDummyEntityValidator.validate(dummyEntityFields), equalTo(false));
 		ErrorEntity error = ValidatorErrorBuilder.buildFieldFormatNotValidError("aWrongFormatField");
-		assertArrayEquals(createSingleErrorEntityArray("aWrongFormatField", error.get(ErrorEntity.ERROR_CODE), error.get(ErrorEntity.ERROR_MESSAGE)).toArray(), 
+		assertArrayEquals(createSingleErrorEntityArray("aWrongFormatField", error.get(ErrorEntity.ERROR_CODE).toString(), error.get(ErrorEntity.ERROR_MESSAGE).toString()).toArray(), 
 				myDummyEntityValidator.getErrors().toArray());
 		
 		
@@ -139,7 +139,7 @@ public class ValidatorTest {
 		
 		assertThat(myDummyEntityValidator.validate(dummyEntityFields), equalTo(false));
 		ErrorEntity error = ValidatorErrorBuilder.buildWrongPatternError("otherEmail");
-		assertArrayEquals(createSingleErrorEntityArray("otherEmail", error.get(ErrorEntity.ERROR_CODE), error.get(ErrorEntity.ERROR_MESSAGE)).toArray(), 
+		assertArrayEquals(createSingleErrorEntityArray("otherEmail", error.get(ErrorEntity.ERROR_CODE).toString(), error.get(ErrorEntity.ERROR_MESSAGE).toString()).toArray(), 
 				myDummyEntityValidator.getErrors().toArray());
 		
 		// correct one
@@ -190,7 +190,7 @@ public class ValidatorTest {
 		printErrors(myDummyEntityValidator.getErrors());
 		
 		ErrorEntity error = ValidatorErrorBuilder.buildWrongTypeError("italianDate");
-		assertArrayEquals(createSingleErrorEntityArray("italianDate", error.get(ErrorEntity.ERROR_CODE), error.get(ErrorEntity.ERROR_MESSAGE)).toArray(), 
+		assertArrayEquals(createSingleErrorEntityArray("italianDate", error.get(ErrorEntity.ERROR_CODE).toString(), error.get(ErrorEntity.ERROR_MESSAGE).toString()).toArray(), 
 				myDummyEntityValidator.getErrors().toArray());
 		
 		// correct one
@@ -215,7 +215,7 @@ public class ValidatorTest {
 		
 		assertThat(myDummyEntityValidator.validate(dummyEntityFields), equalTo(false));
 		ErrorEntity error = ValidatorErrorBuilder.buildTypeDontKnowError("wrongTypedField");
-		assertArrayEquals(createSingleErrorEntityArray("wrongTypedField", error.get(ErrorEntity.ERROR_CODE), error.get(ErrorEntity.ERROR_MESSAGE)).toArray(), 
+		assertArrayEquals(createSingleErrorEntityArray("wrongTypedField", error.get(ErrorEntity.ERROR_CODE).toString(), error.get(ErrorEntity.ERROR_MESSAGE).toString()).toArray(), 
 				myDummyEntityValidator.getErrors().toArray());
 		
 		

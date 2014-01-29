@@ -27,15 +27,14 @@
 
 package org.biokoframework.utils.filter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.biokoframework.utils.domain.DomainEntity;
 
 public class HasForeignKeyWithValue<DE extends DomainEntity> implements Filter<DE> {
 
 	private final String _fieldName;
-	private final String _fieldValue;
+	private final Object _fieldValue;
 
-	public HasForeignKeyWithValue(String fieldName, String fieldValue) {
+	public HasForeignKeyWithValue(String fieldName, Object fieldValue) {
 		_fieldName = fieldName;
 		_fieldValue = fieldValue;
 	}
@@ -44,9 +43,11 @@ public class HasForeignKeyWithValue<DE extends DomainEntity> implements Filter<D
 	public boolean allows(DE entity) {
 		if (entity == null) {
 			return false;
+		} else if (_fieldValue == null) {
+			return entity.get(_fieldName) == null;
+		} else {
+			return _fieldValue.equals(entity.get(_fieldName));
 		}
-		
-		return StringUtils.equals(_fieldValue, entity.get(_fieldName));
 	}
 	
 }

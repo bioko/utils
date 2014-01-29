@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.biokoframework.utils.domain.annotation.field.ComponingFieldsFactory;
 import org.biokoframework.utils.domain.annotation.field.EntityValidatorRulesFactory;
@@ -44,7 +45,6 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 
 	public static final String ID = "id";
 	
-	protected String _keyName;
 	protected Fields _fields = Fields.empty();
 	private ArrayList<String> _componingFields;
 
@@ -58,9 +58,10 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 			System.out.println("WARNING! this should not happening, The problem is in DomainEntity(input) constructor");			
 		} 
 		_fields.putAllFilterdBy(input, _componingFields);
-		_keyName = ID;
-		if (input.containsKey(ID))
-			setId(input.stringNamed(ID));
+		
+		if (input.containsKey(ID)) {
+			setId(input.get(ID).toString());
+		}
 	}
 	
 	public boolean isValid() {
@@ -83,10 +84,6 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	}
 	
 	@Deprecated
-	public void setKeyValue(String keyValue){
-		_fields.put(_keyName, keyValue);
-	}
-	
 	public final String report() {
 		StringBuilder result = new StringBuilder().
 				append(getClass().getSimpleName()).
@@ -118,20 +115,10 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 		return HashCodeBuilder.reflectionHashCode(this, false);
 	}
 	
-	@Deprecated
-	public boolean containsField(String foreignKeyName, String foreignKeyValue, boolean ignoreCase) {
-		return _fields.containsField(foreignKeyName,foreignKeyValue, ignoreCase);
-	}
-	
-	@Deprecated
-	public boolean containsField(String foreignKeyName, String foreignKeyValue) {
-		return containsField(foreignKeyName, foreignKeyValue, false);
-	}
-
 	public String toJSONString() {
 		String result = null;
 		try {
-			result = _fields.asJson();
+			result = _fields.toJSONString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,12 +126,13 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 		return result;
 	}
 
-	public void set(String name, String value) {
+	public void set(String name, Object value) {
 		_fields.put(name, value);
 	}
 	
-	public String get(String fieldName) {
-		return _fields.stringNamed(fieldName);
+	@SuppressWarnings("unchecked")
+	public <T> T get(String fieldName) {
+		return (T) _fields.get(fieldName);
 	}
 	
 	public void setId(String id) {
@@ -152,10 +140,9 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	}
 	
 	public String getId() {
-		if (!_fields.contains(ID)) {
-			return null;
-		}
-		return get(ID);
+		Object id = get(ID);
+		
+		return id != null ? id.toString() : null;
 	}
 
 }

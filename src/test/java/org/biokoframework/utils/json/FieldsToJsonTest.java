@@ -47,7 +47,7 @@ public class FieldsToJsonTest {
 	public void emptyFieldsToJson() throws Exception {
 		Fields empty = Fields.empty();
 		JSONObject object = new JSONObject();
-		assertEquals(empty.asJson(), object.toJSONString());
+		assertEquals(empty.toJSONString(), object.toJSONString());
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class FieldsToJsonTest {
 		JSONObject object = new JSONObject();
 		object.put(FieldNames.NAME, FieldNames.NAME_VALUE);
 		object.put(FieldNames.SURNAME, FieldNames.SURNAME_VALUE);
-		assertEquals(fields.asJson(), object.toJSONString());
+		assertEquals(fields.toJSONString(), object.toJSONString());
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class FieldsToJsonTest {
 		jsonObject.put(aKey, domainEntityArray);
 		String jsonString = JSONValue.toJSONString(jsonObject);
 
-		assertEquals(fields.asJson(), jsonString);
+		assertEquals(fields.toJSONString(), jsonString);
 	}
 
 	@Test
@@ -94,6 +94,6 @@ public class FieldsToJsonTest {
 		jsonObject.put(aKey, domainEntityArray);
 		String jsonString = JSONValue.toJSONString(jsonObject);
 
-		assertEquals(fields.asJson(), jsonString);
+		assertEquals(fields.toJSONString(), jsonString);
 	}
 }

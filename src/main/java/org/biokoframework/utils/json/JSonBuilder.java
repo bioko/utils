@@ -48,7 +48,7 @@ public class JSonBuilder {
 	public String buildFrom(Fields someFields) {
 		if (!someFields.isEmpty()) {
 			for (String each : someFields.keys()) {
-				Object value = someFields.valueFor(each);
+				Object value = someFields.get(each);
 				if (value != null)
 					add(each, value);
 				else

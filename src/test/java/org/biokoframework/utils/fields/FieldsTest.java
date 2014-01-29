@@ -67,7 +67,7 @@ public class FieldsTest {
 		Object aFieldObject = theObject;
 		
 		withObjects.put(aFieldName, aFieldObject);
-		Object actualObject = withObjects.valueFor(aFieldName, Object.class);
+		Object actualObject = withObjects.get(aFieldName);
 		
 		assertEquals(theObject.toString(), actualObject.toString());
 	}
@@ -81,7 +81,7 @@ public class FieldsTest {
 		Object aFieldObject = theObject;
 		
 		withObjects.put(aFieldName, aFieldObject);
-		Object actualObject = withObjects.valueFor(aFieldName, Object.class);
+		Object actualObject = withObjects.get(aFieldName);
 		
 		assertEquals(theObject.toString(), actualObject.toString());
 	}
@@ -98,7 +98,7 @@ public class FieldsTest {
 		String aFieldName = "OBJECT";
 		
 		withObjects.put(aFieldName, theObject);
-		List<Object> actualObject = (List<Object>)withObjects.valueFor(aFieldName, ArrayList.class);
+		List<Object> actualObject = withObjects.get(aFieldName);
 		
 		assertEquals(theObject.toString(), actualObject.toString());
 		assertEquals(theObject.get(0), actualObject.get(0));
@@ -115,7 +115,7 @@ public class FieldsTest {
 		String aFieldName = "OBJECT";
 		
 		withObjects.put(aFieldName, theObject);
-		List<AnnotatedPersonExample> actualObject = withObjects.valueFor(aFieldName, ArrayList.class);
+		List<AnnotatedPersonExample> actualObject = withObjects.get(aFieldName);
 		
 		assertEquals(theObject.get(0).report(), actualObject.get(0).report());
 		assertEquals(theObject.get(1).report(), actualObject.get(1).report());
@@ -131,7 +131,7 @@ public class FieldsTest {
 		String aFieldName = "OBJECT";
 		
 		withObjects.put(aFieldName, theObject);
-		List<AnnotatedPersonExample> actualObject = (ArrayList<AnnotatedPersonExample>)withObjects.valueFor(aFieldName);
+		List<AnnotatedPersonExample> actualObject = withObjects.get(aFieldName);
 		
 		assertEquals(theObject.get(0).report(), actualObject.get(0).report());
 		assertEquals(theObject.get(1).report(), actualObject.get(1).report());
@@ -140,14 +140,14 @@ public class FieldsTest {
 	@Test
 	public void simpleFieldsAsJson() throws Exception {
 		Fields someFields = FieldsMother.twoFields();
-		assertEquals(FieldsMother.FIRST_EXPECTED, someFields.asJson());
+		assertEquals(FieldsMother.FIRST_EXPECTED, someFields.toJSONString());
 	}
 
 	@Test
 	public void moreFieldsAsJson() throws Exception {
 		Fields someFields = FieldsMother.fourFields();
 		
-		assertHaveEqualJSONObjects(FieldsMother.FIRST_AND_SECOND_EXPECTED, someFields.asJson());
+		assertHaveEqualJSONObjects(FieldsMother.FIRST_AND_SECOND_EXPECTED, someFields.toJSONString());
 	}
 
 	private void assertHaveEqualJSONObjects(String expected, String actual)
@@ -163,7 +163,7 @@ public class FieldsTest {
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
 		String aFieldName = "OBJECT";
 		withObjects.put(aFieldName, theObject);
-		assertEquals("{\"OBJECT\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}", withObjects.asJson());
+		assertEquals("{\"OBJECT\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}", withObjects.toJSONString());
 	}
 
 	private List<AnnotatedPersonExample> domainEntityInstanceList() {

@@ -28,6 +28,7 @@
 package org.biokoframework.utils.domain;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -44,11 +45,11 @@ public class AnnotatedDomainEntityTest {
 	private static final String A_WRONG_AGE = "27 years";
 	private static final String A_SURNAME = "aSurname";
 	private static final String A_NAME = "aName";
-	private static final String AN_AGE_28 = "28";
+//	private static final String AN_AGE_28 = "28";
 	private static final String CORRECT_EMAIL = "correct@email.net";
 	private static final String WRONG_EMAIL = "wrong.email";
 	private static final String A_CORRECT_BIRTH_DATE = "29/07/2013";
-	private static final String WRONG_BIRTH_DATE = "2013/07/29";
+//	private static final String WRONG_BIRTH_DATE = "2013/07/29";
 
 	@Test
 	public void instantiateVoidEntity() {		
@@ -63,12 +64,9 @@ public class AnnotatedDomainEntityTest {
 		Fields input = composeFiels();
 		AnnotatedPersonExample de = new AnnotatedPersonExample(input);
 		
-		assertThat(de.get(AnnotatedPersonExample.NAME), 
-				equalTo(A_NAME));
-		assertThat(de.get(AnnotatedPersonExample.SURNAME), 
-				equalTo(A_SURNAME));
-		assertThat(de.get(AnnotatedPersonExample.AGE), 
-				equalTo(AN_AGE));
+		assertThat(de.get(AnnotatedPersonExample.NAME), is(equalTo((Object) A_NAME)));
+		assertThat(de.get(AnnotatedPersonExample.SURNAME), is(equalTo((Object) A_SURNAME)));
+		assertThat(de.get(AnnotatedPersonExample.AGE), is(equalTo((Object) AN_AGE)));
 		
 	}
 
@@ -167,9 +165,6 @@ public class AnnotatedDomainEntityTest {
 	
 	
 	private void printErrorArray(List<ErrorEntity> errors) {
-//		if (errors == null)
-//			return;
-		
 		for(int i=0; i<errors.size(); i++) {
 			System.out.println(errors.get(i).toJSONString());
 		}

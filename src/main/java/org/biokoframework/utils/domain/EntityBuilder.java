@@ -127,7 +127,7 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 	}
 	
 	public String get(String fieldName) {		
-		return _currentFields.stringNamed(fieldName);		
+		return _currentFields.get(fieldName);		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -135,7 +135,7 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 		JSONObject json = new JSONObject();
 		
 		for (String aField: fields) {			
-			json.put(aField, _currentFields.stringNamed(aField));			
+			json.put(aField, _currentFields.get(aField));			
 		}		
 		
 		return json.toJSONString();
@@ -153,14 +153,14 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 	
 	@SuppressWarnings("unchecked")
 	public EntityBuilder<T> addFieldToJson(String fieldName) {
-		_currentJsonObject.put(fieldName, _currentFields.stringNamed(fieldName));
+		_currentJsonObject.put(fieldName, _currentFields.get(fieldName));
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public EntityBuilder<T> addAllFieldsToJson() {		
 		for (String fk: _currentFields.keys()) {			
-			_currentJsonObject.put(fk, _currentFields.stringNamed(fk));			
+			_currentJsonObject.put(fk, _currentFields.get(fk));			
 		}	
 		return this;
 	}

@@ -77,7 +77,7 @@ public class JSonParserTest {
 
 		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
 		
-		assertEquals(someFields.asString(), fieldsFromJson.asString());
+		assertEquals(someFields.toString(), fieldsFromJson.toString());
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class JSonParserTest {
 		
 		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
 		
-		assertEquals(someFields.asString(), fieldsFromJson.asString());
+		assertEquals(someFields.toString(), fieldsFromJson.toString());
 	}
 	
 	@Test
@@ -101,7 +101,7 @@ public class JSonParserTest {
 		
 		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
 		
-		assertEquals(someFields.asString(), fieldsFromJson.asString());
+		assertEquals(someFields.toString(), fieldsFromJson.toString());
 	}
 	
 	// TODO Andrà implementata la creazione dell'ArrayList di DomainEntity da json se serve
@@ -124,6 +124,6 @@ public class JSonParserTest {
 		
 		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
 		
-		assertEquals(arrayOfDomainEntityAndFields.asString(), fieldsFromJson.asString());
+		assertEquals(arrayOfDomainEntityAndFields.toString(), fieldsFromJson.toString());
 	}
 }

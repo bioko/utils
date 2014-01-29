@@ -94,7 +94,7 @@ public class Validator {
 		for(String fieldName: entityKeys) {
 			ValidatorRule fieldValidationRule = _descriptors.get(fieldName);
 			if (fieldValidationRule!=null) {
-				Object value = dummyEntityFields.objectNamed(fieldName);
+				Object value = dummyEntityFields.get(fieldName);
 				valid = validateFieldType(fieldName, value,fieldValidationRule) && valid;
 				if (value instanceof String) {
 					valid = validateFieldFormat(fieldName, (String) value,fieldValidationRule) && valid;
@@ -174,11 +174,11 @@ public class Validator {
 			ValidatorRule fieldDescription = _descriptors.get(fieldName);
 			
 			if (fieldDescription.isMandatory()) {
-				Object object = dummyEntiyFields.objectNamed(fieldName);
+				Object object = dummyEntiyFields.get(fieldName);
 				if (object == null) {					
 					_errors.add(ValidatorErrorBuilder.buildMandatoryFieldsMissingError(fieldName));
 					retVal = false;
-				} else if (object instanceof String && StringUtils.isEmpty(dummyEntiyFields.stringNamed(fieldName))) {
+				} else if (object instanceof String && StringUtils.isEmpty(dummyEntiyFields.get(fieldName).toString())) {
 					_errors.add(ValidatorErrorBuilder.buildMandatoryFieldsMissingError(fieldName));				
 					retVal = false;
 				} else if (object instanceof List && ((List<?>)object).isEmpty()) {

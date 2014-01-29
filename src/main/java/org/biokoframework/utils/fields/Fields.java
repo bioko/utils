@@ -46,10 +46,16 @@ import org.json.simple.JSONAware;
 public class Fields implements Serializable, JSONAware {
 
 	private static final long serialVersionUID = -7605925590938632486L;
+	
+	@Deprecated
 	private static final String PRETTY_KEY_VALUE_SEPARATOR = "=";
+	@Deprecated
 	private static final String PRETTY_FIELDS_SEPARATOR = ";";
+	@Deprecated
 	public static final String KEY_VALUE_SEPARATOR = "#";
+	@Deprecated
 	public static final String FIELDS_SEPARATOR = "##";
+	@Deprecated
 	public static final Object MULTIPLE_VALUES_SEPARATOR = "|";
 	private LinkedHashMap<String, Object> _fields = new LinkedHashMap<String, Object>();
 
@@ -59,106 +65,31 @@ public class Fields implements Serializable, JSONAware {
 		return fields;
 	}
 	
-	public static Fields empty() {
-		return new Fields();
+	public Fields fromJson(String actualJSon) {
+		JSonParser jSonParser = new JSonParser();
+		_fields =  jSonParser.parseToMap(actualJSon);
+		return this;
 	}
 	
-	public String stringNamed(String aFieldName) {
-		String fieldValue = (String)_fields.get(aFieldName);
-		// alertEmptyField(fieldValue);
-		// alertNullFieldValue(fieldValue);
-		return fieldValue;
-	}
-
-//	private void alertEmptyField(String fieldValue) {
-//		if (fieldValue == null || fieldValue.equals(""))
-//			_fields.put("WARNING", fieldValue + " IS EMPTY ON NULL");
-//	}
-
-	public Object objectNamed(String aFieldName) {
-		Object fieldValue = _fields.get(aFieldName);
-//		alertNullFieldValue(fieldValue);
-		return fieldValue;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <T> T  valueFor(String aFieldName, Class<T> aFieldType) {
-		return (T) _fields.get(aFieldName);
-	}
-
-	public Object valueFor(String aFieldName) {
-		return _fields.get(aFieldName);
-	}
-	
-//	private void alertNullFieldValue(Object fieldValue) {
-//		if (fieldValue == null)
-//			_fields.put("WARNING", fieldValue + " IS NULL");
-//	}
-
-	public static Fields fromRow(String aFieldsRow) {
+	public static Fields single(String aKey, Object aValue) {
 		Fields result = Fields.empty();
-		String[] splittedFields = aFieldsRow.split(FIELDS_SEPARATOR);
-		for (String each : splittedFields) {
-			String[] keyValueSplitted = each.split(KEY_VALUE_SEPARATOR);
-			result.put(keyValueSplitted[0], keyValueSplitted[1]);
-		}
+		result.put(aKey, aValue);
 		return result;
-	}
-
-	public String asRow() {
-		StringBuffer result = new StringBuffer();
-		for (Entry<String, Object> each : _fields.entrySet()) {
-			result.append(each.getKey());
-			result.append(KEY_VALUE_SEPARATOR);
-			result.append(each.getValue());
-			result.append(FIELDS_SEPARATOR);
-		}
-		return result.toString();
-	}
-	
-	public String asString() {
-		StringBuffer result = new StringBuffer();
-		for (Entry<String, Object> each : _fields.entrySet()) {
-			result.append(each.getKey());
-			result.append(PRETTY_KEY_VALUE_SEPARATOR);
-			result.append(each.getValue());
-			result.append(FIELDS_SEPARATOR);
-		}
-		String outcome = null;
-		try {
-			outcome = new String(result.toString().getBytes("ISO-8859-1"), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return outcome;
-	}
-
-	public String report() {
-		StringBuffer result = new StringBuffer("Fields:");
-		for (Entry<String, Object> each : _fields.entrySet()) {
-			result.append(each.getKey());
-			result.append(PRETTY_KEY_VALUE_SEPARATOR);
-			result.append(each.getValue());
-			result.append(PRETTY_FIELDS_SEPARATOR);
-		}
-		return result.toString();
 	}
 	
 	public boolean containsKey(String aKeyPossiblyContained) {
 		return _fields.containsKey(aKeyPossiblyContained);
 	}
 
-	public boolean containsValue(String aValuePossiblyContained) {
+	public boolean containsValue(Object aValuePossiblyContained) {
 		return _fields.containsValue(aValuePossiblyContained);
 	}
 
-	public void replace(String aFieldKey, String aFieldValue) {
-		if (_fields.containsKey(aFieldKey))
-			_fields.remove(aFieldKey);
+	public void replace(String aFieldKey, Object aFieldValue) {
 		_fields.put(aFieldKey, aFieldValue);
 	}
 
+	@Deprecated
 	public static Fields fromUrlEncodedRow(String input) throws UnsupportedEncodingException {
 		return fromRow(URLDecoder.decode(input, "UTF-8"));
 	}
@@ -170,32 +101,6 @@ public class Fields implements Serializable, JSONAware {
         result.put(FieldNames.COMMAND_OUTCOME, FieldValues.SUCCESSFUL);
         result.remove(FieldNames.REASON);
         return result;
-	}
-    
-    @Deprecated
-    public static Fields failed() {
-        Fields result = Fields.empty();
-        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
-        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.FAILED);
-        return result;    	
-    }
-
-    @Deprecated
-	public static Fields failed(String aFailingReason) {
-	        Fields result = Fields.empty();
-	        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
-	        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.FAILED);
-	        result.put(FieldNames.REASON, "FAILURE: " + aFailingReason);
-	        return result;
-	}
-	
-	@Deprecated
-	public static Fields error(String anErrorReason) {
-	        Fields result = Fields.empty();
-	        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.KO);
-	        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.ERROR);
-	        result.put(FieldNames.REASON, "ERROR: " + anErrorReason);
-	        return result;
 	}
 	
 	@Override
@@ -227,27 +132,8 @@ public class Fields implements Serializable, JSONAware {
 		_fields.remove(aFieldKey);
 	}
 	
-	public boolean containsField(String foreignKeyName, String foreignKeyValue, boolean ignoreCase) {
-		if (ignoreCase)
-			return containsKey(foreignKeyName) && stringNamed(foreignKeyName).equalsIgnoreCase(foreignKeyValue);
-		else
-			return containsKey(foreignKeyName) && stringNamed(foreignKeyName).equals(foreignKeyValue);
-	}
-	
-	public boolean containsField(String foreignKeyName, String foreignKeyValue) {
-		return containsField(foreignKeyName, foreignKeyValue, false);
-	}
-
 	public void removeAll() {
 		_fields = new LinkedHashMap<String, Object>();
-	}
-
-	public void putFieldFrom(String fieldKey, Fields sourceFields) {
-		_fields.put(fieldKey, sourceFields.stringNamed(fieldKey));
-	}
-
-	public String reason() {
-		return (String)_fields.get(FieldNames.REASON);
 	}
 
 	public Fields copy() {
@@ -263,29 +149,21 @@ public class Fields implements Serializable, JSONAware {
 	public List<String> keys() {
 		return new ArrayList<String>(_fields.keySet());
 	}
-	
-	public static Fields single(String aKey, Object aValue) {
-		Fields result = Fields.empty();
-		result.put(aKey, aValue);
-		return result;
-	}
 
 	public Fields put(String aKey, Object aFieldObject) {
 		_fields.put(aKey, aFieldObject);
 		return this;
 	}
 
-	public String asJson() {
-		JSonBuilder builder = new JSonBuilder();
-		return builder.buildFrom(this);
+	@SuppressWarnings("unchecked")
+	public <T> T get(String key) {
+		return (T) _fields.get(key);
 	}
 	
-	
-
 	public Fields putAllFilterdBy(Fields input, ArrayList<String> _mandatoryFields) {
 		if (_mandatoryFields != null) {
 		for (String each : _mandatoryFields) {
-			Object value = input.valueFor(each);
+			Object value = input.get(each);
 			if (value != null) {
 				_fields.put(each, value);
 			}
@@ -305,30 +183,120 @@ public class Fields implements Serializable, JSONAware {
 		return extracted;
 	}
 
-	public Fields fromJson(String actualJSon) {
-		JSonParser jSonParser = new JSonParser();
-		_fields =  jSonParser.parseToMap(actualJSon);
-		return this;
-	}
-
-	public Fields fromCommandName(String aCommandName) {
-		return put(FieldNames.COMMAND_NAME, aCommandName);
-	}
-
 	public boolean contains(String aKey) {
 		return _fields.containsKey(aKey);
 	}
-
-	public boolean requestOutcomeOK() {
-		return contains(FieldNames.REQUEST_OUTCOME) && stringNamed(FieldNames.REQUEST_OUTCOME).equals(FieldValues.OK);
-	}
-
-	public boolean commandOutcomeSuccessful() {
-		return contains(FieldNames.COMMAND_OUTCOME) && stringNamed(FieldNames.COMMAND_OUTCOME).equals(FieldValues.SUCCESSFUL);
+	
+	// TODO use #toJSONString()
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		for (Entry<String, Object> each : _fields.entrySet()) {
+			result.append(each.getKey());
+			result.append(PRETTY_KEY_VALUE_SEPARATOR);
+			result.append(each.getValue());
+			result.append(FIELDS_SEPARATOR);
+		}
+		String outcome = null;
+		try {
+			outcome = new String(result.toString().getBytes("ISO-8859-1"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return outcome;
 	}
 
 	@Override
 	public String toJSONString() {
-		return this.asJson();
+		return new JSonBuilder().buildFrom(this);
+	}
+	
+	/* factory methods */
+	
+	/**
+	 * Use {@link #Fields()} instead.
+	 * @return
+	 */
+	@Deprecated
+	public static Fields empty() {
+		return new Fields();
+	}
+	
+	/* toString() replacements */
+	
+	@Deprecated
+	public String report() {
+		StringBuffer result = new StringBuffer("Fields:");
+		for (Entry<String, Object> each : _fields.entrySet()) {
+			result.append(each.getKey());
+			result.append(PRETTY_KEY_VALUE_SEPARATOR);
+			result.append(each.getValue());
+			result.append(PRETTY_FIELDS_SEPARATOR);
+		}
+		return result.toString();
+	}
+	
+	/* Pseudo serialization */
+
+	/**
+	 * Use {@link #toJSONString()} instead.
+	 * @return String
+	 */
+	@Deprecated
+	public String asJson() {
+		JSonBuilder builder = new JSonBuilder();
+		return builder.buildFrom(this);
+	}
+	
+	@Deprecated
+	public static Fields fromRow(String aFieldsRow) {
+		Fields result = Fields.empty();
+		String[] splittedFields = aFieldsRow.split(FIELDS_SEPARATOR);
+		for (String each : splittedFields) {
+			String[] keyValueSplitted = each.split(KEY_VALUE_SEPARATOR);
+			result.put(keyValueSplitted[0], keyValueSplitted[1]);
+		}
+		return result;
+	}
+	
+	@Deprecated
+	public String asRow() {
+		StringBuffer result = new StringBuffer();
+		for (Entry<String, Object> each : _fields.entrySet()) {
+			result.append(each.getKey());
+			result.append(KEY_VALUE_SEPARATOR);
+			result.append(each.getValue());
+			result.append(FIELDS_SEPARATOR);
+		}
+		return result.toString();
+	}
+	
+	/* Status reporters */
+	
+    @Deprecated
+    public static Fields failed() {
+        Fields result = Fields.empty();
+        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
+        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.FAILED);
+        return result;    	
+    }
+
+    @Deprecated
+	public static Fields failed(String aFailingReason) {
+	        Fields result = Fields.empty();
+	        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
+	        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.FAILED);
+	        result.put(FieldNames.REASON, "FAILURE: " + aFailingReason);
+	        return result;
+	}
+	
+	@Deprecated
+	public static Fields error(String anErrorReason) {
+	        Fields result = Fields.empty();
+	        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.KO);
+	        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.ERROR);
+	        result.put(FieldNames.REASON, "ERROR: " + anErrorReason);
+	        return result;
 	}
 }
