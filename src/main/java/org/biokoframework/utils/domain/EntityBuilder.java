@@ -49,10 +49,10 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 	}
 	
 	public EntityBuilder<T> loadExample(String exampleName) {	
-		_currentFields = _fieldsForExamples .get(exampleName);
-		if (_currentFields==null) {
-			System.out.println("[EASY MAN] the example '"+exampleName+"' does not exists");
-			_currentFields = Fields.empty();
+		_currentFields = _fieldsForExamples.get(exampleName);
+		if (_currentFields == null) {
+			System.out.println("[EASY MAN] the example '" + exampleName + "' does not exists");
+			_currentFields = new Fields();
 		}
 		
 		return this;
@@ -74,14 +74,15 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 
 		Fields buildFields = _currentFields.copy();
 		
-		if (!exists)
+		if (!exists) {
 			buildFields.remove(DomainEntity.ID);
+		}
 		
 		T de = null;
 		try {
 			de = _entityClass.getConstructor(Fields.class).newInstance(buildFields);
 		} catch (Exception e) {
-			System.out.println("[EASY MAN] the constructor with only fields is missing for class "+_entityClass.getSimpleName());
+			System.out.println("[EASY MAN] the constructor with only fields is missing for class " + _entityClass.getSimpleName());
 		}
 			
 		return de;
