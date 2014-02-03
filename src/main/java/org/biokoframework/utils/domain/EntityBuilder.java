@@ -36,7 +36,7 @@ import org.json.simple.JSONObject;
 
 public abstract class EntityBuilder<T extends DomainEntity> {
 
-	protected Fields _currentFields = Fields.empty();
+	protected Fields _currentFields = new Fields();
 	private HashMap<String, Fields> _fieldsForExamples = new HashMap<String, Fields>();
 	
 	private Class<T> _entityClass;	
@@ -99,9 +99,7 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 		jsonData = jsonData.replace("'", "\"");
 		jsonData = jsonData.replace("$$$$####", "'");
 		
-		Fields exampleFields = Fields.empty();
-		exampleFields.fromJson(jsonData);
-		
+		Fields exampleFields = Fields.fromJson(jsonData);
 		
 		if (exampleFields.isEmpty()) {
 			System.out.println("[EASY MAN] Probably the json loaded in EntityBuilder have a wrong Syntax");

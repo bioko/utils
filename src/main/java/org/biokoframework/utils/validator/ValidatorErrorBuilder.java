@@ -56,7 +56,7 @@ public class ValidatorErrorBuilder {
 	
 	
 	public static ErrorEntity createErrorEntity(String fieldName, String errorCode, String errorMsg) {
-		Fields input = Fields.empty();
+		Fields input = new Fields();
 		input.put(ErrorEntity.ERROR_FIELD, fieldName);
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
 		input.put(ErrorEntity.ERROR_MESSAGE, errorMsg);
@@ -66,7 +66,7 @@ public class ValidatorErrorBuilder {
 	}
 	
 	public static ErrorEntity createErrorEntity(String errorCode, String errorMsg) {
-		Fields input = Fields.empty();		
+		Fields input = new Fields();		
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
 		input.put(ErrorEntity.ERROR_MESSAGE, errorMsg);
 		ErrorEntity e = new ErrorEntity(input);

@@ -43,7 +43,7 @@ public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
 	}
 	
 	public AnnotedEntityWithForeignKeyExample() {
-		super(Fields.empty());
+		super(new Fields());
 	}
 	
 }

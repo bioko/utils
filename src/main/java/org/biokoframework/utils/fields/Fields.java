@@ -60,20 +60,18 @@ public class Fields implements Serializable, JSONAware {
 	private LinkedHashMap<String, Object> _fields = new LinkedHashMap<String, Object>();
 
 	public static Fields fromMap(Map<String, Object> map) {
-		Fields fields = empty();
+		Fields fields = new Fields();
 		fields._fields.putAll(map);
 		return fields;
 	}
 	
-	public Fields fromJson(String actualJSon) {
+	public static Fields fromJson(String actualJSon) {
 		JSonParser jSonParser = new JSonParser();
-		_fields =  jSonParser.parseToMap(actualJSon);
-		return this;
+		return Fields.fromMap(jSonParser.parseToMap(actualJSon));
 	}
 	
 	public static Fields single(String aKey, Object aValue) {
-		Fields result = Fields.empty();
-		result.put(aKey, aValue);
+		Fields result = Fields.single(aKey, aValue);
 		return result;
 	}
 	
@@ -87,20 +85,6 @@ public class Fields implements Serializable, JSONAware {
 
 	public void replace(String aFieldKey, Object aFieldValue) {
 		_fields.put(aFieldKey, aFieldValue);
-	}
-
-	@Deprecated
-	public static Fields fromUrlEncodedRow(String input) throws UnsupportedEncodingException {
-		return fromRow(URLDecoder.decode(input, "UTF-8"));
-	}
-
-	@Deprecated
-    public static Fields successful() {
-        Fields result = Fields.empty();
-        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
-        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.SUCCESSFUL);
-        result.remove(FieldNames.REASON);
-        return result;
 	}
 	
 	@Override
@@ -137,7 +121,7 @@ public class Fields implements Serializable, JSONAware {
 	}
 
 	public Fields copy() {
-		Fields result = Fields.empty();
+		Fields result = new Fields();
 		return result.putAll(this);
 	}
 	
@@ -173,7 +157,7 @@ public class Fields implements Serializable, JSONAware {
 	}
 	
 	public Fields extract(String... fieldNames) {
-		Fields extracted = Fields.empty();
+		Fields extracted = new Fields();
 		for (String fieldName: fieldNames) {
 			 Object fieldContent = _fields.get(fieldName);
 			if (fieldContent!=null)
@@ -214,13 +198,18 @@ public class Fields implements Serializable, JSONAware {
 	
 	/* factory methods */
 	
-	/**
-	 * Use {@link #Fields()} instead.
-	 * @return
-	 */
 	@Deprecated
-	public static Fields empty() {
-		return new Fields();
+	public static Fields fromUrlEncodedRow(String input) throws UnsupportedEncodingException {
+		return fromRow(URLDecoder.decode(input, "UTF-8"));
+	}
+
+	@Deprecated
+    public static Fields successful() {
+        Fields result = new Fields();
+        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
+        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.SUCCESSFUL);
+        result.remove(FieldNames.REASON);
+        return result;
 	}
 	
 	/* toString() replacements */
@@ -251,7 +240,7 @@ public class Fields implements Serializable, JSONAware {
 	
 	@Deprecated
 	public static Fields fromRow(String aFieldsRow) {
-		Fields result = Fields.empty();
+		Fields result = new Fields();
 		String[] splittedFields = aFieldsRow.split(FIELDS_SEPARATOR);
 		for (String each : splittedFields) {
 			String[] keyValueSplitted = each.split(KEY_VALUE_SEPARATOR);
@@ -276,7 +265,7 @@ public class Fields implements Serializable, JSONAware {
 	
     @Deprecated
     public static Fields failed() {
-        Fields result = Fields.empty();
+        Fields result = new Fields();
         result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
         result.put(FieldNames.COMMAND_OUTCOME, FieldValues.FAILED);
         return result;    	
@@ -284,7 +273,7 @@ public class Fields implements Serializable, JSONAware {
 
     @Deprecated
 	public static Fields failed(String aFailingReason) {
-	        Fields result = Fields.empty();
+	        Fields result = new Fields();
 	        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
 	        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.FAILED);
 	        result.put(FieldNames.REASON, "FAILURE: " + aFailingReason);
@@ -293,7 +282,7 @@ public class Fields implements Serializable, JSONAware {
 	
 	@Deprecated
 	public static Fields error(String anErrorReason) {
-	        Fields result = Fields.empty();
+	        Fields result = new Fields();
 	        result.put(FieldNames.REQUEST_OUTCOME, FieldValues.KO);
 	        result.put(FieldNames.COMMAND_OUTCOME, FieldValues.ERROR);
 	        result.put(FieldNames.REASON, "ERROR: " + anErrorReason);

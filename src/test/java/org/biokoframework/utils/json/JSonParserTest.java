@@ -75,7 +75,7 @@ public class JSonParserTest {
 		Fields someFields = FieldsMother.twoFields();
 		String actualJSon = jSonBuilder.buildFrom(someFields);
 
-		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
+		Fields fieldsFromJson = Fields.fromJson(actualJSon);
 		
 		assertEquals(someFields.toString(), fieldsFromJson.toString());
 	}
@@ -87,7 +87,7 @@ public class JSonParserTest {
 		Fields someFields = FieldsMother.fieldsWithList();
 		String actualJSon = jSonBuilder.buildFrom(someFields);
 		
-		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
+		Fields fieldsFromJson = Fields.fromJson(actualJSon);
 		
 		assertEquals(someFields.toString(), fieldsFromJson.toString());
 	}
@@ -99,7 +99,7 @@ public class JSonParserTest {
 		Fields someFields = FieldsMother.fieldsWithMap();
 		String actualJSon = jSonBuilder.buildFrom(someFields);
 		
-		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
+		Fields fieldsFromJson = Fields.fromJson(actualJSon);
 		
 		assertEquals(someFields.toString(), fieldsFromJson.toString());
 	}
@@ -122,7 +122,7 @@ public class JSonParserTest {
 		Fields arrayOfDomainEntityAndFields = FieldsMother.twoFields().putAll(arrayOfDomainEntity);
 		String actualJSon = jSonBuilder.buildFrom(arrayOfDomainEntityAndFields);
 		
-		Fields fieldsFromJson = Fields.empty().fromJson(actualJSon);
+		Fields fieldsFromJson = Fields.fromJson(actualJSon);
 		
 		assertEquals(arrayOfDomainEntityAndFields.toString(), fieldsFromJson.toString());
 	}

@@ -44,7 +44,7 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 
 	public static final String ID = "id";
 	
-	protected Fields _fields = Fields.empty();
+	protected Fields _fields = new Fields();
 	private ArrayList<String> _componingFields;
 
 	private Validator _validator;

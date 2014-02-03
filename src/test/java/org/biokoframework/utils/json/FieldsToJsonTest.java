@@ -45,7 +45,7 @@ public class FieldsToJsonTest {
 
 	@Test
 	public void emptyFieldsToJson() throws Exception {
-		Fields empty = Fields.empty();
+		Fields empty = new Fields();
 		JSONObject object = new JSONObject();
 		assertEquals(empty.toJSONString(), object.toJSONString());
 	}

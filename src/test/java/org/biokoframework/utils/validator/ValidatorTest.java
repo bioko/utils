@@ -241,7 +241,7 @@ public class ValidatorTest {
 
 
 	private Fields generateInputFields() {
-		Fields f = Fields.empty();
+		Fields f = new Fields();
 		f.put("name", "gino pino");
 		f.put("email", "gino@pino.net");
 		f.put("age","28");
@@ -256,7 +256,7 @@ public class ValidatorTest {
 	}
 	
 	private List<ErrorEntity> createSingleErrorEntityArray(String fieldName, String errorCode, String errorMsg) {
-		Fields input = Fields.empty();
+		Fields input = new Fields();
 		input.put(ErrorEntity.ERROR_FIELD, fieldName);
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
 		input.put(ErrorEntity.ERROR_MESSAGE, errorMsg);

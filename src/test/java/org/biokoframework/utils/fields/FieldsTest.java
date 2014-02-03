@@ -60,7 +60,7 @@ public class FieldsTest {
 	
 	@Test
 	public void fieldsWithObjects() {
-		Fields withObjects = Fields.empty();
+		Fields withObjects = new Fields();
 		
 		Object theObject = new Object();
 		String aFieldName = "OBJECT";
@@ -74,7 +74,7 @@ public class FieldsTest {
 	
 	@Test
 	public void fieldsWithObjectsUsingType() {
-		Fields withObjects = Fields.empty();
+		Fields withObjects = new Fields();
 		
 		Object theObject = new Object();
 		String aFieldName = "OBJECT";
@@ -87,9 +87,8 @@ public class FieldsTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
 	public void fieldsWithArrayList() {
-		Fields withObjects = Fields.empty();
+		Fields withObjects = new Fields();
 		
 		List<String> theObject = new ArrayList<String>();
 		theObject.add("gino.bovino@gmail.com");
@@ -106,9 +105,8 @@ public class FieldsTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
 	public void fieldsWithArrayListOfCustomObjects() {
-		Fields withObjects = Fields.empty();
+		Fields withObjects = new Fields();
 		
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
 		
@@ -122,9 +120,8 @@ public class FieldsTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
 	public void fieldsExplicitCastTest() {
-		Fields withObjects = Fields.empty();
+		Fields withObjects = new Fields();
 		
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
 		
@@ -159,7 +156,7 @@ public class FieldsTest {
 	
 	@Test
 	public void fieldsWithArrayListOfDomainEntityAsJson() throws Exception {
-		Fields withObjects = Fields.empty();
+		Fields withObjects = new Fields();
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
 		String aFieldName = "OBJECT";
 		withObjects.put(aFieldName, theObject);

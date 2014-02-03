@@ -38,7 +38,7 @@ public class DomainEntityReflection {
 		DomainEntity entity;
 		String entityKeyName = null;
 		try {
-			entity = (DomainEntity)Class.forName(entityClass.getName()).getConstructor(Fields.class).newInstance(Fields.empty());
+			entity = (DomainEntity)Class.forName(entityClass.getName()).getConstructor(Fields.class).newInstance(new Fields());
 			Method keyNameMethod = entity.getClass().getDeclaredMethod("keyName");
 			entityKeyName = (String)keyNameMethod.invoke(entity);
 		} catch (Exception e) {

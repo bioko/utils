@@ -82,7 +82,7 @@ public class EntityBuilderTest {
 	}
 	
 	private AnnotatedPersonExample createTestEntity() {
-		Fields input = Fields.empty();
+		Fields input = new Fields();
 		
 		input.put(AnnotatedPersonExample.NAME, "aName");
 		input.put(AnnotatedPersonExample.SURNAME, "aSurname");
