@@ -27,13 +27,13 @@
 
 package org.biokoframework.utils.validator.type;
 
-import org.biokoframework.utils.fields.FieldValues;
+import org.biokoframework.utils.validator.TypeValidator;
 
-public class BooleanValidator extends StringBasedTypeValidator {
+public class BooleanValidator implements TypeValidator {
 
 	@Override
-	protected boolean isValidString(String value) {
-		return FieldValues.TRUE.equals(value) || FieldValues.FALSE.equals(value);
+	public boolean isValid(Object value) {
+		return value instanceof Boolean;
 	}
 
 	@Override

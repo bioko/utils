@@ -27,18 +27,17 @@
 
 package org.biokoframework.utils.validator.type;
 
-public class DoubleValidator extends StringBasedTypeValidator {
+import org.biokoframework.utils.validator.TypeValidator;
 
-	private org.apache.commons.validator.routines.DoubleValidator _validator = 
-			new org.apache.commons.validator.routines.DoubleValidator();
-	
+public class DoubleValidator implements TypeValidator {
+
 	@Override
 	public void setPattern(String pattern) {
 	}
 
 	@Override
-	protected boolean isValidString(String value) {
-		return _validator.isValid(value);
+	public boolean isValid(Object value) {
+		return value instanceof Double || value instanceof Float;
 	}
 
 }

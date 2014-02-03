@@ -93,12 +93,12 @@ public class Validator {
 		List<String> entityKeys = dummyEntityFields.keys();
 		for(String fieldName: entityKeys) {
 			ValidatorRule fieldValidationRule = _descriptors.get(fieldName);
-			if (fieldValidationRule!=null) {
+			if (fieldValidationRule != null) {
 				Object value = dummyEntityFields.get(fieldName);
-				valid = validateFieldType(fieldName, value,fieldValidationRule) && valid;
+				valid = validateFieldType(fieldName, value, fieldValidationRule) && valid;
 				if (value instanceof String) {
-					valid = validateFieldFormat(fieldName, (String) value,fieldValidationRule) && valid;
-					valid = validateFieldPattern(fieldName, (String) value,fieldValidationRule) && valid;
+					valid = validateFieldFormat(fieldName, (String) value, fieldValidationRule) && valid;
+					valid = validateFieldPattern(fieldName, (String) value, fieldValidationRule) && valid;
 				}
 			}
 		}

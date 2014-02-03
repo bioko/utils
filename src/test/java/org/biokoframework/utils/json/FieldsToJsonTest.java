@@ -50,6 +50,7 @@ public class FieldsToJsonTest {
 		assertEquals(empty.toJSONString(), object.toJSONString());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void plainFieldsToJson() throws Exception {
 		Fields fields = FieldsMother.twoFields();
@@ -59,6 +60,7 @@ public class FieldsToJsonTest {
 		assertEquals(fields.toJSONString(), object.toJSONString());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void arrayOfDomainAntityFieldsToJson() throws Exception {
 		ArrayList<AnnotatedPersonExample> domainEntityArray = new ArrayList<AnnotatedPersonExample>();
@@ -76,6 +78,7 @@ public class FieldsToJsonTest {
 		assertEquals(fields.toJSONString(), jsonString);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void fieldsAndarrayOfDomainAntityToJson() throws Exception {
 		ArrayList<AnnotatedPersonExample> domainEntityArray = new ArrayList<AnnotatedPersonExample>();

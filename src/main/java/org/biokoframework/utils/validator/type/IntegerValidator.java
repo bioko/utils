@@ -27,22 +27,18 @@
 
 package org.biokoframework.utils.validator.type;
 
+import org.biokoframework.utils.validator.TypeValidator;
 
-public class IntegerValidator extends StringBasedTypeValidator {
+
+public class IntegerValidator implements TypeValidator {
 	
-	private org.apache.commons.validator.routines.IntegerValidator _validaor;
-
-	public IntegerValidator() {
-		_validaor = new org.apache.commons.validator.routines.IntegerValidator();
-	}
-
-	@Override
-	public boolean isValidString(String value) {		
-		return _validaor.isValid(value);
-	}
-
 	@Override
 	public void setPattern(String pattern) {
+	}
+
+	@Override
+	public boolean isValid(Object value) {
+		return value instanceof Integer;
 	}
 
 }

@@ -27,22 +27,18 @@
 
 package org.biokoframework.utils.validator.type;
 
+import org.biokoframework.utils.validator.TypeValidator;
 
-public class LongValidator extends StringBasedTypeValidator {
 
-	private org.apache.commons.validator.routines.LongValidator _validator;
-
-	public LongValidator() {
-		_validator = new org.apache.commons.validator.routines.LongValidator();
-	}
-
-	@Override
-	public boolean isValidString(String value) {		
-		return _validator.isValid(value);
-	}
+public class LongValidator implements TypeValidator {
 
 	@Override
 	public void setPattern(String pattern) {
+	}
+
+	@Override
+	public boolean isValid(Object value) {
+		return value instanceof Integer || value instanceof Long;
 	}
 
 }

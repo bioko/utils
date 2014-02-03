@@ -41,7 +41,7 @@ import org.junit.Test;
 
 public class AnnotatedDomainEntityTest {
 
-	private static final String AN_AGE = "27";	
+	private static final Integer AN_AGE = 27;	
 	private static final String A_WRONG_AGE = "27 years";
 	private static final String A_SURNAME = "aSurname";
 	private static final String A_NAME = "aName";

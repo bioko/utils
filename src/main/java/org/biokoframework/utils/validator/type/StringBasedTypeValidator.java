@@ -32,7 +32,7 @@ import org.biokoframework.utils.validator.TypeValidator;
 public abstract class StringBasedTypeValidator implements TypeValidator {
 
 	@Override
-	public boolean isValid(Object value) {
+	public final boolean isValid(Object value) {
 		if (value instanceof String) {
 			return isValidString((String)value);
 		}
