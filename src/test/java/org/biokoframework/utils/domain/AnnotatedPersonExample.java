@@ -58,7 +58,7 @@ public class AnnotatedPersonExample extends DomainEntity{
 	}
 	
 	public AnnotatedPersonExample() {
-		super(Fields.empty());
+		super(new Fields());
 	}
 	
 }

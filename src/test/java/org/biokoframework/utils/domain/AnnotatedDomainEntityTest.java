@@ -153,7 +153,7 @@ public class AnnotatedDomainEntityTest {
 	
 	
 	private Fields composeFiels() {
-		Fields input = Fields.empty();
+		Fields input = new Fields();
 		
 		input.put(AnnotatedPersonExample.NAME, A_NAME);
 		input.put(AnnotatedPersonExample.SURNAME, A_SURNAME);
