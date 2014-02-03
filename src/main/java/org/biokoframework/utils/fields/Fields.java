@@ -71,7 +71,8 @@ public class Fields implements Serializable, JSONAware {
 	}
 	
 	public static Fields single(String aKey, Object aValue) {
-		Fields result = Fields.single(aKey, aValue);
+		Fields result = new Fields();
+		result.put(aKey, aValue);
 		return result;
 	}
 	
