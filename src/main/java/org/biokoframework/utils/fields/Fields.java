@@ -87,7 +87,7 @@ public class Fields implements Serializable, JSONAware {
 	}
 	
 	/**
-	 * Use constructor {@link #Fields(Object[])}
+	 * Use constructor {@link #Fields(Object ...)}
 	 */
 	@Deprecated
 	public static Fields single(String aKey, Object aValue) {
@@ -98,10 +98,6 @@ public class Fields implements Serializable, JSONAware {
 	
 	public boolean containsKey(String aKeyPossiblyContained) {
 		return _fields.containsKey(aKeyPossiblyContained);
-	}
-
-	public boolean containsValue(Object aValuePossiblyContained) {
-		return _fields.containsValue(aValuePossiblyContained);
 	}
 
 	public void replace(String aFieldKey, Object aFieldValue) {
@@ -144,11 +140,6 @@ public class Fields implements Serializable, JSONAware {
 		return result.putAll(this);
 	}
 	
-	public boolean contains(String aKey, String aValue) {
-		if (!_fields.containsKey(aKey)) return false;
-		return true;
-	}
-
 	public List<String> keys() {
 		return new ArrayList<String>(_fields.keySet());
 	}
@@ -184,10 +175,6 @@ public class Fields implements Serializable, JSONAware {
 		}
 		
 		return extracted;
-	}
-
-	public boolean contains(String aKey) {
-		return _fields.containsKey(aKey);
 	}
 	
 	// TODO use #toJSONString()

@@ -181,6 +181,31 @@ public class FieldsTest {
 	}
 
 	@Test
+	public void containmentTests() {
+		Fields fields = new Fields(
+				"dino", "bovino",
+				"val", 3);
+		
+		assertThat(fields.containsKey("dino"), is(true));
+		assertThat(fields.containsKey("val"), is(true));
+		assertThat(fields.containsKey("not existing"), is(false));
+		
+	}
+	
+	@Test
+	public void extractionTest() {
+		Fields fields = new Fields(
+				"dino", "bovino",
+				"val", 3,
+				"anOtherVal", "other");
+		
+		assertThat(fields.extract("dino", "val"), 
+				is(equalTo(new Fields(
+						"dino", "bovino",
+						"val", 3))));
+	}
+	
+	@Test
 	public void javascriptConstructorEmptyTest() {
 		Fields fields = new Fields();
 		assertThat(fields.isEmpty(), is(true));
@@ -205,6 +230,7 @@ public class FieldsTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
+	@Test
 	public void javascriptConstructorFailForOddItemNumber() {
 		thrown.expect(RuntimeException.class);
 		thrown.expectMessage(is(equalTo("The number of elements is expected to be even")));
@@ -224,5 +250,6 @@ public class FieldsTest {
 				"dino", "bovino", 
 				"gino", 3, 
 				3, "tino");
-	}
+	} 
+	
 }

@@ -29,7 +29,7 @@ package org.biokoframework.utils.fields;
 
 import org.biokoframework.utils.domain.ErrorEntity;
 
-public class FieldNames {
+public interface FieldNames {
 	
 	// TODO pulire pulire pulire!!!
     public static final String COMMAND_NAME = "commandName";
@@ -61,7 +61,7 @@ public class FieldNames {
 	@Deprecated
 	public static final String ERROR_CODE = ErrorEntity.ERROR_CODE;
 	
-	public static final Object NO_ERROR_CODE = "000";
+	public static final String NO_ERROR_CODE = "000";
 
 	public static final String BAD_COMMAND_INVOCATION_CODE = "100";
 	public static final String COMMAND_NOT_FOUND_CODE = "101";
