@@ -119,9 +119,7 @@ public class Fields implements Serializable, JSONAware {
 	}
 
 	public boolean isEmpty() {
-		if (_fields.size() == 0)
-			return true;
-		return false;
+		return _fields.isEmpty();
 	}
 
 	public Fields putAll(Fields input) {
