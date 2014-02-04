@@ -59,6 +59,22 @@ public class Fields implements Serializable, JSONAware {
 	public static final Object MULTIPLE_VALUES_SEPARATOR = "|";
 	private LinkedHashMap<String, Object> _fields = new LinkedHashMap<String, Object>();
 
+//	public Fields() {}
+	
+	public Fields(Object ... keysAndValues) {
+		if (keysAndValues.length % 2 != 0) {
+			throw new RuntimeException("The number of elements is expected to be even");
+		}
+		
+		for (int i = 0; i < keysAndValues.length; i = i+2) {
+			if (!(keysAndValues[i] instanceof String)) {
+				throw new RuntimeException("Even indexes are expected to contain Strings");
+			} else {
+				_fields.put((String) keysAndValues[i], keysAndValues[i+1]); 
+			}
+		}
+	}
+	
 	public static Fields fromMap(Map<String, Object> map) {
 		Fields fields = new Fields();
 		fields._fields.putAll(map);
@@ -70,6 +86,10 @@ public class Fields implements Serializable, JSONAware {
 		return Fields.fromMap(jSonParser.parseToMap(actualJSon));
 	}
 	
+	/**
+	 * Use constructor {@link #Fields(Object[])}
+	 */
+	@Deprecated
 	public static Fields single(String aKey, Object aValue) {
 		Fields result = new Fields();
 		result.put(aKey, aValue);
