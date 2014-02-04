@@ -27,7 +27,10 @@
 
 package org.biokoframework.utils.json;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -89,7 +92,7 @@ public class JSonParserTest {
 		
 		Fields fieldsFromJson = Fields.fromJson(actualJSon);
 		
-		assertEquals(someFields.toString(), fieldsFromJson.toString());
+		assertThat(fieldsFromJson.toJSONString(), is(equalTo(someFields.toJSONString())));
 	}
 	
 	@Test
@@ -100,8 +103,7 @@ public class JSonParserTest {
 		String actualJSon = jSonBuilder.buildFrom(someFields);
 		
 		Fields fieldsFromJson = Fields.fromJson(actualJSon);
-		
-		assertEquals(someFields.toString(), fieldsFromJson.toString());
+		assertThat(fieldsFromJson.toJSONString(), is(equalTo(someFields.toJSONString())));
 	}
 	
 	// TODO Andrà implementata la creazione dell'ArrayList di DomainEntity da json se serve
