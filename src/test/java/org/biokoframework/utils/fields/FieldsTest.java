@@ -27,17 +27,23 @@
 
 package org.biokoframework.utils.fields;
 
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.json.FieldsMother;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.Rule;
 import org.junit.Test;
-
+import org.junit.rules.ExpectedException;
 
 public class FieldsTest {
 
@@ -48,7 +54,7 @@ public class FieldsTest {
 		System.out.println("fieldString: " + fieldString);
 		assertEquals(field, Fields.fromRow(fieldString));
 	}
-	
+
 	@Test
 	public void twoFieldsFromRow() {
 		Fields field = Fields.single("KEY1", "VALUE1");
@@ -57,79 +63,79 @@ public class FieldsTest {
 		System.out.println("fieldString: " + fieldString);
 		assertEquals(field, Fields.fromRow(fieldString));
 	}
-	
+
 	@Test
 	public void fieldsWithObjects() {
 		Fields withObjects = new Fields();
-		
+
 		Object theObject = new Object();
 		String aFieldName = "OBJECT";
 		Object aFieldObject = theObject;
-		
+
 		withObjects.put(aFieldName, aFieldObject);
 		Object actualObject = withObjects.get(aFieldName);
-		
+
 		assertEquals(theObject.toString(), actualObject.toString());
 	}
-	
+
 	@Test
 	public void fieldsWithObjectsUsingType() {
 		Fields withObjects = new Fields();
-		
+
 		Object theObject = new Object();
 		String aFieldName = "OBJECT";
 		Object aFieldObject = theObject;
-		
+
 		withObjects.put(aFieldName, aFieldObject);
 		Object actualObject = withObjects.get(aFieldName);
-		
+
 		assertEquals(theObject.toString(), actualObject.toString());
 	}
-	
+
 	@Test
 	public void fieldsWithArrayList() {
 		Fields withObjects = new Fields();
-		
+
 		List<String> theObject = new ArrayList<String>();
 		theObject.add("gino.bovino@gmail.com");
 		theObject.add("pane.vino@gmail.com");
-		
+
 		String aFieldName = "OBJECT";
-		
+
 		withObjects.put(aFieldName, theObject);
 		List<Object> actualObject = withObjects.get(aFieldName);
-		
+
 		assertEquals(theObject.toString(), actualObject.toString());
 		assertEquals(theObject.get(0), actualObject.get(0));
 		assertEquals(theObject.get(1), actualObject.get(1));
 	}
-	
+
 	@Test
 	public void fieldsWithArrayListOfCustomObjects() {
 		Fields withObjects = new Fields();
-		
+
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
-		
+
 		String aFieldName = "OBJECT";
-		
+
 		withObjects.put(aFieldName, theObject);
 		List<AnnotatedPersonExample> actualObject = withObjects.get(aFieldName);
-		
+
 		assertEquals(theObject.get(0).report(), actualObject.get(0).report());
 		assertEquals(theObject.get(1).report(), actualObject.get(1).report());
 	}
-	
+
 	@Test
 	public void fieldsExplicitCastTest() {
 		Fields withObjects = new Fields();
-		
+
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
-		
+
 		String aFieldName = "OBJECT";
-		
+
 		withObjects.put(aFieldName, theObject);
 		List<AnnotatedPersonExample> actualObject = withObjects.get(aFieldName);
-		
+
 		assertEquals(theObject.get(0).report(), actualObject.get(0).report());
 		assertEquals(theObject.get(1).report(), actualObject.get(1).report());
 	}
@@ -143,24 +149,28 @@ public class FieldsTest {
 	@Test
 	public void moreFieldsAsJson() throws Exception {
 		Fields someFields = FieldsMother.fourFields();
-		
-		assertHaveEqualJSONObjects(FieldsMother.FIRST_AND_SECOND_EXPECTED, someFields.toJSONString());
+
+		assertHaveEqualJSONObjects(FieldsMother.FIRST_AND_SECOND_EXPECTED,
+				someFields.toJSONString());
 	}
 
 	private void assertHaveEqualJSONObjects(String expected, String actual)
 			throws ParseException, Exception {
-		
-		JSONParser jsonParser = new JSONParser();		
+
+		JSONParser jsonParser = new JSONParser();
 		assertEquals(jsonParser.parse(expected), jsonParser.parse(actual));
 	}
-	
+
 	@Test
 	public void fieldsWithArrayListOfDomainEntityAsJson() throws Exception {
 		Fields withObjects = new Fields();
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
 		String aFieldName = "OBJECT";
 		withObjects.put(aFieldName, theObject);
-		assertEquals("{\"OBJECT\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}", withObjects.toJSONString());
+		assertEquals(
+				"{\"OBJECT\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},"
+				+ "{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}",
+				withObjects.toJSONString());
 	}
 
 	private List<AnnotatedPersonExample> domainEntityInstanceList() {
@@ -168,5 +178,51 @@ public class FieldsTest {
 		theObject.add(new AnnotatedPersonExample(FieldsMother.twoFields()));
 		theObject.add(new AnnotatedPersonExample(FieldsMother.twoFields()));
 		return theObject;
+	}
+
+	@Test
+	public void javascriptConstructorEmptyTest() {
+		Fields fields = new Fields();
+		assertThat(fields.isEmpty(), is(true));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void javascriptConstructorSimpleTest() {
+		List<Integer> list = Arrays.asList(1, 2, 3, 4);
+
+		Fields fields = new Fields(
+				"dino", "bovino", 
+				"number", 22, 
+				"list", list);
+
+		assertThat(fields.keys(), contains("dino", "number", "list"));
+		assertThat((String) fields.get("dino"), is(equalTo("bovino")));
+		assertThat((Integer) fields.get("number"), is(equalTo(22)));
+		assertThat((List<Integer>) fields.get("list"), is(equalTo(list)));
+	}
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+
+	public void javascriptConstructorFailForOddItemNumber() {
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage(is(equalTo("The number of elements is expected to be even")));
+
+		new Fields(
+				"dino", "bovino", 
+				"gino", 3, 
+				"pino");
+	}
+
+	@Test
+	public void javascriptConstructorFailForKeyNotBeingAString() {
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage(is(equalTo("Even indexes are expected to contain Strings")));
+
+		new Fields(
+				"dino", "bovino", 
+				"gino", 3, 
+				3, "tino");
 	}
 }
