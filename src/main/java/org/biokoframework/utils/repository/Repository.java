@@ -49,7 +49,7 @@ public interface Repository<DE extends DomainEntity> {
 
 	public DE retrieveByForeignKey(String foreignKeyName, String foreignKeyValue);
 
-	public ArrayList<DE> getEntitiesByForeignKey(String foreignKeyName, String foreignKeyValue);
+	public ArrayList<DE> getEntitiesByForeignKey(String foreignKeyName, Object foreignKeyValue);
 
 	public abstract String report();
 

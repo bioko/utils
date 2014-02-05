@@ -120,7 +120,7 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 		
 	}
 
-	public EntityBuilder<T> set(String fieldName, String fieldValue) {		
+	public EntityBuilder<T> set(String fieldName, Object fieldValue) {		
 		_currentFields.put(fieldName, fieldValue);
 		return this;
 	}
