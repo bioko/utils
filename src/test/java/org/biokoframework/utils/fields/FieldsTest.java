@@ -27,9 +27,9 @@
 
 package org.biokoframework.utils.fields;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 

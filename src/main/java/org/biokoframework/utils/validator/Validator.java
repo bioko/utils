@@ -46,7 +46,6 @@ import org.biokoframework.utils.validator.type.CalendarValidator;
 import org.biokoframework.utils.validator.type.DateTimeValidator;
 import org.biokoframework.utils.validator.type.DoubleValidator;
 import org.biokoframework.utils.validator.type.InputStreamValidator;
-import org.biokoframework.utils.validator.type.IntegerValidator;
 import org.biokoframework.utils.validator.type.LocalDateValidator;
 import org.biokoframework.utils.validator.type.LongValidator;
 import org.biokoframework.utils.validator.type.StringValidator;
@@ -199,7 +198,6 @@ public class Validator {
 		_typeValidators.put(String.class, new StringValidator());
 		_typeValidators.put(Boolean.class, new BooleanValidator());
 		_typeValidators.put(Long.class, new LongValidator());
-		_typeValidators.put(Integer.class, new IntegerValidator());
 		_typeValidators.put(Double.class, new DoubleValidator());
 		_typeValidators.put(Calendar.class, new CalendarValidator());
 		_typeValidators.put(DateTime.class, new DateTimeValidator());

@@ -42,6 +42,7 @@ import org.json.simple.JSONAware;
 @SuppressWarnings("serial")
 public abstract class DomainEntity implements Serializable, JSONAware {
 
+	// @Field(mandatory = false)
 	public static final String ID = "id";
 	
 	protected Fields _fields = new Fields();
@@ -96,10 +97,13 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
+		} else if (!(obj instanceof DomainEntity)) {
+			return false;
 		}
-		
-		boolean result= false;
-		if (fields().equals(((DomainEntity)obj).fields())) {
+
+		boolean result = false;
+		DomainEntity entity = (DomainEntity)obj;
+		if (_fields.equals(entity._fields)) {
 			result = true;
 		}
 		return result;
@@ -124,6 +128,11 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 		}
 		return result;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + " " + toJSONString();
+	}
 
 	public void set(String name, Object value) {
 		_fields.put(name, value);
@@ -143,5 +152,5 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 		
 		return id != null ? id.toString() : null;
 	}
-
+	
 }
