@@ -245,7 +245,6 @@ public class ValidatorTest {
 		f.put("name", "gino pino");
 		f.put("email", "gino@pino.net");
 		f.put("age","28");
-//		f.put("italianDate","19/10/1974");
 		
 		return f;
 	}

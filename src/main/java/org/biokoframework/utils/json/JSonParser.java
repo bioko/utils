@@ -3,11 +3,13 @@ package org.biokoframework.utils.json;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
+import org.json.simple.JSONValue;
 
 /*
  * Copyright (c) 2014																 
@@ -46,16 +48,20 @@ public class JSonParser {
 	
 	public LinkedHashMap<String, Object> parseToMap(String json) {
 		LinkedHashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
-		JsonParser jsonParser;
-		try {
-			jsonParser = _jsonFactory.createJsonParser(json);
-			jsonParser.nextToken();
-			hashMap = expandObject(jsonParser);
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		Object parsed = JSONValue.parse(json);
+		if (parsed != null) {
+			hashMap.putAll((Map<String, Object>) parsed);
 		}
+//		JsonParser jsonParser;
+//		try {
+//			jsonParser = _jsonFactory.createJsonParser(json);
+//			jsonParser.nextToken();
+//			hashMap = expandObject(jsonParser);
+//		} catch (JsonParseException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		return hashMap;
 	}
 	

@@ -27,7 +27,7 @@
 
 package org.biokoframework.utils.fields;
 
-public class FieldValues {
+public interface FieldValues {
     public static final String SUCCESSFUL = "successful";
     public static final String FAILED = "failed";
     public static final String OK = "ok";

@@ -42,11 +42,10 @@ import org.biokoframework.utils.json.JSonBuilder;
 import org.biokoframework.utils.json.JSonParser;
 import org.json.simple.JSONAware;
 
-
 public class Fields implements Serializable, JSONAware {
 
 	private static final long serialVersionUID = -7605925590938632486L;
-	
+
 	@Deprecated
 	private static final String PRETTY_KEY_VALUE_SEPARATOR = "=";
 	@Deprecated
@@ -59,6 +58,20 @@ public class Fields implements Serializable, JSONAware {
 	public static final Object MULTIPLE_VALUES_SEPARATOR = "|";
 	private LinkedHashMap<String, Object> _fields = new LinkedHashMap<String, Object>();
 
+	public Fields(Object... keysAndValues) {
+		if (keysAndValues.length % 2 != 0) {
+			throw new RuntimeException("The number of elements is expected to be even");
+		}
+
+		for (int i = 0; i < keysAndValues.length; i = i + 2) {
+			if (!(keysAndValues[i] instanceof String)) {
+				throw new RuntimeException("Even indexes are expected to contain Strings");
+			} else {
+				_fields.put((String) keysAndValues[i], keysAndValues[i + 1]);
+			}
+		}
+	}
+
 	public static Fields fromMap(Map<String, Object> map) {
 		Fields fields = new Fields();
 		fields._fields.putAll(map);
@@ -69,7 +82,11 @@ public class Fields implements Serializable, JSONAware {
 		JSonParser jSonParser = new JSonParser();
 		return Fields.fromMap(jSonParser.parseToMap(actualJSon));
 	}
-	
+
+	/**
+	 * Use constructor {@link #Fields(Object ...)}
+	 */
+	@Deprecated
 	public static Fields single(String aKey, Object aValue) {
 		Fields result = new Fields();
 		result.put(aKey, aValue);
@@ -78,10 +95,6 @@ public class Fields implements Serializable, JSONAware {
 	
 	public boolean containsKey(String aKeyPossiblyContained) {
 		return _fields.containsKey(aKeyPossiblyContained);
-	}
-
-	public boolean containsValue(Object aValuePossiblyContained) {
-		return _fields.containsValue(aValuePossiblyContained);
 	}
 
 	public void replace(String aFieldKey, Object aFieldValue) {
@@ -124,11 +137,6 @@ public class Fields implements Serializable, JSONAware {
 		return result.putAll(this);
 	}
 	
-	public boolean contains(String aKey, String aValue) {
-		if (!_fields.containsKey(aKey)) return false;
-		return true;
-	}
-
 	public List<String> keys() {
 		return new ArrayList<String>(_fields.keySet());
 	}
@@ -144,13 +152,14 @@ public class Fields implements Serializable, JSONAware {
 	}
 	
 	public Fields putAllFilterdBy(Fields input, ArrayList<String> _mandatoryFields) {
+		
 		if (_mandatoryFields != null) {
-		for (String each : _mandatoryFields) {
-			Object value = input.get(each);
-			if (value != null) {
-				_fields.put(each, value);
+			for (String each : _mandatoryFields) {
+				Object value = input.get(each);
+				if (value != null) {
+					_fields.put(each, value);
+				}
 			}
-		}
 		}
 		return this;
 	}
@@ -158,18 +167,15 @@ public class Fields implements Serializable, JSONAware {
 	public Fields extract(String... fieldNames) {
 		Fields extracted = new Fields();
 		for (String fieldName: fieldNames) {
-			 Object fieldContent = _fields.get(fieldName);
-			if (fieldContent!=null)
+			Object fieldContent = _fields.get(fieldName);
+			if (fieldContent != null) {
 				extracted.put(fieldName, fieldContent);
+			}
 		}
 		
 		return extracted;
 	}
 
-	public boolean contains(String aKey) {
-		return _fields.containsKey(aKey);
-	}
-	
 	// TODO use #toJSONString()
 	@Override
 	public String toString() {
@@ -229,6 +235,7 @@ public class Fields implements Serializable, JSONAware {
 
 	/**
 	 * Use {@link #toJSONString()} instead.
+	 *
 	 * @return String
 	 */
 	@Deprecated

@@ -27,16 +27,23 @@
 
 package org.biokoframework.utils.fields;
 
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.json.FieldsMother;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 
 public class FieldsTest {
@@ -147,10 +154,9 @@ public class FieldsTest {
 		assertHaveEqualJSONObjects(FieldsMother.FIRST_AND_SECOND_EXPECTED, someFields.toJSONString());
 	}
 
-	private void assertHaveEqualJSONObjects(String expected, String actual)
-			throws ParseException, Exception {
+	private void assertHaveEqualJSONObjects(String expected, String actual) throws ParseException, Exception {
 		
-		JSONParser jsonParser = new JSONParser();		
+		JSONParser jsonParser = new JSONParser();
 		assertEquals(jsonParser.parse(expected), jsonParser.parse(actual));
 	}
 	
@@ -168,5 +174,77 @@ public class FieldsTest {
 		theObject.add(new AnnotatedPersonExample(FieldsMother.twoFields()));
 		theObject.add(new AnnotatedPersonExample(FieldsMother.twoFields()));
 		return theObject;
+	}
+	
+	@Test
+	public void containmentTests() {
+		Fields fields = new Fields(
+				"dino", "bovino",
+				"val", 3);
+		
+		assertThat(fields.containsKey("dino"), is(true));
+		assertThat(fields.containsKey("val"), is(true));
+		assertThat(fields.containsKey("not existing"), is(false));
+		
+	}
+	
+	@Test
+	public void extractionTest() {
+		Fields fields = new Fields(
+				"dino", "bovino",
+				"val", 3,
+				"anOtherVal", "other");
+		
+		assertThat(fields.extract("dino", "val"), 
+				is(equalTo(new Fields(
+						"dino", "bovino",
+						"val", 3))));
+	}
+	
+	@Test
+	public void javascriptConstructorEmptyTest() {
+		Fields fields = new Fields();
+		assertThat(fields.isEmpty(), is(true));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void javascriptConstructorSimpleTest() {
+		List<Integer> list = Arrays.asList(1, 2, 3, 4);
+
+		Fields fields = new Fields(
+				"dino", "bovino", 
+				"number", 22, 
+				"list", list);
+
+		assertThat(fields.keys(), contains("dino", "number", "list"));
+		assertThat((String) fields.get("dino"), is(equalTo("bovino")));
+		assertThat((Integer) fields.get("number"), is(equalTo(22)));
+		assertThat((List<Integer>) fields.get("list"), is(equalTo(list)));
+	}
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+
+	@Test
+	public void javascriptConstructorFailForOddItemNumber() {
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage(is(equalTo("The number of elements is expected to be even")));
+
+		new Fields(
+				"dino", "bovino", 
+				"gino", 3, 
+				"pino");
+	}
+
+	@Test
+	public void javascriptConstructorFailForKeyNotBeingAString() {
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage(is(equalTo("Even indexes are expected to contain Strings")));
+
+		new Fields(
+				"dino", "bovino", 
+				"gino", 3, 
+				3, "tino");
 	}
 }
