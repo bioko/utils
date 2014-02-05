@@ -244,7 +244,7 @@ public class ValidatorTest {
 		Fields f = new Fields();
 		f.put("name", "gino pino");
 		f.put("email", "gino@pino.net");
-		f.put("age",28);
+		f.put("age", 28);
 		
 		return f;
 	}

@@ -152,7 +152,6 @@ public class Fields implements Serializable, JSONAware {
 	}
 
 	public Fields putAllFilterdBy(Fields input, ArrayList<String> _mandatoryFields) {
-
 		if (_mandatoryFields != null) {
 			for (String each : _mandatoryFields) {
 				Object value = input.get(each);
@@ -168,8 +167,9 @@ public class Fields implements Serializable, JSONAware {
 		Fields extracted = new Fields();
 		for (String fieldName : fieldNames) {
 			Object fieldContent = _fields.get(fieldName);
-			if (fieldContent != null)
+			if (fieldContent != null) {
 				extracted.put(fieldName, fieldContent);
+			}
 		}
 
 		return extracted;
@@ -234,7 +234,11 @@ public class Fields implements Serializable, JSONAware {
 
 	/**
 	 * Use {@link #toJSONString()} instead.
+<<<<<<< HEAD
 	 * 
+=======
+	 *
+>>>>>>> dev
 	 * @return String
 	 */
 	@Deprecated

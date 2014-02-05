@@ -27,9 +27,9 @@
 
 package org.biokoframework.utils.fields;
 
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -154,9 +154,7 @@ public class FieldsTest {
 				someFields.toJSONString());
 	}
 
-	private void assertHaveEqualJSONObjects(String expected, String actual)
-			throws ParseException, Exception {
-
+	private void assertHaveEqualJSONObjects(String expected, String actual) throws ParseException, Exception {
 		JSONParser jsonParser = new JSONParser();
 		assertEquals(jsonParser.parse(expected), jsonParser.parse(actual));
 	}
@@ -250,6 +248,5 @@ public class FieldsTest {
 				"dino", "bovino", 
 				"gino", 3, 
 				3, "tino");
-	} 
-	
+	}
 }
