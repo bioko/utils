@@ -41,34 +41,30 @@ public class FieldsMother {
 															"\"" + FieldNames.EMAIL + "\":\"" + FieldNames.EMAIL_VALUE + "\",\"" + FieldNames.AREA + "\":\"" + FieldNames.AREA_VALUE + "\"}";
 	
 	public static Fields twoFields() {
-		Fields field = Fields.fromRow(
-				FieldNames.NAME + Fields.KEY_VALUE_SEPARATOR + FieldNames.NAME_VALUE + Fields.FIELDS_SEPARATOR +
-				FieldNames.SURNAME + Fields.KEY_VALUE_SEPARATOR + FieldNames.SURNAME_VALUE + Fields.FIELDS_SEPARATOR
-				);
-		return field;
+		return new Fields(
+				FieldNames.NAME, FieldNames.NAME_VALUE,
+				FieldNames.SURNAME, FieldNames.SURNAME_VALUE);
 	}
 	
 	public static Fields fourFields() {
-		Fields field = Fields.fromRow(
-				FieldNames.NAME + Fields.KEY_VALUE_SEPARATOR + FieldNames.NAME_VALUE + Fields.FIELDS_SEPARATOR +
-				FieldNames.SURNAME + Fields.KEY_VALUE_SEPARATOR + FieldNames.SURNAME_VALUE + Fields.FIELDS_SEPARATOR +
-				FieldNames.EMAIL + Fields.KEY_VALUE_SEPARATOR + FieldNames.EMAIL_VALUE + Fields.FIELDS_SEPARATOR +
-				FieldNames.AREA + Fields.KEY_VALUE_SEPARATOR + FieldNames.AREA_VALUE + Fields.FIELDS_SEPARATOR
-				);
-		return field;
+		return new Fields(
+				FieldNames.NAME, FieldNames.NAME_VALUE,
+				FieldNames.SURNAME, FieldNames.SURNAME_VALUE,
+				FieldNames.EMAIL, FieldNames.EMAIL_VALUE,
+				FieldNames.AREA, FieldNames.AREA_VALUE);
 	}
 
 	public static Fields fieldsWithList() {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("First");
 		list.add("Second");
-		return Fields.single("list", list);
+		return new Fields("list", list);
 	}
 
 	public static Fields fieldsWithMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("key1", "value1");
 		map.put("key2", "value2");
-		return Fields.single("object", map );
+		return new Fields("object", map );
 	}
 }

@@ -56,7 +56,7 @@ public class JSonBuilderTest {
 		domainEntityArray.add(paoloEntity);
 		
 		String aKey = "domainEntityArray";
-		String actualJSon = jSonBuilder.buildFrom(Fields.single(aKey, domainEntityArray));
+		String actualJSon = jSonBuilder.buildFrom(new Fields(aKey, domainEntityArray));
 		
 		assertEquals("{\"" + aKey + "\":[" + FieldsMother.FIRST_EXPECTED + "," + FieldsMother.FIRST_EXPECTED + "]}", actualJSon);
 	}
@@ -72,7 +72,7 @@ public class JSonBuilderTest {
 		domainEntityArray.add(paoloEntity);
 		
 		String aKey = "domainEntityArray";
-		Fields arrayOfDomainEntity = Fields.single(aKey, domainEntityArray);
+		Fields arrayOfDomainEntity = new Fields(aKey, domainEntityArray);
 		Fields arrayOfDomainEntityAndFields = FieldsMother.twoFields().putAll(arrayOfDomainEntity);
 		String actualJSon = jSonBuilder.buildFrom(arrayOfDomainEntityAndFields);
 		
