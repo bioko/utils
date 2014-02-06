@@ -38,7 +38,7 @@ public class LongValidator implements TypeValidator {
 
 	@Override
 	public boolean isValid(Object value) {
-		return value instanceof Integer || value instanceof Long;
+		return value instanceof Long;
 	}
 
 }
