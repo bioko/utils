@@ -1,15 +1,12 @@
 package org.biokoframework.utils.json;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
 import org.json.simple.JSONValue;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 /*
  * Copyright (c) 2014																 
@@ -40,59 +37,22 @@ import org.json.simple.JSONValue;
 
 public class JSonParser {
 
-	private JsonFactory _jsonFactory;
+	private ObjectMapper _mapper;
 
 	public JSonParser() {
-		_jsonFactory = new JsonFactory();
+		
+		_mapper = new ObjectMapper();
+		_mapper.registerModule(new JodaModule());
 	}
 	
-	public LinkedHashMap<String, Object> parseToMap(String json) {
-		if (json.matches(".*\"\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)\".*")){
-			
-		}
-		
-		
+	@SuppressWarnings("unchecked")
+	public LinkedHashMap<String, Object> parseToMap(String json) {		
 		LinkedHashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
 		Object parsed = JSONValue.parse(json);
 		if (parsed != null) {
 			hashMap.putAll((Map<String, Object>) parsed);
 		}
-//		JsonParser jsonParser;
-//		try {
-//			jsonParser = _jsonFactory.createJsonParser(json);
-//			jsonParser.nextToken();
-//			hashMap = expandObject(jsonParser);
-//		} catch (JsonParseException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		return hashMap;
 	}
-	
-	private LinkedHashMap<String, Object> expandObject(JsonParser jsonParser) throws JsonParseException, IOException {
-		LinkedHashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
-		
-		JsonToken token;
-		while ((token = jsonParser.nextToken()) != JsonToken.END_OBJECT && token != null) {
-			String currentName = jsonParser.getCurrentName();
-			if (token.compareTo(JsonToken.START_OBJECT) == 0) {
-				hashMap.put(currentName, expandObject(jsonParser));
-			} else if (token.compareTo(JsonToken.START_ARRAY) == 0) {				
-				ArrayList<Object> list = new ArrayList<Object>();
-				while ((token = jsonParser.nextToken()) != JsonToken.END_ARRAY && token != null) {
-					if (token == JsonToken.START_OBJECT) {
-						list.add(expandObject(jsonParser));
-					} else {
-						list.add(jsonParser.getText());
-					}
-				}
-				hashMap.put(currentName, list);
-			} else {
-				hashMap.put(currentName, jsonParser.getText());
-			}
-		}
-		
-		return hashMap;
-	}
+
 }
