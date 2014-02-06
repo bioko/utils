@@ -70,7 +70,7 @@ public class FieldsToJsonTest {
 		domainEntityArray.add(paoloEntity);
 
 		String aKey = "domainEntityArray";
-		Fields fields = Fields.single(aKey, domainEntityArray);
+		Fields fields = new Fields(aKey, domainEntityArray);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put(aKey, domainEntityArray);
 		String jsonString = JSONValue.toJSONString(jsonObject);
@@ -88,7 +88,7 @@ public class FieldsToJsonTest {
 		domainEntityArray.add(paoloEntity);
 
 		String aKey = "domainEntityArray";
-		Fields arrayOfDomainEntity = Fields.single(aKey, domainEntityArray);
+		Fields arrayOfDomainEntity = new Fields(aKey, domainEntityArray);
 		Fields fields = FieldsMother.twoFields().putAll(arrayOfDomainEntity);
 
 		JSONObject jsonObject = new JSONObject();

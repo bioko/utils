@@ -49,7 +49,7 @@ public class FieldsTest {
 
 	@Test
 	public void onlyOneFieldFromRow() {
-		Fields field = Fields.single("KEY", "VALUE");
+		Fields field = new Fields("KEY", "VALUE");
 		String fieldString = field.asRow();
 		System.out.println("fieldString: " + fieldString);
 		assertEquals(field, Fields.fromRow(fieldString));
@@ -57,7 +57,7 @@ public class FieldsTest {
 
 	@Test
 	public void twoFieldsFromRow() {
-		Fields field = Fields.single("KEY1", "VALUE1");
+		Fields field = new Fields("KEY1", "VALUE1");
 		field.put("KEY2", "VALUE2");
 		String fieldString = field.asRow();
 		System.out.println("fieldString: " + fieldString);

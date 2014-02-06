@@ -59,7 +59,6 @@ public class Validator {
 	public static final String ISO_TIMESTAMP = "yyyy-MM-dd'T'HH:mm:ssZ";
 	public static final String ISO_DATE = "yyyy-MM-dd";
 
-	@SuppressWarnings("unchecked")
 	private static final List<Class<?>> CALENDAR_TYPES = 
 		new ArrayList<Class<?>>(Arrays.asList(Calendar.class, DateTime.class, LocalDate.class));
 

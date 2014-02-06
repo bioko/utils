@@ -50,7 +50,7 @@ public class JSonParserTest {
 		String aKey = "A";
 		String aValue = "a";
 		
-		String actualJSon = jSonBuilder.buildFrom(Fields.single(aKey, aValue));
+		String actualJSon = jSonBuilder.buildFrom(new Fields(aKey, aValue));
 		
 		JSonParser jSonParser = new JSonParser();
 		LinkedHashMap<String, Object> map = jSonParser.parseToMap(actualJSon);
@@ -119,7 +119,7 @@ public class JSonParserTest {
 		domainEntityArray.add(paoloEntity);
 		
 		String aKey = "domainEntityArray";
-		Fields arrayOfDomainEntity = Fields.single(aKey, domainEntityArray);
+		Fields arrayOfDomainEntity = new Fields(aKey, domainEntityArray);
 		
 		Fields arrayOfDomainEntityAndFields = FieldsMother.twoFields().putAll(arrayOfDomainEntity);
 		String actualJSon = jSonBuilder.buildFrom(arrayOfDomainEntityAndFields);
