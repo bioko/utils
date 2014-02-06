@@ -36,33 +36,33 @@ public interface Constraint<DE extends DomainEntity> {
 	public Query<DE> placeholder(String placeholder);
 	
 	public Constraint<DE> isEqual();
-	public Query<DE> isEqual(String value);
+	public Query<DE> isEqual(Object value);
 	public Constraint<DE> isNotEqual();
-	public Query<DE> isNotEqual(String value);
+	public Query<DE> isNotEqual(Object value);
 
 	public Constraint<DE> like();
-	public Query<DE> like(String value);
+	public Query<DE> like(Object value);
 	public Constraint<DE> notLike();
-	public Query<DE> notLike(String value);
+	public Query<DE> notLike(Object value);
 
 	public Constraint<DE> not();
 
-	public Query<DE> ilike(String value);
+	public Query<DE> ilike(Object value);
 	public Constraint<DE> ilike();
 
-	public Query<DE> slike(String value);
+	public Query<DE> slike(Object value);
 	public Constraint<DE> slike();
 
-	public Query<DE> lt(String string);
+	public Query<DE> lt(Object string);
 	public Constraint<DE> lt();
 
-	public Query<DE> lte(String string);
+	public Query<DE> lte(Object string);
 	public Constraint<DE> lte();
 	
-	public Query<DE> gt(String string);
+	public Query<DE> gt(Object string);
 	public Constraint<DE> gt();
 
-	public Query<DE> gte(String string);
+	public Query<DE> gte(Object string);
 	public Constraint<DE> gte();
 	
 }

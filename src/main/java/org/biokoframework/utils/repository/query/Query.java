@@ -45,7 +45,7 @@ public interface Query<DE extends DomainEntity> {
 	public Query<DE> update();
 	public Query<DE> delete();
 
-	public void setValue(String placeholder, String value);
+	public void setValue(String placeholder, Object value);
 
 	public Constraint<DE> and(String fieldName);
 	public Constraint<DE> or(String fieldName);

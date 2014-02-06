@@ -27,18 +27,35 @@
 
 package org.biokoframework.utils.validator.type;
 
-import org.biokoframework.utils.validator.TypeValidator;
-import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.ISODateTimeFormat;
 
-public class DateTimeValidator implements TypeValidator {
+public class DateTimeValidator extends StringBasedTypeValidator {
+
+	private String _pattern;
 
 	@Override
-	public void setPattern(String pattern) {
+	protected boolean isValidString(String value) {
+		if (_pattern == null) {
+			try {
+				ISODateTimeFormat.dateTimeNoMillis().parseDateTime(value);		
+			} catch (Exception exception) {
+				return false;
+			}
+		} else {
+			try {
+				DateTimeFormat.forPattern(_pattern).parseDateTime(value);
+			} catch (Exception exception) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	@Override
-	public boolean isValid(Object value) {
-		return value instanceof DateTime;
+	public void setPattern(String pattern) {
+		_pattern = pattern;		
 	}
 
 }
