@@ -45,7 +45,7 @@ public class AnnotatedPersonExample extends DomainEntity{
 	public static final String		NAME 		= "name";
 	@Field(mandatory=false)
 	public static final String		SURNAME 	= "surname";
-	@Field(mandatory=false, type=Integer.class)
+	@Field(mandatory=false, type=Long.class)
 	public static final String		AGE			= "age";
 	@Field(mandatory=false, type=String.class, format=Validator.FORMAT_EMAIL)
 	public static final String		EMAIL		= "email";

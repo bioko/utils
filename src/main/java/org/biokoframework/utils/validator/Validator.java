@@ -42,7 +42,6 @@ import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.fields.Fields;
 import org.biokoframework.utils.validator.format.EmailValidator;
 import org.biokoframework.utils.validator.type.BooleanValidator;
-import org.biokoframework.utils.validator.type.CalendarValidator;
 import org.biokoframework.utils.validator.type.DateTimeValidator;
 import org.biokoframework.utils.validator.type.DoubleValidator;
 import org.biokoframework.utils.validator.type.InputStreamValidator;
@@ -199,7 +198,6 @@ public class Validator {
 		_typeValidators.put(Boolean.class, new BooleanValidator());
 		_typeValidators.put(Long.class, new LongValidator());
 		_typeValidators.put(Double.class, new DoubleValidator());
-		_typeValidators.put(Calendar.class, new CalendarValidator());
 		_typeValidators.put(DateTime.class, new DateTimeValidator());
 		_typeValidators.put(LocalDate.class, new LocalDateValidator());
 		_typeValidators.put(InputStream.class, new InputStreamValidator());
