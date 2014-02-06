@@ -237,7 +237,7 @@ public class ValidatorTest {
 		Fields f = new Fields(
 				"name", "gino pino",
 				"email", "gino@pino.net",
-				"age", 28);
+				"age", 28L);
 		
 		return f;
 	}

@@ -32,11 +32,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 public class JSonBuilder {
-	private JSONObject _jsonObject = new JSONObject();
+	private JSONObject fJsonObject = new JSONObject();
 
 	@SuppressWarnings("unchecked")
 	private void add(String key, Object value) {
-			_jsonObject.put(key, value);
+			fJsonObject.put(key, value);
 	}
 	
 //	public void append(Set<Entry<String, Object>> entrySet) throws Exception {
@@ -56,6 +56,6 @@ public class JSonBuilder {
 			}
 		}
 		// TODO verificare che non sia questo che cambia l'escaping
-		return JSONValue.toJSONString(_jsonObject);
+		return JSONValue.toJSONString(fJsonObject);
 	}
 }
