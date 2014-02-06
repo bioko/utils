@@ -47,6 +47,11 @@ public class JSonParser {
 	}
 	
 	public LinkedHashMap<String, Object> parseToMap(String json) {
+		if (json.matches(".*\"\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)\".*")){
+			
+		}
+		
+		
 		LinkedHashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
 		Object parsed = JSONValue.parse(json);
 		if (parsed != null) {
