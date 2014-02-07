@@ -48,23 +48,6 @@ import org.junit.rules.ExpectedException;
 public class FieldsTest {
 
 	@Test
-	public void onlyOneFieldFromRow() {
-		Fields field = new Fields("KEY", "VALUE");
-		String fieldString = field.asRow();
-		System.out.println("fieldString: " + fieldString);
-		assertEquals(field, Fields.fromRow(fieldString));
-	}
-
-	@Test
-	public void twoFieldsFromRow() {
-		Fields field = new Fields("KEY1", "VALUE1");
-		field.put("KEY2", "VALUE2");
-		String fieldString = field.asRow();
-		System.out.println("fieldString: " + fieldString);
-		assertEquals(field, Fields.fromRow(fieldString));
-	}
-
-	@Test
 	public void fieldsWithObjects() {
 		Fields withObjects = new Fields();
 

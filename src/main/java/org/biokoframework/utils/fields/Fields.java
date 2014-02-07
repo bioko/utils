@@ -29,7 +29,6 @@ package org.biokoframework.utils.fields;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -56,6 +55,7 @@ public class Fields implements Serializable, JSONAware {
 	public static final String FIELDS_SEPARATOR = "##";
 	@Deprecated
 	public static final Object MULTIPLE_VALUES_SEPARATOR = "|";
+	
 	private LinkedHashMap<String, Object> _fields = new LinkedHashMap<String, Object>();
 
 	public Fields(Object... keysAndValues) {
@@ -81,16 +81,6 @@ public class Fields implements Serializable, JSONAware {
 	public static Fields fromJson(String actualJSon) {
 		JSonParser jSonParser = new JSonParser();
 		return Fields.fromMap(jSonParser.parseToMap(actualJSon));
-	}
-
-	/**
-	 * Use constructor {@link #Fields(Object ...)}
-	 */
-	@Deprecated
-	public static Fields single(String aKey, Object aValue) {
-		Fields result = new Fields();
-		result.put(aKey, aValue);
-		return result;
 	}
 
 	public boolean containsKey(String aKeyPossiblyContained) {
@@ -200,22 +190,6 @@ public class Fields implements Serializable, JSONAware {
 		return new JSonBuilder().buildFrom(this);
 	}
 
-	/* factory methods */
-
-	@Deprecated
-	public static Fields fromUrlEncodedRow(String input) throws UnsupportedEncodingException {
-		return fromRow(URLDecoder.decode(input, "UTF-8"));
-	}
-
-	@Deprecated
-	public static Fields successful() {
-		Fields result = new Fields();
-		result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
-		result.put(FieldNames.COMMAND_OUTCOME, FieldValues.SUCCESSFUL);
-		result.remove(FieldNames.REASON);
-		return result;
-	}
-
 	/* toString() replacements */
 
 	@Deprecated
@@ -230,47 +204,16 @@ public class Fields implements Serializable, JSONAware {
 		return result.toString();
 	}
 
-	/* Pseudo serialization */
-
-	/**
-	 * Use {@link #toJSONString()} instead.
-<<<<<<< HEAD
-	 * 
-=======
-	 *
->>>>>>> dev
-	 * @return String
-	 */
+	/* Status reporters */
+	
 	@Deprecated
-	public String asJson() {
-		JSonBuilder builder = new JSonBuilder();
-		return builder.buildFrom(this);
-	}
-
-	@Deprecated
-	public static Fields fromRow(String aFieldsRow) {
+	public static Fields successful() {
 		Fields result = new Fields();
-		String[] splittedFields = aFieldsRow.split(FIELDS_SEPARATOR);
-		for (String each : splittedFields) {
-			String[] keyValueSplitted = each.split(KEY_VALUE_SEPARATOR);
-			result.put(keyValueSplitted[0], keyValueSplitted[1]);
-		}
+		result.put(FieldNames.REQUEST_OUTCOME, FieldValues.OK);
+		result.put(FieldNames.COMMAND_OUTCOME, FieldValues.SUCCESSFUL);
+		result.remove(FieldNames.REASON);
 		return result;
 	}
-
-	@Deprecated
-	public String asRow() {
-		StringBuffer result = new StringBuffer();
-		for (Entry<String, Object> each : _fields.entrySet()) {
-			result.append(each.getKey());
-			result.append(KEY_VALUE_SEPARATOR);
-			result.append(each.getValue());
-			result.append(FIELDS_SEPARATOR);
-		}
-		return result.toString();
-	}
-
-	/* Status reporters */
 
 	@Deprecated
 	public static Fields failed() {
