@@ -83,16 +83,6 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 		return _validator.getErrors();
 	}
 	
-	@Deprecated
-	public final String report() {
-		StringBuilder result = new StringBuilder().
-				append(getClass().getSimpleName()).
-				append(" [entityValue=").
-				append(_fields.report()).
-				append("]");
-		return result.toString();
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

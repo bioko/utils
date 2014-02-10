@@ -28,12 +28,10 @@
 package org.biokoframework.utils.fields;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -45,18 +43,7 @@ public class Fields implements Serializable, JSONAware {
 
 	private static final long serialVersionUID = -7605925590938632486L;
 
-	@Deprecated
-	private static final String PRETTY_KEY_VALUE_SEPARATOR = "=";
-	@Deprecated
-	private static final String PRETTY_FIELDS_SEPARATOR = ";";
-	@Deprecated
-	public static final String KEY_VALUE_SEPARATOR = "#";
-	@Deprecated
-	public static final String FIELDS_SEPARATOR = "##";
-	@Deprecated
-	public static final Object MULTIPLE_VALUES_SEPARATOR = "|";
-	
-	private LinkedHashMap<String, Object> _fields = new LinkedHashMap<String, Object>();
+	private LinkedHashMap<String, Object> fFields = new LinkedHashMap<String, Object>();
 
 	public Fields(Object... keysAndValues) {
 		if (keysAndValues.length % 2 != 0) {
@@ -67,14 +54,14 @@ public class Fields implements Serializable, JSONAware {
 			if (!(keysAndValues[i] instanceof String)) {
 				throw new RuntimeException("Even indexes are expected to contain Strings");
 			} else {
-				_fields.put((String) keysAndValues[i], keysAndValues[i + 1]);
+				fFields.put((String) keysAndValues[i], keysAndValues[i + 1]);
 			}
 		}
 	}
 
 	public static Fields fromMap(Map<String, Object> map) {
 		Fields fields = new Fields();
-		fields._fields.putAll(map);
+		fields.fFields.putAll(map);
 		return fields;
 	}
 
@@ -84,11 +71,11 @@ public class Fields implements Serializable, JSONAware {
 	}
 
 	public boolean containsKey(String aKeyPossiblyContained) {
-		return _fields.containsKey(aKeyPossiblyContained);
+		return fFields.containsKey(aKeyPossiblyContained);
 	}
 
 	public void replace(String aFieldKey, Object aFieldValue) {
-		_fields.put(aFieldKey, aFieldValue);
+		fFields.put(aFieldKey, aFieldValue);
 	}
 
 	@Override
@@ -102,24 +89,24 @@ public class Fields implements Serializable, JSONAware {
 	}
 
 	public boolean isEmpty() {
-		return _fields.isEmpty();
+		return fFields.isEmpty();
 	}
 
 	public Fields putAll(Fields input) {
-		_fields.putAll(input.collection());
+		fFields.putAll(input.collection());
 		return this;
 	}
 
 	private LinkedHashMap<String, Object> collection() {
-		return _fields;
+		return fFields;
 	}
 
 	public void remove(String aFieldKey) {
-		_fields.remove(aFieldKey);
+		fFields.remove(aFieldKey);
 	}
 
 	public void removeAll() {
-		_fields = new LinkedHashMap<String, Object>();
+		fFields = new LinkedHashMap<String, Object>();
 	}
 
 	public Fields copy() {
@@ -128,17 +115,17 @@ public class Fields implements Serializable, JSONAware {
 	}
 
 	public List<String> keys() {
-		return new ArrayList<String>(_fields.keySet());
+		return new ArrayList<String>(fFields.keySet());
 	}
 
 	public Fields put(String aKey, Object aFieldObject) {
-		_fields.put(aKey, aFieldObject);
+		fFields.put(aKey, aFieldObject);
 		return this;
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T get(String key) {
-		return (T) _fields.get(key);
+		return (T) fFields.get(key);
 	}
 
 	public Fields putAllFilterdBy(Fields input, ArrayList<String> _mandatoryFields) {
@@ -146,7 +133,7 @@ public class Fields implements Serializable, JSONAware {
 			for (String each : _mandatoryFields) {
 				Object value = input.get(each);
 				if (value != null) {
-					_fields.put(each, value);
+					fFields.put(each, value);
 				}
 			}
 		}
@@ -156,7 +143,7 @@ public class Fields implements Serializable, JSONAware {
 	public Fields extract(String... fieldNames) {
 		Fields extracted = new Fields();
 		for (String fieldName : fieldNames) {
-			Object fieldContent = _fields.get(fieldName);
+			Object fieldContent = fFields.get(fieldName);
 			if (fieldContent != null) {
 				extracted.put(fieldName, fieldContent);
 			}
@@ -168,40 +155,12 @@ public class Fields implements Serializable, JSONAware {
 	// TODO use #toJSONString()
 	@Override
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		for (Entry<String, Object> each : _fields.entrySet()) {
-			result.append(each.getKey());
-			result.append(PRETTY_KEY_VALUE_SEPARATOR);
-			result.append(each.getValue());
-			result.append(FIELDS_SEPARATOR);
-		}
-		String outcome = null;
-		try {
-			outcome = new String(result.toString().getBytes("ISO-8859-1"), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return outcome;
+		return toJSONString();
 	}
 
 	@Override
 	public String toJSONString() {
 		return new JSonBuilder().buildFrom(this);
-	}
-
-	/* toString() replacements */
-
-	@Deprecated
-	public String report() {
-		StringBuffer result = new StringBuffer("Fields:");
-		for (Entry<String, Object> each : _fields.entrySet()) {
-			result.append(each.getKey());
-			result.append(PRETTY_KEY_VALUE_SEPARATOR);
-			result.append(each.getValue());
-			result.append(PRETTY_FIELDS_SEPARATOR);
-		}
-		return result.toString();
 	}
 
 	/* Status reporters */

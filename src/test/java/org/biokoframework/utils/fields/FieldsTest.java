@@ -104,8 +104,8 @@ public class FieldsTest {
 		withObjects.put(aFieldName, theObject);
 		List<AnnotatedPersonExample> actualObject = withObjects.get(aFieldName);
 
-		assertEquals(theObject.get(0).report(), actualObject.get(0).report());
-		assertEquals(theObject.get(1).report(), actualObject.get(1).report());
+		assertThat(actualObject.get(0).toJSONString(), is(equalTo(theObject.get(0).toJSONString())));
+		assertThat(actualObject.get(1).toJSONString(), is(equalTo(theObject.get(1).toJSONString())));
 	}
 
 	@Test
@@ -119,8 +119,8 @@ public class FieldsTest {
 		withObjects.put(aFieldName, theObject);
 		List<AnnotatedPersonExample> actualObject = withObjects.get(aFieldName);
 
-		assertEquals(theObject.get(0).report(), actualObject.get(0).report());
-		assertEquals(theObject.get(1).report(), actualObject.get(1).report());
+		assertThat(actualObject.get(0).toJSONString(), is(equalTo(theObject.get(0).toJSONString())));
+		assertThat(actualObject.get(1).toJSONString(), is(equalTo(theObject.get(1).toJSONString())));
 	}
 
 	@Test

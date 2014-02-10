@@ -51,8 +51,6 @@ public interface Repository<DE extends DomainEntity> {
 
 	public ArrayList<DE> getEntitiesByForeignKey(String foreignKeyName, Object foreignKeyValue);
 
-	public abstract String report();
-
 	public abstract ArrayList<DE> getAll();
 
 	public abstract List<DE> call(DomainEntity aDomainEntity, String aMethod) throws ValidationException, RepositoryException;
