@@ -1,5 +1,14 @@
-/.settings
+# Maven
 /target
+
+# Eclipse
+/.settings
 /.classpath
 /.project
+
+# Markdown
 *.md.html
+
+# Idea
+*.iml
+/.idea
