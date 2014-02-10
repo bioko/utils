@@ -51,6 +51,7 @@ public interface Repository<DE extends DomainEntity> {
 
 	public ArrayList<DE> getEntitiesByForeignKey(String foreignKeyName, String foreignKeyValue);
 
+	@Deprecated
 	public abstract String report();
 
 	public abstract ArrayList<DE> getAll();
