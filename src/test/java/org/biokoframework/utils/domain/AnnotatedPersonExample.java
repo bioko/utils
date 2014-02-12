@@ -35,9 +35,10 @@ import org.biokoframework.utils.validator.Validator;
 import org.joda.time.LocalDate;
 
 
-@SuppressWarnings("serial")
 public class AnnotatedPersonExample extends DomainEntity{
 
+	private static final long serialVersionUID = 3984985823150165239L;
+	
 	@Field(hints = {
 		@Hint(name = HintNames.MAX_LENGTH, value = "255"),
 		@Hint(name = "anOtherHint", value = "pino")

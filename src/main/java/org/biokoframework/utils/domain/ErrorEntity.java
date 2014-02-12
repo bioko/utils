@@ -32,9 +32,10 @@ import java.util.ArrayList;
 import org.biokoframework.utils.domain.annotation.field.Field;
 import org.biokoframework.utils.fields.Fields;
 
-@SuppressWarnings("serial")
 public class ErrorEntity extends DomainEntity {
 
+	private static final long serialVersionUID = -105134104794440349L;
+	
 	@Field
 	public static final String ERROR_MESSAGE = "errorMessage";
 	@Field(type=Integer.class)

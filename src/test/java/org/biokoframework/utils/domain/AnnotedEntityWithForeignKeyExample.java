@@ -30,9 +30,10 @@ package org.biokoframework.utils.domain;
 import org.biokoframework.utils.domain.annotation.field.Field;
 import org.biokoframework.utils.fields.Fields;
 
-@SuppressWarnings("serial")
 public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
 
+	private static final long serialVersionUID = 2208023656183813917L;
+	
 	@Field
 	public static final String		VALUE 			= "value";
 	@Field(type=AnnotatedPersonExample.class)

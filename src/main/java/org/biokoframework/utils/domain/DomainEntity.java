@@ -39,8 +39,9 @@ import org.biokoframework.utils.validator.Validator;
 import org.json.simple.JSONAware;
 
 
-@SuppressWarnings("serial")
 public abstract class DomainEntity implements Serializable, JSONAware {
+
+	private static final long serialVersionUID = -3722504540065126472L;
 
 	// @Field(mandatory = false)
 	public static final String ID = "id";
@@ -49,7 +50,6 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	private ArrayList<String> _componingFields;
 
 	private Validator _validator;
-
 	
 	public DomainEntity(Fields input) {		
 		try {
