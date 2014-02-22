@@ -25,7 +25,7 @@
  * 
  */
 
-package rg.biokoframework.utils.domain.reflection;
+package org.biokoframework.utils.domain.reflection;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
