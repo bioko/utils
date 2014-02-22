@@ -35,10 +35,10 @@ import org.biokoframework.utils.domain.DomainEntity;
 
 public class FilterBy {
 
-	public static <T extends DomainEntity, C extends List<T>> ArrayList<T> applyFilter(List<T> list, Filter<T> filter) {
-		ArrayList<T> filteredSet = new ArrayList<T>();
+	public static <DE extends DomainEntity, C extends List<DE>> ArrayList<DE> applyFilter(List<DE> list, Filter<DE> filter) {
+		ArrayList<DE> filteredSet = new ArrayList<>();
 		try {
-			for (T anEntity : list) {
+			for (DE anEntity : list) {
 				if (filter.allows(anEntity)) {
 					filteredSet.add(anEntity);
 				}

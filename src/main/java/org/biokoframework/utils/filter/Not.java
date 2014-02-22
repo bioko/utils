@@ -29,20 +29,20 @@ package org.biokoframework.utils.filter;
 
 import org.biokoframework.utils.domain.DomainEntity;
 
-public class Not<T extends DomainEntity> implements Filter<T>{
+public class Not<DE extends DomainEntity> implements Filter<DE>{
 	
-	private final Filter<T> _filter;
+	private final Filter<DE> _filter;
 	
-	public Not(Filter<T> filter) {
+	public Not(Filter<DE> filter) {
 		_filter = filter;
 	}
 
 	@Override
-	public boolean allows(T entity) {
+	public boolean allows(DE entity) {
 		return !_filter.allows(entity);
 	}
 
-	public static final <T extends DomainEntity> Filter<T> not(Filter<T> filter) {
-		return new Not<T>(filter);
+	public static final <DE extends DomainEntity> Filter<DE> not(Filter<DE> filter) {
+		return new Not<>(filter);
 	}
 }

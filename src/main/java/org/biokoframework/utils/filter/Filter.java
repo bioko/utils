@@ -29,8 +29,8 @@ package org.biokoframework.utils.filter;
 
 import org.biokoframework.utils.domain.DomainEntity;
 
-public interface Filter<T extends DomainEntity> {
+public interface Filter<DE extends DomainEntity> {
 
-	public boolean allows(T entity); 
+	public boolean allows(DE entity);
 	
 }
