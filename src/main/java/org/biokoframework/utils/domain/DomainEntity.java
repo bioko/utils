@@ -27,10 +27,6 @@
 
 package org.biokoframework.utils.domain;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.biokoframework.utils.domain.annotation.field.ComponingFieldsFactory;
 import org.biokoframework.utils.domain.annotation.field.EntityValidatorRulesFactory;
@@ -38,6 +34,9 @@ import org.biokoframework.utils.fields.Fields;
 import org.biokoframework.utils.validator.Validator;
 import org.json.simple.JSONAware;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class DomainEntity implements Serializable, JSONAware {
 
@@ -105,7 +104,7 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, false);
+        return HashCodeBuilder.reflectionHashCode(13, 29, this, false);
 	}
 	
 	public String toJSONString() {
