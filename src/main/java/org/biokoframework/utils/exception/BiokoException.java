@@ -28,6 +28,7 @@
 package org.biokoframework.utils.exception;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.biokoframework.utils.domain.ErrorEntity;
@@ -41,42 +42,45 @@ public class BiokoException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Exception _exception;
+	private Exception fException;
 	
-	private List<ErrorEntity> _errors = new ArrayList<ErrorEntity>();
+	private List<ErrorEntity> fErrors = new ArrayList<ErrorEntity>();
 	
 	public BiokoException(ErrorEntity error) {
 		super(error.toJSONString());
-		_errors.add(error);
+		fErrors.add(error);
 	}
 	
 	public BiokoException(List<ErrorEntity> errors) {
-		_errors = new ArrayList<ErrorEntity>(errors);
+		fErrors = new ArrayList<ErrorEntity>(errors);
 	}
 	
 	public BiokoException(Exception exception) {
-		super(exception);
-		_exception = exception;
+		super();
+		fException = exception;
 	}
 
 	public BiokoException(ErrorEntity error, Exception exception) {
 		super(exception);
-		_errors.add(error);
-		_exception = exception;
+		fErrors.add(error);
+		fException = exception;
 	}
 	
 	public BiokoException(List<ErrorEntity> errors, Exception exception) {
 		super(exception);
-		_errors = new ArrayList<ErrorEntity>(errors);		
-		_exception = exception;
+		fErrors = new ArrayList<ErrorEntity>(errors);		
+		fException = exception;
 	}
 	
 	public List<ErrorEntity> getErrors() {
-		return _errors;
+		return Collections.unmodifiableList(fErrors);
 	}
 	
 	public Exception exception() {
-		return _exception;
+		return fException;
 	}
 	
+	public Throwable getCause() {
+		return exception();
+	}
 }
