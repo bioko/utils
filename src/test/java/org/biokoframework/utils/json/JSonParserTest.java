@@ -105,9 +105,8 @@ public class JSonParserTest {
 		Fields fieldsFromJson = Fields.fromJson(actualJSon);
 		assertThat(fieldsFromJson.toJSONString(), is(equalTo(someFields.toJSONString())));
 	}
-	
-	// TODO Andrà implementata la creazione dell'ArrayList di DomainEntity da json se serve
-	@Ignore
+
+	@Ignore("Andrà implementata la creazione dell'ArrayList di DomainEntity da json se serve")
 	@Test
 	public void testComplexFieldsFromFieldsToJsonAndBack() throws Exception {
 		JSonBuilder jSonBuilder = new JSonBuilder();
