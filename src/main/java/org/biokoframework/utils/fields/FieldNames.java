@@ -84,5 +84,7 @@ public interface FieldNames {
 
 	public static final String CONTAINER_EXCEPTION_CODE = "190";
 	
+	public static final String UNSUPPORTED_FORMAT_CODE = "130";
+	
 	
 }
