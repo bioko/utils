@@ -41,7 +41,7 @@ import org.biokoframework.utils.repository.query.Query;
  */
 public interface Repository<DE extends DomainEntity> {
 
-	public DE save(DE anEntity) throws ValidationException, RepositoryException;
+	public DE save(DomainEntity anEntity) throws ValidationException, RepositoryException;
 
 	public DE delete(String anEntityKey);
 
@@ -55,7 +55,7 @@ public interface Repository<DE extends DomainEntity> {
 
 	public abstract List<DE> call(DomainEntity aDomainEntity, String aMethod) throws ValidationException, RepositoryException;
 
-	public abstract DE retrieve(DE anEntityT);
+	public abstract DE retrieve(DomainEntity anEntityT);
 
 	public abstract Query<DE> createQuery();
 

@@ -36,7 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.biokoframework.utils.domain.reflection.DummyParameterizedType;
 import org.junit.Test;
 
 import com.google.inject.AbstractModule;
