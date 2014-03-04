@@ -27,35 +27,36 @@
 
 package org.biokoframework.utils.matcher;
 
-import java.io.InputStream;
-
 import org.biokoframework.utils.domain.DomainEntity;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
-public class Matchers {
-	
-	public static final Matcher<String> anyString() {
-		return AnyString.anyString();
-	}
-	
-	public static final Matcher<String> matchesJSONString(String expectedString) {
-		return MatchesJSONString.matchesJSONString(expectedString);
-	}
-	
-	public static Matcher<String> matchesPattern(String pattern) {
-		return MatchesPattern.matchesPattern(pattern);
-	}
-	
-	public static Matcher<String> substringMatchesPattern(String pattern) {
-		return SubstringMatchesPattern.substringMatchesPattern(pattern);
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class ValidEntity<DE extends DomainEntity> extends TypeSafeMatcher<DE> {
+
+	@Override
+	protected void describeMismatchSafely(DE item, Description mismatchDescription) {
+		mismatchDescription.appendText("failed validation " + item.getValidationErrors());
 	}
 
-	public static Matcher<InputStream> equalToStream(InputStream stream) {
-		return EqualToStream.equalToStream(stream);
+	@Override
+	public void describeTo(Description description) {
+		description.appendText("valid");
+	}
+
+	@Override
+	protected boolean matchesSafely(DomainEntity item) {
+		return item.isValid();
 	}
 	
 	public static <DE extends DomainEntity> Matcher<DE> valid() {
-		return ValidEntity.valid();
+		return new ValidEntity<DE>();
 	}
 	
 }
