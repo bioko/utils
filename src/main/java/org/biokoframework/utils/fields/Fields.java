@@ -152,7 +152,6 @@ public class Fields implements Serializable, JSONAware {
 		return extracted;
 	}
 
-	// TODO use #toJSONString()
 	@Override
 	public String toString() {
 		return toJSONString();
