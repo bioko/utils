@@ -27,40 +27,31 @@
 
 package org.biokoframework.utils.matcher;
 
-import java.io.InputStream;
-
-import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.fields.Fields;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
-public class Matchers {
-	
-	public static final Matcher<String> anyString() {
-		return AnyString.anyString();
-	}
-	
-	public static final Matcher<String> matchesJSONString(String expectedString) {
-		return MatchesJSONString.matchesJSONString(expectedString);
-	}
-	
-	public static Matcher<String> matchesPattern(String pattern) {
-		return MatchesPattern.matchesPattern(pattern);
-	}
-	
-	public static Matcher<String> substringMatchesPattern(String pattern) {
-		return SubstringMatchesPattern.substringMatchesPattern(pattern);
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class IsEmpty extends TypeSafeMatcher<Fields> {
+
+	@Override
+	public void describeTo(Description description) {
+		description.appendText("empty");
 	}
 
-	public static Matcher<InputStream> equalToStream(InputStream stream) {
-		return EqualToStream.equalToStream(stream);
+	@Override
+	protected boolean matchesSafely(Fields fields) {
+		return fields.isEmpty();
 	}
 	
 	public static Matcher<Fields> empty() {
-		return IsEmpty.empty();
+		return new IsEmpty();
 	}
-	
-	public static <DE extends DomainEntity> Matcher<DE> valid() {
-		return ValidEntity.valid();
-	}
-	
+
 }
