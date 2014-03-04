@@ -42,8 +42,8 @@ public @interface Field {
 	boolean mandatory() default true;
 	Hint[] hints() default {};	
 	// TODO trasform to @Hints
-	String format() default "";
-	String pattern() default "";
-	String dateFormat() default "";
+	@Deprecated String format() default "";
+	@Deprecated String pattern() default "";
+	@Deprecated String dateFormat() default "";
 	
 }
