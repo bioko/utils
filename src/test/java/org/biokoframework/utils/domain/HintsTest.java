@@ -30,6 +30,7 @@ package org.biokoframework.utils.domain;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.util.AbstractMap;
@@ -55,8 +56,8 @@ public class HintsTest {
 		
 		assertThat(hintsMap.get(AnnotatedPersonExample.SURNAME).entrySet(), is(empty()));
 		assertThat(hintsMap.get(AnnotatedPersonExample.AGE).entrySet(), is(empty()));
-		assertThat(hintsMap.get(AnnotatedPersonExample.EMAIL).entrySet(), is(empty()));
-		assertThat(hintsMap.get(AnnotatedPersonExample.BIRTH_DATE).entrySet(), is(empty()));
+		assertThat(hintsMap.get(AnnotatedPersonExample.EMAIL).entrySet(), is(not(empty())));
+		assertThat(hintsMap.get(AnnotatedPersonExample.BIRTH_DATE).entrySet(), is(not(empty())));
 		
 	}
 	

@@ -25,37 +25,23 @@
  * 
  */
 
-package org.biokoframework.utils.validator.type;
+package org.biokoframework.utils.domain.validation;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.ISODateTimeFormat;
+import java.util.List;
 
-public class DateTimeValidator extends StringBasedTypeValidator {
+import org.biokoframework.utils.domain.DomainEntity;
+import org.biokoframework.utils.domain.ErrorEntity;
 
-	private String _pattern;
-
-	@Override
-	protected boolean isValidString(String value) {
-		if (_pattern == null) {
-			try {
-				ISODateTimeFormat.dateTimeNoMillis().parseDateTime(value);		
-			} catch (Exception exception) {
-				return false;
-			}
-		} else {
-			try {
-				DateTimeFormat.forPattern(_pattern).parseDateTime(value);
-			} catch (Exception exception) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
-
-	@Override
-	public void setPattern(String pattern) {
-		_pattern = pattern;		
-	}
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public interface IEntityValidator {
+	
+	boolean isValid(DomainEntity entity);
+	
+	List<ErrorEntity> getErrors();
 
 }

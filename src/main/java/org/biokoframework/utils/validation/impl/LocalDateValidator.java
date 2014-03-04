@@ -25,21 +25,54 @@
  * 
  */
 
-package org.biokoframework.utils.validator;
+package org.biokoframework.utils.validation.impl;
+
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.biokoframework.utils.domain.annotation.field.Field;
+import org.biokoframework.utils.validation.ValidationErrorBuilder;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
-public class ValidatorRuleFactory {
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class LocalDateValidator extends AbstractValidator<LocalDate> {
 
-	public static ValidatorRule fromAnnotation(String fieldName, Field fieldAnnotation) {		
-		ValidatorRule rule = new ValidatorRule(fieldAnnotation.type(), 
-				fieldAnnotation.mandatory(), fieldAnnotation.pattern(), fieldAnnotation.format());
-		if (!StringUtils.isEmpty(fieldAnnotation.dateFormat()))
-			rule.setDateFormat(fieldAnnotation.dateFormat());
+	public static final String VALIDATION_LOCALDATE_PATTERN = "validationLocaldateFormat";
+	private String fPattern;
+	private DateTimeFormatter fFormatter = ISODateTimeFormat.date();
+
+	@Override
+	protected boolean checkValid(String name, Object value) {
+		if (!(value instanceof String)) {
+			addError(ValidationErrorBuilder.buildWrongTypeError(name));
+			return false;
+		}
+		String string = (String) value;
 		
-		return rule;
-		
+		try {
+			fFormatter.parseDateTime(string);
+		} catch (Exception exception) {
+			addError(ValidationErrorBuilder.buildWrongRegexpError(name));
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	protected void addHints(Map<String, String> hints) {
+		String pattern = hints.get(VALIDATION_LOCALDATE_PATTERN); 
+		if (!StringUtils.isEmpty(pattern)) {
+			fFormatter = DateTimeFormat.forPattern(pattern);
+		}
+
 	}
 
 }

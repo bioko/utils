@@ -25,19 +25,46 @@
  * 
  */
 
-package org.biokoframework.utils.validator.type;
+package org.biokoframework.utils.validation;
 
-import org.biokoframework.utils.validator.TypeValidator;
+import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
+import org.biokoframework.utils.validation.impl.EmailValidator;
+import org.biokoframework.utils.validation.impl.InjectedValidatorBuilder;
+import org.biokoframework.utils.validation.impl.LocalDateValidator;
+import org.biokoframework.utils.validation.impl.LongValidator;
+import org.biokoframework.utils.validation.impl.StringValidator;
+import org.joda.time.LocalDate;
 
-public class DoubleValidator implements TypeValidator {
+import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
+
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class ValidationModule extends AbstractModule {
 
 	@Override
-	public void setPattern(String pattern) {
-	}
+	protected void configure() {
+		bind(new TypeLiteral<ITypeValidator<String>>() {})
+			.to(StringValidator.class);
+		
+		bind(new TypeLiteral<ITypeValidator<Long>>() {})
+			.to(LongValidator.class);
+		
+		bind(new TypeLiteral<ITypeValidator<String>>() {})
+			.annotatedWith(Names.named("email"))
+			.to(EmailValidator.class);
+		
+		bind(new TypeLiteral<ITypeValidator<LocalDate>>() {})
+			.to(LocalDateValidator.class);
+		
+		bind(IEntityValidatorBuilder.class)
+			.to(InjectedValidatorBuilder.class);
 
-	@Override
-	public boolean isValid(Object value) {
-		return value instanceof Double || value instanceof Float;
 	}
 
 }

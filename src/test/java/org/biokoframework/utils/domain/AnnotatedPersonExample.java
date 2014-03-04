@@ -31,7 +31,6 @@ import org.biokoframework.utils.domain.annotation.field.Field;
 import org.biokoframework.utils.domain.annotation.hint.Hint;
 import org.biokoframework.utils.domain.annotation.hint.HintNames;
 import org.biokoframework.utils.fields.Fields;
-import org.biokoframework.utils.validator.Validator;
 import org.joda.time.LocalDate;
 
 
@@ -48,9 +47,13 @@ public class AnnotatedPersonExample extends DomainEntity{
 	public static final String		SURNAME 	= "surname";
 	@Field(mandatory=false, type=Long.class)
 	public static final String		AGE			= "age";
-	@Field(mandatory=false, type=String.class, format=Validator.FORMAT_EMAIL)
+	@Field(mandatory=false, type=String.class, hints = {
+		@Hint(name = "validationSubtype", value = "email")
+	})
 	public static final String		EMAIL		= "email";
-	@Field(mandatory=false, type=LocalDate.class, dateFormat="dd/MM/yyyy")
+	@Field(mandatory = false, type = LocalDate.class, hints = {
+		@Hint(name = "validationLocaldateFormat", value = "dd/MM/yyyy")
+	})
 	public static final String		BIRTH_DATE	= "birthDate";
 
 	

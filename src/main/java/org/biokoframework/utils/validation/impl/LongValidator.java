@@ -25,11 +25,31 @@
  * 
  */
 
-package org.biokoframework.utils.validator;
+package org.biokoframework.utils.validation.impl;
 
-public interface TypeValidator {
+import java.util.Map;
 
-	boolean isValid(Object value);
-	void setPattern(String pattern);
-	
+import org.biokoframework.utils.validation.ValidationErrorBuilder;
+
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class LongValidator extends AbstractValidator<Long> {
+
+	@Override
+	protected boolean checkValid(String name, Object value) {
+		if (!(value instanceof Long)) {
+			addError(ValidationErrorBuilder.buildWrongTypeError(name));
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	protected void addHints(Map<String, String> hints) {
+	}
+
 }

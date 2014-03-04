@@ -25,18 +25,35 @@
  * 
  */
 
-package org.biokoframework.utils.validator.type;
+package org.biokoframework.utils.validation.impl;
 
+import org.biokoframework.utils.validation.ITypeValidator;
+import org.biokoframework.utils.validation.ValidationErrorBuilder;
 
-public class StringValidator extends StringBasedTypeValidator {
+/**
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ */
+public class EmailValidator extends StringValidator implements ITypeValidator<String> {
 
+	private org.apache.commons.validator.routines.EmailValidator fApacheValidator;
+
+	public EmailValidator() {
+		fApacheValidator = org.apache.commons.validator.routines.EmailValidator.getInstance();
+	}
+	
 	@Override
-	public boolean isValidString(String value) {
-		return true;	// always for string
+	public boolean checkValid(String name, Object value) {
+		return super.checkValid(name, value) && invokeEmailValidator(name, value);
 	}
 
-	@Override
-	public void setPattern(String pattern) {
+	private boolean invokeEmailValidator(String name, Object value) {
+		String string = (String) value;
+		if (!fApacheValidator.isValid(string)) {
+			addError(ValidationErrorBuilder.buildFieldFormatNotValidError(name));
+			return false;
+		}
+		return true;
 	}
-
+	
 }

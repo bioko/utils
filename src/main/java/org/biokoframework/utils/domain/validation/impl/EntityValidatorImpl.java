@@ -25,77 +25,51 @@
  * 
  */
 
-package org.biokoframework.utils.validator;
+package org.biokoframework.utils.domain.validation.impl;
 
-public class ValidatorRule {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-	private Class<?> 	_type;
-	private boolean _mandatory;
-	private String 	_pattern;
-	private String 	_format;
-	private String _dateFormat;
-	
+import org.biokoframework.utils.domain.DomainEntity;
+import org.biokoframework.utils.domain.ErrorEntity;
+import org.biokoframework.utils.domain.validation.IEntityValidator;
+import org.biokoframework.utils.validation.ITypeValidator;
 
-	public ValidatorRule(Class<?> type, boolean mandatory, String pattern, String format) {
-		_type = type;
-		_mandatory = mandatory;
-		_pattern = pattern;
-		_format = format;
-	}
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class EntityValidatorImpl implements IEntityValidator {
 
+	private final Map<String, ITypeValidator<?>> fValidationMap;
+	private List<ErrorEntity> fErrors;
 
-	public Class<?> getType() {
-		return _type;
-	}
-
-
-	public void setType(Class<?> type) {
-		_type = type;
-	}
-
-
-	public boolean isMandatory() {
-		return _mandatory;
-	}
-
-
-	public void setMandatory(boolean mandatory) {
-		_mandatory = mandatory;
-	}
-
-
-	public String getPattern() {
-		return _pattern;
-	}
-
-
-	public void setPattern(String pattern) {
-		_pattern = pattern;
-	}
-
-
-	public String getFormat() {
-		return _format;
-	}
-
-
-	public void setFormat(String format) {
-		_format = format;
-	}
-
-
-	public String getDateFormat() {
-		return _dateFormat;
-	}
-
-
-	public void setDateFormat(String dateFormat) {
-		_dateFormat = dateFormat;
+	public EntityValidatorImpl(Map<String, ITypeValidator<?>> validationMap) {
+		fValidationMap = validationMap;
 	}
 	
-	
-	
-	
-	
+	@Override
+	public boolean isValid(DomainEntity entity) {
+		boolean valid = true;
+		fErrors = new ArrayList<>();
+		for (Entry<String, ITypeValidator<?>> entry : fValidationMap.entrySet()) {
+			String fieldName = entry.getKey();
+			ITypeValidator<?> typeValidator = entry.getValue();
+			if (!typeValidator.isValid(fieldName, entity.get(fieldName))) {
+				valid = false;
+				fErrors.addAll(typeValidator.getErrors());
+			}
+		}
+		return valid;
+	}
+
+	@Override
+	public List<ErrorEntity> getErrors() {
+		return fErrors;
+	}
 	
 }

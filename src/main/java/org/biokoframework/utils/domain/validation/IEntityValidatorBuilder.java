@@ -25,20 +25,18 @@
  * 
  */
 
-package org.biokoframework.utils.validator.type;
+package org.biokoframework.utils.domain.validation;
 
-import org.biokoframework.utils.validator.TypeValidator;
+import org.biokoframework.utils.domain.DomainEntity;
 
-public abstract class StringBasedTypeValidator implements TypeValidator {
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public interface IEntityValidatorBuilder {
 
-	@Override
-	public final boolean isValid(Object value) {
-		if (value instanceof String) {
-			return isValidString((String)value);
-		}
-		return false;
-	}
-
-	protected abstract boolean isValidString(String value);
+	IEntityValidator createEntityValidator(Class<? extends DomainEntity> entityClass);
 
 }

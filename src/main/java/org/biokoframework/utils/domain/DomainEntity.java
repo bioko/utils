@@ -31,11 +31,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.biokoframework.utils.domain.annotation.field.ComponingFieldsFactory;
-import org.biokoframework.utils.domain.annotation.field.EntityValidatorRulesFactory;
+import org.biokoframework.utils.domain.validation.IEntityValidator;
+import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
 import org.biokoframework.utils.fields.Fields;
-import org.biokoframework.utils.validator.Validator;
 import org.json.simple.JSONAware;
 
 public abstract class DomainEntity implements Serializable, JSONAware {
@@ -45,41 +47,35 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	// @Field(mandatory = false)
 	public static final String ID = "id";
 	
-	protected Fields _fields = new Fields();
-	private ArrayList<String> _componingFields;
-
-	private Validator _validator;
+	protected Fields fFields = new Fields();
+	private ArrayList<String> fFieldNames;
 	
+	private IEntityValidator fValidator;
+
 	public DomainEntity(Fields input) {		
 		try {
-			_componingFields = ComponingFieldsFactory.create(this.getClass());
+			fFieldNames = ComponingFieldsFactory.create(this.getClass());
 		} catch (Exception e) {
 			System.out.println("WARNING! this should not happening, The problem is in DomainEntity(input) constructor");			
 		} 
-		_fields.putAllFilterdBy(input, _componingFields);
+		fFields.putAllFilterdBy(input, fFieldNames);
 		
 		if (input.containsKey(ID)) {
 			setId(input.get(ID).toString());
 		}
 	}
 	
-	public boolean isValid() {
-		if (_validator == null) {
-			try {
-				_validator = new Validator(EntityValidatorRulesFactory.create(this.getClass()));
-			} catch (Exception exception) {
-				exception.printStackTrace();
-				return false;
-			}
-		}
-		
-		boolean valid = _validator.validate(this);
-		
-		return valid;
+	@Inject
+	public void enableValidation(IEntityValidatorBuilder builder) {
+		fValidator = builder.createEntityValidator(this.getClass());
 	}
 	
+	public boolean isValid() {
+		return fValidator.isValid(this);
+	}
+		
 	public List<ErrorEntity> getValidationErrors() {
-		return _validator.getErrors();
+		return fValidator.getErrors();
 	}
 	
 	@Override
@@ -92,14 +88,14 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 
 		boolean result = false;
 		DomainEntity entity = (DomainEntity)obj;
-		if (_fields.equals(entity._fields)) {
+		if (fFields.equals(entity.fFields)) {
 			result = true;
 		}
 		return result;
 	}
 	
 	public Fields fields() {
-		return _fields;
+		return fFields;
 	}
 	
 	@Override
@@ -108,14 +104,7 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	}
 	
 	public String toJSONString() {
-		String result = null;
-		try {
-			result = _fields.toJSONString();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
+		return fFields.toJSONString();
 	}
 	
 	@Override
@@ -124,16 +113,16 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	}
 
 	public void set(String name, Object value) {
-		_fields.put(name, value);
+		fFields.put(name, value);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <T> T get(String fieldName) {
-		return (T) _fields.get(fieldName);
+		return (T) fFields.get(fieldName);
 	}
 	
 	public void setId(String id) {
-		_fields.put(ID, id);
+		fFields.put(ID, id);
 	}
 	
 	public String getId() {

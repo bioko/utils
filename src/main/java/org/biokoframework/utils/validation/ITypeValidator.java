@@ -25,26 +25,27 @@
  * 
  */
 
-package org.biokoframework.utils.validator;
+package org.biokoframework.utils.validation;
 
-import org.apache.commons.validator.routines.RegexValidator;
+import java.util.List;
 
-public class PatternValidator {
-	
-	RegexValidator _validator;
-	
-	public PatternValidator(String pattern) {
-		_validator = new RegexValidator(pattern);
-	}
+import org.biokoframework.utils.domain.ErrorEntity;
+import org.biokoframework.utils.domain.annotation.hint.Hint;
 
-	public boolean isValid(String value) {
-		return _validator.isValid(value);
-	}
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ * 
+ */
+public interface ITypeValidator<T> {
 	
-	
+	boolean isValid(String name, Object value);
 
-	
-	
-	
+	List<ErrorEntity> getErrors();
+
+	void setMandatory(boolean mandatory);
+
+	void addHints(Hint[] hints);
 
 }

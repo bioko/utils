@@ -25,15 +25,52 @@
  * 
  */
 
-package org.biokoframework.utils.validator.format;
+package org.biokoframework.utils.validation.impl;
 
-import org.biokoframework.utils.validator.FormatValidator;
+import java.util.Map;
+import java.util.regex.Pattern;
 
-public class EmailValidator implements FormatValidator {
+import org.apache.commons.lang3.StringUtils;
+import org.biokoframework.utils.validation.ValidationErrorBuilder;
+
+/**
+ * 
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 4, 2014
+ *
+ */
+public class StringValidator extends AbstractValidator<String> {
+	
+	/**
+	 * Hint that can be used in fields to enforce a regexp match
+	 */
+	public static final String VALIDATION_REGEXP = "validationRegexp";
+	
+	private Pattern fPattern;
 
 	@Override
-	public boolean isValid(String value) {
-		return org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(value);
+	public boolean checkValid(String name, Object value) {
+		if (!(value instanceof String)) {
+			addError(ValidationErrorBuilder.buildWrongTypeError(name));
+			return false;
+		} else if (fPattern == null) {
+			return true;			
+		}
+		
+		if (fPattern.matcher((String) value).matches()) {
+			return true;
+		} else {
+			addError(ValidationErrorBuilder.buildWrongRegexpError(name));
+			return false;
+		}
+	}
+
+	@Override
+	protected void addHints(Map<String, String> hints) {
+		String regexp = hints.get(VALIDATION_REGEXP);
+		if (!StringUtils.isEmpty(regexp)) {
+			fPattern = Pattern.compile(regexp);
+		}
 	}
 
 }
