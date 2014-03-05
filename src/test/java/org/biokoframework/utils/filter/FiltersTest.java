@@ -23,12 +23,20 @@ public class FiltersTest {
         MockFilter<AnnotatedPersonExample> filter = new MockFilter<>();
         
 		ArrayList<AnnotatedPersonExample> entities = new ArrayList<>();
-		entities.add(new AnnotatedPersonExample(new Fields(
-				AnnotatedPersonExample.EMAIL, "dino@bovino.it")));
-		entities.add(new AnnotatedPersonExample(new Fields(
-				AnnotatedPersonExample.EMAIL, "dino@bovino.com")));
-		entities.add(new AnnotatedPersonExample(new Fields(
-				AnnotatedPersonExample.EMAIL, "dino@bovino.eu")));
+		
+		AnnotatedPersonExample entity = new AnnotatedPersonExample();
+		entity.setAll(new Fields(AnnotatedPersonExample.EMAIL, "dino@bovino.it"));
+		entities.add(entity);
+		
+		entity = new AnnotatedPersonExample();
+		entity.setAll(new Fields(AnnotatedPersonExample.EMAIL, "dino@bovino.com"));
+		entities.add(entity);
+		
+		entity = new AnnotatedPersonExample();
+		entity.setAll(new Fields(AnnotatedPersonExample.EMAIL, "dino@bovino.eu"));
+		entities.add(entity);
+		entities.add(new AnnotatedPersonExample());
+		
 		ArrayList<AnnotatedPersonExample> result = FilterBy.applyFilter(entities, filter);
 		
 		assertThat(result, is(equalTo(entities)));

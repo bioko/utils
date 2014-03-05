@@ -28,7 +28,6 @@
 package org.biokoframework.utils.domain;
 
 import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
 
 public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
 
@@ -38,13 +37,5 @@ public class AnnotedEntityWithForeignKeyExample extends DomainEntity {
 	public static final String		VALUE 			= "value";
 	@Field(type=AnnotatedPersonExample.class)
 	public static final String		A_FOREIGN_KEY	= "aForeignKey";
-	
-	public AnnotedEntityWithForeignKeyExample(Fields input) {
-		super(input);
-	}
-	
-	public AnnotedEntityWithForeignKeyExample() {
-		super(new Fields());
-	}
 	
 }

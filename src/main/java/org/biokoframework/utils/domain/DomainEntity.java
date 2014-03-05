@@ -52,17 +52,12 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 	
 	private IEntityValidator fValidator;
 
-	public DomainEntity(Fields input) {		
+	public DomainEntity() {
 		try {
 			fFieldNames = ComponingFieldsFactory.create(this.getClass());
 		} catch (Exception e) {
 			System.out.println("WARNING! this should not happening, The problem is in DomainEntity(input) constructor");			
 		} 
-		fFields.putAllFilterdBy(input, fFieldNames);
-		
-		if (input.containsKey(ID)) {
-			setId(input.get(ID).toString());
-		}
 	}
 	
 	@Inject
@@ -114,6 +109,13 @@ public abstract class DomainEntity implements Serializable, JSONAware {
 
 	public void set(String name, Object value) {
 		fFields.put(name, value);
+	}
+	
+	public void setAll(Fields fields) {
+		fFields.putAllFilterdBy(fields, fFieldNames);
+		if (fields.containsKey(ID)) {
+			setId(fields.get(ID).toString());
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

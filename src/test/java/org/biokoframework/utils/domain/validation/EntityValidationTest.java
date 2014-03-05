@@ -65,7 +65,8 @@ public class EntityValidationTest {
 		fBuilder = injector.getInstance(IEntityValidatorBuilder.class);
 		fValidator = fBuilder.createEntityValidator(AnnotatedPersonExample.class);
 		
-		fEntity = new AnnotatedPersonExample(composeFiels());
+		fEntity = new AnnotatedPersonExample();
+		fEntity.setAll(composeFiels());
 	}
 	
 	@Test

@@ -34,25 +34,31 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
+import com.google.inject.Injector;
+
 public abstract class EntityBuilder<T extends DomainEntity> {
 
-	protected Fields _currentFields = new Fields();
-	private HashMap<String, Fields> _fieldsForExamples = new HashMap<String, Fields>();
+	protected Fields fCurrentFields = new Fields();
+	private HashMap<String, Fields> fFieldsForExamples = new HashMap<String, Fields>();
 	
-	private Class<T> _entityClass;	
-	private JSONObject _currentJsonObject;
-
-	
+	private Class<T> fEntityClass;	
+	private JSONObject fCurrentJsonObject;
+	private Injector fInjector;
 
 	public EntityBuilder(Class<T> entityClass) {
-		_entityClass = entityClass;
+		this(entityClass, null);
 	}
 	
-	public EntityBuilder<T> loadExample(String exampleName) {	
-		_currentFields = _fieldsForExamples.get(exampleName);
-		if (_currentFields == null) {
+	public EntityBuilder(Class<T> entityClass, Injector injector) {
+		fEntityClass = entityClass;
+		fInjector = injector;
+	}
+
+	public EntityBuilder<T> loadExample(String exampleName) {
+		fCurrentFields = fFieldsForExamples.get(exampleName);
+		if (fCurrentFields == null) {
 			System.out.println("[EASY MAN] the example '" + exampleName + "' does not exists");
-			_currentFields = new Fields();
+			fCurrentFields = new Fields();
 		}
 		
 		return this;
@@ -72,24 +78,34 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 	
 	public T build(boolean exists) {
 
-		Fields buildFields = _currentFields.copy();
+		Fields buildFields = fCurrentFields.copy();
 		
 		if (!exists) {
 			buildFields.remove(DomainEntity.ID);
 		}
 		
 		T de = null;
-		try {
-			de = _entityClass.getConstructor(Fields.class).newInstance(buildFields);
-		} catch (Exception e) {
-			System.out.println("[EASY MAN] the constructor with only fields is missing for class " + _entityClass.getSimpleName());
+		if (fInjector != null) {
+			de = fInjector.getInstance(fEntityClass);
+			de.setAll(buildFields);
+		} else {
+			try {
+				de = fEntityClass.getConstructor(Fields.class).newInstance(buildFields);
+			} catch (Exception e) {
+				try {
+					de = fEntityClass.newInstance();
+					de.setAll(buildFields);
+				} catch (Exception exception) {
+					System.out.println("[EASY MAN] the constructor with only fields is missing for class " + fEntityClass.getSimpleName());
+				}
+			}
 		}
 			
 		return de;
 	}
 	
 	public T build(String customID) {
-		_currentFields.put(DomainEntity.ID, customID);
+		fCurrentFields.put(DomainEntity.ID, customID);
 		return build(true);
 	}
 
@@ -116,17 +132,17 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 //			e.printStackTrace();
 //		}
 //		System.out.println("&&&&&&&&&&&");
-		_fieldsForExamples.put(exampleName, exampleFields);
+		fFieldsForExamples.put(exampleName, exampleFields);
 		
 	}
 
 	public EntityBuilder<T> set(String fieldName, Object fieldValue) {		
-		_currentFields.put(fieldName, fieldValue);
+		fCurrentFields.put(fieldName, fieldValue);
 		return this;
 	}
 	
 	public String get(String fieldName) {		
-		return _currentFields.get(fieldName);		
+		return fCurrentFields.get(fieldName);		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -134,57 +150,57 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 		JSONObject json = new JSONObject();
 		
 		for (String aField: fields) {			
-			json.put(aField, _currentFields.get(aField));			
+			json.put(aField, fCurrentFields.get(aField));			
 		}		
 		
 		return json.toJSONString();
 	}
 	
 	public EntityBuilder<T> removeField(String fieldName) {
-		_currentFields.remove(fieldName);
+		fCurrentFields.remove(fieldName);
 		return this;
 	}
 	
 	public EntityBuilder<T> newJson() {
-		_currentJsonObject = new JSONObject();
+		fCurrentJsonObject = new JSONObject();
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public EntityBuilder<T> addFieldToJson(String fieldName) {
-		_currentJsonObject.put(fieldName, _currentFields.get(fieldName));
+		fCurrentJsonObject.put(fieldName, fCurrentFields.get(fieldName));
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public EntityBuilder<T> addAllFieldsToJson() {		
-		for (String fk: _currentFields.keys()) {			
-			_currentJsonObject.put(fk, _currentFields.get(fk));			
+		for (String fk: fCurrentFields.keys()) {			
+			fCurrentJsonObject.put(fk, fCurrentFields.get(fk));			
 		}	
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public EntityBuilder<T> addStringToJson(String fieldName, String fieldValue) {
-		_currentJsonObject.put(fieldName, fieldValue);
+		fCurrentJsonObject.put(fieldName, fieldValue);
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public EntityBuilder<T> addObjectToJson(String fieldName, JSONAware obj) {
-		_currentJsonObject.put(fieldName, obj);
+		fCurrentJsonObject.put(fieldName, obj);
 		return this;
 	}
 	
 	
 	public String getJson() {
-		return _currentJsonObject.toJSONString();
+		return fCurrentJsonObject.toJSONString();
 	}
 	
 	
 
 	public EntityBuilder<T> setId(String id) {
-		_currentFields.put(DomainEntity.ID, id);
+		fCurrentFields.put(DomainEntity.ID, id);
 		return this;
 	}
 

@@ -89,7 +89,8 @@ public class EntityBuilderTest {
 		input.put(AnnotatedPersonExample.AGE, "27");
 		input.put(AnnotatedPersonExample.EMAIL, "email@adress.com");
 		
-		AnnotatedPersonExample de = new AnnotatedPersonExample(input);
+		AnnotatedPersonExample de = new AnnotatedPersonExample();
+		de.setAll(input);
 		return de;
 	}
 		

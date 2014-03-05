@@ -139,7 +139,7 @@ public class FieldsTest {
 
 	private void assertHaveEqualJSONObjects(String expected, String actual) throws ParseException, Exception {
 		JSONParser jsonParser = new JSONParser();
-		assertEquals(jsonParser.parse(expected), jsonParser.parse(actual));
+		assertThat(jsonParser.parse(actual), is(equalTo(jsonParser.parse(expected))));
 	}
 
 	@Test
@@ -156,8 +156,14 @@ public class FieldsTest {
 
 	private List<AnnotatedPersonExample> domainEntityInstanceList() {
 		List<AnnotatedPersonExample> theObject = new ArrayList<AnnotatedPersonExample>();
-		theObject.add(new AnnotatedPersonExample(FieldsMother.twoFields()));
-		theObject.add(new AnnotatedPersonExample(FieldsMother.twoFields()));
+		
+		AnnotatedPersonExample entity = new AnnotatedPersonExample();
+		entity.setAll(FieldsMother.twoFields());
+		theObject.add(entity);
+				
+		entity = new AnnotatedPersonExample();
+		entity.setAll(FieldsMother.twoFields());
+		theObject.add(entity);
 		return theObject;
 	}
 

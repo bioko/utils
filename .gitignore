@@ -12,3 +12,4 @@
 # Idea
 *.iml
 /.idea
+.attach_pid*

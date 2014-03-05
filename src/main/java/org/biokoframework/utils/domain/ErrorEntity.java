@@ -27,10 +27,7 @@
 
 package org.biokoframework.utils.domain;
 
-import java.util.ArrayList;
-
 import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.fields.Fields;
 
 public class ErrorEntity extends DomainEntity {
 
@@ -44,14 +41,5 @@ public class ErrorEntity extends DomainEntity {
 	public static final String ERROR_FIELD = "errorField";
 	@Field(mandatory=false)
 	public static final String ERROR_DESCRIPTION = "errorDescription";
-	
-	public ErrorEntity(Fields input) {
-		//super(input, componingKeys());
-		super(input);
-	}
-	
-	public ErrorEntity(Fields input, ArrayList<String> componingFieldKeys) {
-		super(input);
-	}
 	
 }

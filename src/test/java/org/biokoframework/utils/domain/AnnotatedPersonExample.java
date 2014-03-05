@@ -30,7 +30,6 @@ package org.biokoframework.utils.domain;
 import org.biokoframework.utils.domain.annotation.field.Field;
 import org.biokoframework.utils.domain.annotation.hint.Hint;
 import org.biokoframework.utils.domain.annotation.hint.HintNames;
-import org.biokoframework.utils.fields.Fields;
 import org.joda.time.LocalDate;
 
 
@@ -55,14 +54,5 @@ public class AnnotatedPersonExample extends DomainEntity{
 		@Hint(name = "validationLocaldateFormat", value = "dd/MM/yyyy")
 	})
 	public static final String		BIRTH_DATE	= "birthDate";
-
-	
-	public AnnotatedPersonExample(Fields input) {
-		super(input);
-	}
-	
-	public AnnotatedPersonExample() {
-		super(new Fields());
-	}
 	
 }

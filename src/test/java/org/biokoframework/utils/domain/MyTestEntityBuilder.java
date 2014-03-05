@@ -48,12 +48,4 @@ public class MyTestEntityBuilder extends EntityBuilder<AnnotatedPersonExample> {
 		return loadExample(EXAMPLE1);
 	}
 
-
-	
-
-
-	
-	
-	
-
 }

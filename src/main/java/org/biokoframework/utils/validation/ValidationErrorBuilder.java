@@ -59,7 +59,8 @@ public class ValidationErrorBuilder {
 		input.put(ErrorEntity.ERROR_FIELD, fieldName);
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
 		input.put(ErrorEntity.ERROR_MESSAGE, errorMsg);
-		ErrorEntity e = new ErrorEntity(input);
+		ErrorEntity e = new ErrorEntity();
+		e.setAll(input);
 
 		return e;
 	}
@@ -69,8 +70,8 @@ public class ValidationErrorBuilder {
 		Fields input = new Fields();
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
 		input.put(ErrorEntity.ERROR_MESSAGE, errorMsg);
-		ErrorEntity e = new ErrorEntity(input);
-
+		ErrorEntity e = new ErrorEntity();
+		e.setAll(input);
 		return e;
 	}
 

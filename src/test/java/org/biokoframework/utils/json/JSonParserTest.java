@@ -112,8 +112,13 @@ public class JSonParserTest {
 		JSonBuilder jSonBuilder = new JSonBuilder();
 		
 		ArrayList<AnnotatedPersonExample> domainEntityArray = new ArrayList<AnnotatedPersonExample>();
-		AnnotatedPersonExample mattoEntity = new AnnotatedPersonExample(FieldsMother.twoFields());
-		AnnotatedPersonExample paoloEntity = new AnnotatedPersonExample(FieldsMother.twoFields());
+		
+		AnnotatedPersonExample mattoEntity = new AnnotatedPersonExample();
+		mattoEntity.setAll(FieldsMother.twoFields());
+		
+		AnnotatedPersonExample paoloEntity = new AnnotatedPersonExample();
+		paoloEntity.setAll(FieldsMother.twoFields());
+		
 		domainEntityArray.add(mattoEntity);
 		domainEntityArray.add(paoloEntity);
 		

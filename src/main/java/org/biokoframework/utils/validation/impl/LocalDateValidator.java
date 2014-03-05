@@ -45,7 +45,6 @@ import org.joda.time.format.ISODateTimeFormat;
 public class LocalDateValidator extends AbstractValidator<LocalDate> {
 
 	public static final String VALIDATION_LOCALDATE_PATTERN = "validationLocaldateFormat";
-	private String fPattern;
 	private DateTimeFormatter fFormatter = ISODateTimeFormat.date();
 
 	@Override
@@ -57,9 +56,9 @@ public class LocalDateValidator extends AbstractValidator<LocalDate> {
 		String string = (String) value;
 		
 		try {
-			fFormatter.parseDateTime(string);
+			fFormatter.parseLocalDate(string);
 		} catch (Exception exception) {
-			addError(ValidationErrorBuilder.buildWrongRegexpError(name));
+			addError(ValidationErrorBuilder.buildWrongTypeError(name));
 			return false;
 		}
 

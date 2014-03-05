@@ -59,12 +59,11 @@ public class InjectedValidatorBuilder implements IEntityValidatorBuilder {
 	 * If this hint is present in the field the {@link InjectedValidatorBuilder}
 	 * will look for a {@link org.biokoframework.utils.validation.ITypeValidator}
 	 * annotated with <code>{@link javax.inject.Named}</code> having the same value.
-	 * E.g.
+	 * E.g.<br>
 	 * <code>
-	 * @Field(hints={
-	 * 		@Hint(name="validationSubtype", value = "email")
-	 * })
-	 * </code>
+	 * {@literal @}Field(hints={
+	 * 		{@literal @}Hint(name="validationSubtype", value = "email")
+	 * })</code><br>
 	 * will be checked using with a validator <code>@Named("email")</code>
 	 * 
 	 */

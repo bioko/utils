@@ -27,7 +27,9 @@
 
 package org.biokoframework.utils.json;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 
@@ -36,18 +38,21 @@ import org.biokoframework.utils.fields.FieldNames;
 import org.biokoframework.utils.fields.Fields;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.junit.Before;
 import org.junit.Test;
-
-
-//import static org.hamcrest.Matchers.*;
 
 public class FieldsToJsonTest {
 
+	@Before
+	public void dummyBefore() {
+		
+	}
+	
 	@Test
 	public void emptyFieldsToJson() throws Exception {
 		Fields empty = new Fields();
 		JSONObject object = new JSONObject();
-		assertEquals(empty.toJSONString(), object.toJSONString());
+		assertThat(object.toJSONString(), is(equalTo(empty.toJSONString())));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,15 +62,19 @@ public class FieldsToJsonTest {
 		JSONObject object = new JSONObject();
 		object.put(FieldNames.NAME, FieldNames.NAME_VALUE);
 		object.put(FieldNames.SURNAME, FieldNames.SURNAME_VALUE);
-		assertEquals(fields.toJSONString(), object.toJSONString());
+		assertThat(object.toJSONString(), is(equalTo(fields.toJSONString())));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void arrayOfDomainAntityFieldsToJson() throws Exception {
 		ArrayList<AnnotatedPersonExample> domainEntityArray = new ArrayList<AnnotatedPersonExample>();
-		AnnotatedPersonExample mattoEntity = new AnnotatedPersonExample(FieldsMother.twoFields());
-		AnnotatedPersonExample paoloEntity = new AnnotatedPersonExample(FieldsMother.twoFields());
+		AnnotatedPersonExample mattoEntity = new AnnotatedPersonExample();
+		mattoEntity.setAll(FieldsMother.twoFields());
+		
+		AnnotatedPersonExample paoloEntity = new AnnotatedPersonExample();
+		paoloEntity.setAll(FieldsMother.twoFields());
+		
 		domainEntityArray.add(mattoEntity);
 		domainEntityArray.add(paoloEntity);
 
@@ -75,15 +84,18 @@ public class FieldsToJsonTest {
 		jsonObject.put(aKey, domainEntityArray);
 		String jsonString = JSONValue.toJSONString(jsonObject);
 
-		assertEquals(fields.toJSONString(), jsonString);
+		assertThat(jsonString, is(equalTo(fields.toJSONString())));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void fieldsAndarrayOfDomainAntityToJson() throws Exception {
 		ArrayList<AnnotatedPersonExample> domainEntityArray = new ArrayList<AnnotatedPersonExample>();
-		AnnotatedPersonExample mattoEntity = new AnnotatedPersonExample(FieldsMother.twoFields());
-		AnnotatedPersonExample paoloEntity = new AnnotatedPersonExample(FieldsMother.twoFields());
+		AnnotatedPersonExample mattoEntity = new AnnotatedPersonExample();
+		mattoEntity.setAll(FieldsMother.twoFields());
+		
+		AnnotatedPersonExample paoloEntity = new AnnotatedPersonExample();
+		paoloEntity.setAll(FieldsMother.twoFields());
 		domainEntityArray.add(mattoEntity);
 		domainEntityArray.add(paoloEntity);
 
@@ -97,6 +109,6 @@ public class FieldsToJsonTest {
 		jsonObject.put(aKey, domainEntityArray);
 		String jsonString = JSONValue.toJSONString(jsonObject);
 
-		assertEquals(fields.toJSONString(), jsonString);
+		assertThat(jsonString, is(equalTo(fields.toJSONString())));
 	}
 }
