@@ -28,11 +28,13 @@
 package org.biokoframework.utils.validation;
 
 import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
+import org.biokoframework.utils.validation.impl.DateTimeValidator;
 import org.biokoframework.utils.validation.impl.EmailValidator;
 import org.biokoframework.utils.validation.impl.InjectedValidatorBuilder;
 import org.biokoframework.utils.validation.impl.LocalDateValidator;
 import org.biokoframework.utils.validation.impl.LongValidator;
 import org.biokoframework.utils.validation.impl.StringValidator;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import com.google.inject.AbstractModule;
@@ -61,6 +63,9 @@ public class ValidationModule extends AbstractModule {
 		
 		bind(new TypeLiteral<ITypeValidator<LocalDate>>() {})
 			.to(LocalDateValidator.class);
+		
+		bind(new TypeLiteral<ITypeValidator<DateTime>>() {})
+			.to(DateTimeValidator.class);
 		
 		bind(IEntityValidatorBuilder.class)
 			.to(InjectedValidatorBuilder.class);

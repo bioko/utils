@@ -48,7 +48,7 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 	public EntityBuilder(Class<T> entityClass) {
 		this(entityClass, null);
 	}
-	
+
 	public EntityBuilder(Class<T> entityClass, Injector injector) {
 		fEntityClass = entityClass;
 		fInjector = injector;

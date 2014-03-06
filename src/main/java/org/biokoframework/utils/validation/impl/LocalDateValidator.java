@@ -71,7 +71,6 @@ public class LocalDateValidator extends AbstractValidator<LocalDate> {
 		if (!StringUtils.isEmpty(pattern)) {
 			fFormatter = DateTimeFormat.forPattern(pattern);
 		}
-
 	}
 
 }

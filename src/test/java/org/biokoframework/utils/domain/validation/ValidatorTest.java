@@ -202,6 +202,19 @@ public class ValidatorTest {
 		IEntityValidator validator = fBuilder.createEntityValidator(NonValidableEntity.class);	
 	}
 	
+	@Test
+	public void foreignKeyTest() {
+		IEntityValidator validator = fBuilder.createEntityValidator(ForeignKeyEntity.class);
+		
+		ForeignKeyEntity entity = new ForeignKeyEntity();
+		
+		entity.setAll(new Fields(ForeignKeyEntity.A_FOREIGN_KEY, "12483afjg"));
+		assertThat(validator.isValid(entity), is(true));
+		
+		entity.set(ForeignKeyEntity.A_FOREIGN_KEY, 12);
+		assertThat(validator.isValid(entity), is(false));
+	}
+	
 	public static final class ValidatedEntity extends DomainEntity {
 
 		private static final long serialVersionUID = 6587026300710308613L;
@@ -232,6 +245,15 @@ public class ValidatorTest {
 		
 		@Field(type = ArrayList.class)
 		public static final String STRANGE_TYPE_FIELD = "strangeTypeField";
+		
+	}
+	
+	public static final class ForeignKeyEntity extends DomainEntity {
+
+		private static final long serialVersionUID = 2376440154237269911L;
+		
+		@Field(type = ValidatedEntity.class)
+		public static final String A_FOREIGN_KEY = "aForeignKey";
 		
 	}
 

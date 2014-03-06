@@ -116,7 +116,9 @@ public class InjectedValidatorBuilder implements IEntityValidatorBuilder {
 			}
 		}
 		ITypeValidator<?> validator;
-		if (subtype.isEmpty()) {
+		if (DomainEntity.class.isAssignableFrom(value.type())) {
+			validator = (ITypeValidator<?>) fInjector.getInstance(Key.get(new DummyParameterizedType(ITypeValidator.class, String.class)));
+		} else if (subtype.isEmpty()) {
 			validator = (ITypeValidator<?>) fInjector.getInstance(Key.get(new DummyParameterizedType(ITypeValidator.class, value.type())));			
 		} else { 
 			validator = (ITypeValidator<?>) fInjector.getInstance(Key.get(new DummyParameterizedType(ITypeValidator.class, value.type()), Names.named(subtype)));

@@ -38,16 +38,10 @@ import org.biokoframework.utils.fields.FieldNames;
 import org.biokoframework.utils.fields.Fields;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.junit.Before;
 import org.junit.Test;
 
 public class FieldsToJsonTest {
 
-	@Before
-	public void dummyBefore() {
-		
-	}
-	
 	@Test
 	public void emptyFieldsToJson() throws Exception {
 		Fields empty = new Fields();
