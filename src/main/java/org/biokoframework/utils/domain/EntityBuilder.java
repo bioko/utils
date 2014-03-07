@@ -90,13 +90,14 @@ public abstract class EntityBuilder<T extends DomainEntity> {
 			de.setAll(buildFields);
 		} else {
 			try {
-				de = fEntityClass.getConstructor(Fields.class).newInstance(buildFields);
+				de = fEntityClass.newInstance();
+				de.setAll(buildFields);
 			} catch (Exception e) {
 				try {
 					de = fEntityClass.newInstance();
 					de.setAll(buildFields);
 				} catch (Exception exception) {
-					System.out.println("[EASY MAN] the constructor with only fields is missing for class " + fEntityClass.getSimpleName());
+					System.out.println("[EASY MAN] the empty constructor for class " + fEntityClass.getSimpleName());
 				}
 			}
 		}
