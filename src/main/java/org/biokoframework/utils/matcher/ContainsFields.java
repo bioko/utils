@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014																 
+ * Copyright (c) 2014
  *	Mikol Faro			<mikol.faro@gmail.com>
  *	Simone Mangano		<simone.mangano@ieee.org>
  *	Mattia Tortorelli	<mattia.tortorelli@gmail.com>
@@ -22,50 +22,43 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package org.biokoframework.utils.matcher;
 
-import java.io.InputStream;
-import java.util.Arrays;
-
-import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.fields.Fields;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
-public class Matchers {
-	
-	public static final Matcher<String> anyString() {
-		return AnyString.anyString();
-	}
-	
-	public static final Matcher<String> matchesJSONString(String expectedString) {
-		return MatchesJSONString.matchesJSONString(expectedString);
-	}
-	
-	public static Matcher<String> matchesPattern(String pattern) {
-		return MatchesPattern.matchesPattern(pattern);
-	}
-	
-	public static Matcher<String> substringMatchesPattern(String pattern) {
-		return SubstringMatchesPattern.substringMatchesPattern(pattern);
-	}
+/**
+ *
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date Mar 6, 2014
+ *
+ */
+public class ContainsFields extends TypeSafeMatcher<Fields> {
 
-	public static Matcher<InputStream> equalToStream(InputStream stream) {
-		return EqualToStream.equalToStream(stream);
-	}
-	
-	public static Matcher<Fields> empty() {
-		return IsEmpty.empty();
-	}
-	
-	public static <DE extends DomainEntity> Matcher<DE> valid() {
-		return ValidEntity.valid();
-	}
+    private final String fName;
+    private final Object fValue;
 
-    public static Matcher<Fields> contains(String name, Object value) {
-        return ContainsFields.contains(name, value);
+    public ContainsFields(String name, Object value) {
+        fName = name;
+        fValue = value;
     }
 
+    @Override
+    protected boolean matchesSafely(Fields item) {
+        return item.containsKey(fName) && item.get(fName).equals(fValue);
+    }
+
+    @Override
+    public void describeTo(Description description) {
+        description.appendText(fName).appendValue(fValue);
+    }
+
+    public static Matcher<Fields> contains(String name, Object value) {
+        return new ContainsFields(name, value);
+    }
 }
