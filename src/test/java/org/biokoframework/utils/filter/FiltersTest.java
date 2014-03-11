@@ -44,7 +44,7 @@ public class FiltersTest {
         
     }
     
-    @Ignore("don't what is the correct soluion")
+    @Ignore("don't know what is the correct solution")
     @Test
     public void filterByExceptionHandling() {
     	FilterBy.applyFilter(new ArrayList<AnnotatedPersonExample>(), new Filter<AnnotatedPersonExample>(){
