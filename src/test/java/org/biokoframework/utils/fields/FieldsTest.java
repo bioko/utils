@@ -206,12 +206,14 @@ public class FieldsTest {
 		Fields fields = new Fields(
 				"dino", "bovino", 
 				"number", 22, 
-				"list", list);
+				"list", list,
+                "anOtherField", "anOtherString");
 
-		assertThat(fields.keys(), contains("dino", "number", "list"));
+		assertThat(fields.keys(), contains("dino", "number", "list", "anOtherField"));
 		assertThat((String) fields.get("dino"), is(equalTo("bovino")));
 		assertThat((Integer) fields.get("number"), is(equalTo(22)));
 		assertThat((List<Integer>) fields.get("list"), is(equalTo(list)));
+        assertThat((String) fields.get("anOtherField"), is(equalTo("anOtherString")));
 	}
 
 	@Rule

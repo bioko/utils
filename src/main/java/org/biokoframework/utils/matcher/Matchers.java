@@ -31,8 +31,12 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import org.biokoframework.utils.domain.DomainEntity;
+import org.biokoframework.utils.domain.ErrorEntity;
+import org.biokoframework.utils.exception.BiokoException;
 import org.biokoframework.utils.fields.Fields;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 public class Matchers {
 	
@@ -66,6 +70,10 @@ public class Matchers {
 
     public static Matcher<Fields> contains(String name, Object value) {
         return ContainsFields.contains(name, value);
+    }
+
+    public static Matcher<?> error(ErrorEntity error) {
+        return ContainsSameError.error(error);
     }
 
 }
