@@ -1,11 +1,11 @@
 package org.biokoframework.utils.domain.annotation.field;
 
+import org.biokoframework.utils.domain.DomainEntity;
+
 import java.lang.reflect.Field;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Map.Entry;
-
-import org.biokoframework.utils.domain.DomainEntity;
 
 /*
  * Copyright (c) 2014																 

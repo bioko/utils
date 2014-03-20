@@ -27,13 +27,13 @@
 
 package org.biokoframework.utils.matcher;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class EqualToStream extends TypeSafeMatcher<InputStream> {
 

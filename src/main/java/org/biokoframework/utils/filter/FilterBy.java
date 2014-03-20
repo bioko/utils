@@ -27,10 +27,10 @@
 
 package org.biokoframework.utils.filter;
 
+import org.biokoframework.utils.domain.DomainEntity;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.biokoframework.utils.domain.DomainEntity;
 
 
 public class FilterBy {

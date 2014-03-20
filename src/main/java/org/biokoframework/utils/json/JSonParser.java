@@ -1,12 +1,11 @@
 package org.biokoframework.utils.json;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.json.simple.JSONValue;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import org.json.simple.JSONValue;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /*
  * Copyright (c) 2014																 

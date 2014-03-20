@@ -27,10 +27,10 @@
 
 package org.biokoframework.utils.domain.annotation.field;
 
+import org.biokoframework.utils.domain.DomainEntity;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-
-import org.biokoframework.utils.domain.DomainEntity;
 
 public class MandatoryFieldsFactory {
 

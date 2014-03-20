@@ -27,12 +27,12 @@
 
 package org.biokoframework.utils.json;
 
+import org.biokoframework.utils.fields.FieldNames;
+import org.biokoframework.utils.fields.Fields;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.biokoframework.utils.fields.FieldNames;
-import org.biokoframework.utils.fields.Fields;
 
 public class FieldsMother {
 

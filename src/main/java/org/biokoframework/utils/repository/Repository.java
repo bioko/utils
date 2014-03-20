@@ -27,12 +27,12 @@
 
 package org.biokoframework.utils.repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.exception.ValidationException;
 import org.biokoframework.utils.repository.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mikol Faro <mikol.faro@gmail.com>

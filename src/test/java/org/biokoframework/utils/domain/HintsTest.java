@@ -27,19 +27,16 @@
 
 package org.biokoframework.utils.domain;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-
-import java.util.AbstractMap;
-import java.util.Map;
-
 import org.biokoframework.utils.domain.annotation.field.ComponingFieldsFactory;
 import org.biokoframework.utils.domain.annotation.hint.HintFactory;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+
+import java.util.AbstractMap;
+import java.util.Map;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 public class HintsTest {
 

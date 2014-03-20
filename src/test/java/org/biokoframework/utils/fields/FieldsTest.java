@@ -27,16 +27,6 @@
 
 package org.biokoframework.utils.fields;
 
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.json.FieldsMother;
 import org.json.simple.parser.JSONParser;
@@ -44,6 +34,14 @@ import org.json.simple.parser.ParseException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class FieldsTest {
 

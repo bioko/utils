@@ -27,17 +27,17 @@
 
 package org.biokoframework.utils.fields;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.biokoframework.utils.json.JSonBuilder;
 import org.biokoframework.utils.json.JSonParser;
 import org.json.simple.JSONAware;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Fields implements Serializable, JSONAware {
 

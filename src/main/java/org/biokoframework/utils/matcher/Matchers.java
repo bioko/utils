@@ -27,16 +27,12 @@
 
 package org.biokoframework.utils.matcher;
 
-import java.io.InputStream;
-import java.util.Arrays;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
-import org.biokoframework.utils.exception.BiokoException;
 import org.biokoframework.utils.fields.Fields;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+
+import java.io.InputStream;
 
 public class Matchers {
 	

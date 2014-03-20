@@ -27,23 +27,17 @@
 
 package org.biokoframework.utils.domain.reflection;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import com.google.inject.*;
+import org.junit.Test;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * 

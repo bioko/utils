@@ -27,11 +27,11 @@
 
 package org.biokoframework.utils.validation.impl;
 
-import java.util.Map;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang3.StringUtils;
 import org.biokoframework.utils.validation.ValidationErrorBuilder;
+
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * 

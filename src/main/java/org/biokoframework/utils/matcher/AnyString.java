@@ -27,11 +27,11 @@
 
 package org.biokoframework.utils.matcher;
 
-import static org.hamcrest.Matchers.anything;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+
+import static org.hamcrest.Matchers.anything;
 
 public class AnyString extends TypeSafeMatcher<String> {
 

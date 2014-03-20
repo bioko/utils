@@ -27,10 +27,10 @@
 
 package org.biokoframework.utils.repository.query;
 
-import java.util.ArrayList;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.repository.Repository;
+
+import java.util.ArrayList;
 
 public interface Query<DE extends DomainEntity> {
 	

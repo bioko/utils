@@ -27,11 +27,11 @@
 
 package org.biokoframework.utils.domain;
 
-import static org.biokoframework.utils.matcher.Matchers.matchesJSONString;
-import static org.junit.Assert.assertThat;
-
 import org.biokoframework.utils.fields.Fields;
 import org.junit.Test;
+
+import static org.biokoframework.utils.matcher.Matchers.matchesJSONString;
+import static org.junit.Assert.assertThat;
 
 
 public class EntityBuilderTest {

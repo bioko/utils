@@ -27,20 +27,19 @@
 
 package org.biokoframework.utils.domain.validation;
 
-import static org.biokoframework.utils.matcher.Matchers.empty;
-import static org.biokoframework.utils.matcher.Matchers.valid;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.fields.Fields;
 import org.biokoframework.utils.validation.ValidationModule;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import static org.biokoframework.utils.matcher.Matchers.empty;
+import static org.biokoframework.utils.matcher.Matchers.valid;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class EntityValidationTest {
 

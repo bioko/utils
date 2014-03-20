@@ -27,12 +27,9 @@
 
 package org.biokoframework.utils.validation.impl;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.inject.Inject;
-
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.name.Names;
 import org.apache.log4j.Logger;
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.annotation.field.Field;
@@ -43,9 +40,10 @@ import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
 import org.biokoframework.utils.domain.validation.impl.EntityValidatorImpl;
 import org.biokoframework.utils.validation.ITypeValidator;
 
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.name.Names;
+import javax.inject.Inject;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * 

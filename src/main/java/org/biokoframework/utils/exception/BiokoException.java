@@ -27,11 +27,11 @@
 
 package org.biokoframework.utils.exception;
 
+import org.biokoframework.utils.domain.ErrorEntity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.biokoframework.utils.domain.ErrorEntity;
 
 /**
  * @author Mikol Faro <mikol.faro@gmail.com>

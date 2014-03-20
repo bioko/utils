@@ -27,11 +27,11 @@
 
 package org.biokoframework.utils.domain.annotation.field;
 
+import org.biokoframework.utils.domain.DomainEntity;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-
-import org.biokoframework.utils.domain.DomainEntity;
 
 public class ComponingFieldsFactory {
 

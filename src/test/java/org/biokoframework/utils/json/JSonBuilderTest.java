@@ -27,13 +27,13 @@
 
 package org.biokoframework.utils.json;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.fields.Fields;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class JSonBuilderTest {

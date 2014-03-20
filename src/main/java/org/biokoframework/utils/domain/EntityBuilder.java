@@ -27,14 +27,13 @@
 
 package org.biokoframework.utils.domain;
 
-import java.util.HashMap;
-
+import com.google.inject.Injector;
 import org.biokoframework.utils.fields.Fields;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
-import com.google.inject.Injector;
+import java.util.HashMap;
 
 public abstract class EntityBuilder<T extends DomainEntity> {
 

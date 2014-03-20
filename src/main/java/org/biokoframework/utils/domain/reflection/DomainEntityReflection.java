@@ -27,10 +27,10 @@
 
 package org.biokoframework.utils.domain.reflection;
 
-import java.lang.reflect.Method;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.fields.Fields;
+
+import java.lang.reflect.Method;
 
 public class DomainEntityReflection {
 

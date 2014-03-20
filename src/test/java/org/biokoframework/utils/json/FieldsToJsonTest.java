@@ -27,18 +27,18 @@
 
 package org.biokoframework.utils.json;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.fields.FieldNames;
 import org.biokoframework.utils.fields.Fields;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class FieldsToJsonTest {
 

@@ -27,14 +27,9 @@
 
 package org.biokoframework.utils.domain.validation;
 
-import static org.biokoframework.utils.matcher.Matchers.valid;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.inject.ConfigurationException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.domain.annotation.field.Field;
@@ -49,9 +44,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.google.inject.ConfigurationException;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.biokoframework.utils.matcher.Matchers.valid;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * 

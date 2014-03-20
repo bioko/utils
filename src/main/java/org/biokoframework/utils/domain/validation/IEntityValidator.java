@@ -27,10 +27,10 @@
 
 package org.biokoframework.utils.domain.validation;
 
-import java.util.List;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
+
+import java.util.List;
 
 /**
  * 

@@ -27,9 +27,9 @@
 
 package org.biokoframework.utils.exception;
 
-import java.util.List;
-
 import org.biokoframework.utils.domain.ErrorEntity;
+
+import java.util.List;
 
 public class ValidationException extends BiokoException {
 

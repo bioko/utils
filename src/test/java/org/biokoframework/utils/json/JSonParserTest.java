@@ -27,19 +27,19 @@
 
 package org.biokoframework.utils.json;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-
 import org.biokoframework.utils.domain.AnnotatedPersonExample;
 import org.biokoframework.utils.fields.FieldNames;
 import org.biokoframework.utils.fields.Fields;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 
 public class JSonParserTest {

@@ -27,15 +27,15 @@
 
 package org.biokoframework.utils.domain.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.domain.validation.IEntityValidator;
 import org.biokoframework.utils.validation.ITypeValidator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * 

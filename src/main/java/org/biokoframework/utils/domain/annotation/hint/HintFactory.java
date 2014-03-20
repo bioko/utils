@@ -27,11 +27,11 @@
 
 package org.biokoframework.utils.domain.annotation.hint;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.annotation.field.Field;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class HintFactory {
 

@@ -27,9 +27,9 @@
 
 package org.biokoframework.utils.validation.impl;
 
-import java.util.Map;
-
 import org.biokoframework.utils.validation.ValidationErrorBuilder;
+
+import java.util.Map;
 
 /**
  * 
