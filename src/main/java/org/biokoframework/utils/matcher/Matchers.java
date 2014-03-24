@@ -30,7 +30,9 @@ package org.biokoframework.utils.matcher;
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.fields.Fields;
+import org.biokoframework.utils.matcher.datetime.DateTimeAfter;
 import org.hamcrest.Matcher;
+import org.joda.time.DateTime;
 
 import java.io.InputStream;
 
@@ -70,6 +72,11 @@ public class Matchers {
 
     public static Matcher<?> error(ErrorEntity error) {
         return ContainsSameError.error(error);
+    }
+
+
+    public static Matcher<DateTime> after(DateTime expected) {
+        return DateTimeAfter.after(expected);
     }
 
 }
