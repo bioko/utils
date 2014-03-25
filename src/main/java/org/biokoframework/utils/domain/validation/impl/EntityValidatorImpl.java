@@ -29,6 +29,7 @@ package org.biokoframework.utils.domain.validation.impl;
 
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
+import org.biokoframework.utils.domain.validation.IAdditionalValidator;
 import org.biokoframework.utils.domain.validation.IEntityValidator;
 import org.biokoframework.utils.validation.ITypeValidator;
 
@@ -45,18 +46,20 @@ import java.util.Map.Entry;
  */
 public class EntityValidatorImpl implements IEntityValidator {
 
-	private final Map<String, ITypeValidator<?>> fValidationMap;
-	private List<ErrorEntity> fErrors;
+	private final Map<String, ITypeValidator<?>> fTypeValidators;
+    private final List<IAdditionalValidator> fExtraValidators;
+    private List<ErrorEntity> fErrors;
 
-	public EntityValidatorImpl(Map<String, ITypeValidator<?>> validationMap) {
-		fValidationMap = validationMap;
-	}
-	
-	@Override
+    public EntityValidatorImpl(Map<String, ITypeValidator<?>> typeValidators, List<IAdditionalValidator> extraValidators) {
+        fTypeValidators = typeValidators;
+        fExtraValidators = extraValidators;
+    }
+
+    @Override
 	public boolean isValid(DomainEntity entity) {
 		boolean valid = true;
 		fErrors = new ArrayList<>();
-		for (Entry<String, ITypeValidator<?>> entry : fValidationMap.entrySet()) {
+		for (Entry<String, ITypeValidator<?>> entry : fTypeValidators.entrySet()) {
 			String fieldName = entry.getKey();
 			ITypeValidator<?> typeValidator = entry.getValue();
 			if (!typeValidator.isValid(fieldName, entity.get(fieldName))) {
@@ -64,6 +67,14 @@ public class EntityValidatorImpl implements IEntityValidator {
 				fErrors.addAll(typeValidator.getErrors());
 			}
 		}
+
+        for (IAdditionalValidator anExtraValidator : fExtraValidators) {
+            if(!anExtraValidator.isValid(entity)) {
+                valid = false;
+                fErrors.add(anExtraValidator.getError());
+            }
+        }
+
 		return valid;
 	}
 

@@ -35,14 +35,15 @@ import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.annotation.field.Field;
 import org.biokoframework.utils.domain.annotation.hint.Hint;
 import org.biokoframework.utils.domain.reflection.DummyParameterizedType;
+import org.biokoframework.utils.domain.validation.IAdditionalValidator;
 import org.biokoframework.utils.domain.validation.IEntityValidator;
 import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
+import org.biokoframework.utils.domain.validation.Validate;
 import org.biokoframework.utils.domain.validation.impl.EntityValidatorImpl;
 import org.biokoframework.utils.validation.ITypeValidator;
 
 import javax.inject.Inject;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
@@ -56,13 +57,13 @@ public class InjectedValidatorBuilder implements IEntityValidatorBuilder {
 	/**
 	 * If this hint is present in the field the {@link InjectedValidatorBuilder}
 	 * will look for a {@link org.biokoframework.utils.validation.ITypeValidator}
-	 * annotated with <code>{@link javax.inject.Named}</code> having the same value.
+	 * annotated alsoWith <code>{@link javax.inject.Named}</code> having the same value.
 	 * E.g.<br>
 	 * <code>
 	 * {@literal @}Field(hints={
 	 * 		{@literal @}Hint(name="validationSubtype", value = "email")
 	 * })</code><br>
-	 * will be checked using with a validator <code>@Named("email")</code>
+	 * will be checked using alsoWith a validator <code>@Named("email")</code>
 	 * 
 	 */
 	public static final String VALIDATION_SUBTYPE = "validationSubtype";
@@ -87,15 +88,20 @@ public class InjectedValidatorBuilder implements IEntityValidatorBuilder {
 			return null;
 		}
 		
-		Map<String, ITypeValidator<?>> validators = new LinkedHashMap<>();
+		Map<String, ITypeValidator<?>> typeValidators = new LinkedHashMap<>();
 		for (Entry<String, Field> entry : fields.entrySet()) {
-			validators.put(entry.getKey(), createTypeValidator(entry.getValue()));
+			typeValidators.put(entry.getKey(), createTypeValidator(entry.getValue()));
 		}
+
+        List<IAdditionalValidator> extraValidators = new ArrayList<IAdditionalValidator>();
+        for (Class<? extends IAdditionalValidator> aClassValidator : findExtraValidators(entityClass)) {
+            extraValidators.add(fInjector.getInstance(aClassValidator));
+        }
 		
-		return new EntityValidatorImpl(validators);
+		return new EntityValidatorImpl(typeValidators, extraValidators);
 	}
 
-	private Map<String, Field> extractFields(Class<? extends DomainEntity> entityClass) throws IllegalArgumentException, IllegalAccessException {
+    private Map<String, Field> extractFields(Class<? extends DomainEntity> entityClass) throws IllegalArgumentException, IllegalAccessException {
 		Map<String, Field> fields = new LinkedHashMap<>();
 		for (java.lang.reflect.Field field : entityClass.getFields()) {
 			Field annotation = field.getAnnotation(Field.class);
@@ -127,4 +133,12 @@ public class InjectedValidatorBuilder implements IEntityValidatorBuilder {
 		return validator;
 	}
 
+
+    private List<Class<? extends IAdditionalValidator>> findExtraValidators(Class<? extends DomainEntity> entityClass) {
+        Validate annotation = entityClass.getAnnotation(Validate.class);
+        if (annotation != null) {
+            return Arrays.asList(annotation.alsoWith());
+        }
+        return Collections.emptyList();
+    }
 }
