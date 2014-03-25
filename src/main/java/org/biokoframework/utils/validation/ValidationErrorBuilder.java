@@ -33,13 +33,13 @@ import org.biokoframework.utils.fields.Fields;
 @Deprecated
 public class ValidationErrorBuilder {
 
-	private static final String ERROR_CODE_MANDATORY = "51";
-	private static final String ERROR_CODE_TYPE = "52";
-	private static final String ERROR_CODE_TYPE_DONT_KNOW = "53";
-	private static final String ERROR_CODE_FORMAT = "54";
-	private static final String ERROR_CODE_REGEXP = "55";
-	private static final String ERROR_CODE_UNIQUE_VIOLATION = "56";
-	private static final String ERROR_CODE_READ_ONLY_VIOLATION = "57";
+	private static final long ERROR_CODE_MANDATORY = 51;
+	private static final long ERROR_CODE_TYPE = 52;
+	private static final long ERROR_CODE_TYPE_DONT_KNOW = 53;
+	private static final long ERROR_CODE_FORMAT = 54;
+	private static final long ERROR_CODE_REGEXP = 55;
+	private static final long ERROR_CODE_UNIQUE_VIOLATION = 56;
+	private static final long ERROR_CODE_READ_ONLY_VIOLATION = 57;
 
 	private static final String ERROR_MSG_MANDATORY = "Missing field ";
 	private static final String ERROR_MSG_TYPE = "Wrong type for field ";
@@ -53,8 +53,7 @@ public class ValidationErrorBuilder {
 		return createErrorEntity(fieldName, ERROR_CODE_FORMAT, ERROR_MSG_FORMAT);
 	}
 
-	public static ErrorEntity createErrorEntity(String fieldName,
-			String errorCode, String errorMsg) {
+	public static ErrorEntity createErrorEntity(String fieldName, long errorCode, String errorMsg) {
 		Fields input = new Fields();
 		input.put(ErrorEntity.ERROR_FIELD, fieldName);
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
@@ -65,7 +64,7 @@ public class ValidationErrorBuilder {
 		return e;
 	}
 
-	public static ErrorEntity createErrorEntity(String errorCode,
+	public static ErrorEntity createErrorEntity(long errorCode,
 			String errorMsg) {
 		Fields input = new Fields();
 		input.put(ErrorEntity.ERROR_CODE, errorCode);
@@ -76,8 +75,7 @@ public class ValidationErrorBuilder {
 	}
 
 	public static ErrorEntity buildWrongRegexpError(String fieldName) {
-		return createErrorEntity(fieldName, ERROR_CODE_REGEXP,
-				ERROR_MSG_REGEXP);
+		return createErrorEntity(fieldName, ERROR_CODE_REGEXP, ERROR_MSG_REGEXP);
 	}
 
 	public static ErrorEntity buildTypeDontKnowError(String fieldName) {
@@ -100,8 +98,7 @@ public class ValidationErrorBuilder {
 	}
 
 	public static ErrorEntity buildReadOnlyViolationError(String fieldName) {
-		return createErrorEntity(fieldName, ERROR_CODE_READ_ONLY_VIOLATION,
-				ERROR_MSG_READ_ONLY_VIOLATION);
+		return createErrorEntity(fieldName, ERROR_CODE_READ_ONLY_VIOLATION, ERROR_MSG_READ_ONLY_VIOLATION);
 	}
 
 }

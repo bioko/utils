@@ -120,14 +120,14 @@ public class EntityValidationTest {
 //		input.put(AnnotatedDomainEntityIntance.AGE, AN_AGE_28);
 //		AnnotatedDomainEntityIntance de28ers = new AnnotatedDomainEntityIntance(input);
 //		
-//		// with standard validator
+//		// alsoWith standard validator
 //		assertThat(ValidatorUtil.validate(de27ers), equalTo(true));
 //		assertThat(ValidatorUtil.validate(de28ers), equalTo(true));
 //		
 //		ValidatorUtil validatorUtil = new ValidatorUtil();
 //		validatorUtil.addCustomValidator(AnnotatedDomainEntityIntance.class.getSimpleName(), new Custom28ersValidator());
 //		
-//		// with the custom validator
+//		// alsoWith the custom validator
 //		assertThat(validatorUtil._validate(de27ers), equalTo(false));
 //		assertThat(validatorUtil._validate(de28ers), equalTo(true));
 //	}
