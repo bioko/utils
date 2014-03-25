@@ -61,30 +61,30 @@ public interface FieldNames {
 	@Deprecated
 	public static final String ERROR_CODE = ErrorEntity.ERROR_CODE;
 	
-	public static final String NO_ERROR_CODE = "000";
+	public static final long NO_ERROR_CODE = 0;
 
-	public static final String BAD_COMMAND_INVOCATION_CODE = "100";
-	public static final String COMMAND_NOT_FOUND_CODE = "101";
+	public static final long BAD_COMMAND_INVOCATION_CODE = 100;
+	public static final long  COMMAND_NOT_FOUND_CODE = 101;
 	
-	public static final String ENTITY_WITH_ID_NOT_FOUND_CODE = "102";
-	public static final String ENTITY_WITH_FIELD_NOT_FOUND_CODE = "103";
-	public static final String EXPECTED_FIELD_NOT_FOUND = "104";
-	public static final String ENTITY_NOT_COMPLETE_CODE = "105";
-	public static final String ENTITY_ALREADY_EXISTING_CODE = "106";
-	public static final String REPOSITORY_IS_EMPTY_CODE = "107";
-	public static final String REPOSITORY_MISSING_CODE = "108";
+	public static final long ENTITY_WITH_ID_NOT_FOUND_CODE = 102;
+	public static final long ENTITY_WITH_FIELD_NOT_FOUND_CODE = 103;
+	public static final long EXPECTED_FIELD_NOT_FOUND = 104;
+	public static final long ENTITY_NOT_COMPLETE_CODE = 105;
+	public static final long ENTITY_ALREADY_EXISTING_CODE = 106;
+	public static final long REPOSITORY_IS_EMPTY_CODE = 107;
+	public static final long REPOSITORY_MISSING_CODE = 108;
 	
-	public static final String AUTHENTICATION_REQUIRED_CODE = "110";
-	public static final String INVALID_LOGIN_CODE = "111";
-	public static final String TOKEN_EXPIRED_CODE = "112";
-	public static final String INSUFFICIENT_PRIVILEGES_CODE = "113";
-	public static final String FACEBOOK_AUTH_FAILURE_CODE = "114";
+	public static final long AUTHENTICATION_REQUIRED_CODE = 110;
+	public static final long INVALID_LOGIN_CODE = 111;
+	public static final long TOKEN_EXPIRED_CODE = 112;
+	public static final long INSUFFICIENT_PRIVILEGES_CODE = 113;
+	public static final long FACEBOOK_AUTH_FAILURE_CODE = 114;
 	
-	public static final String DISSOLUTION_INCOMPLETE_CODE = "120";
+	public static final long DISSOLUTION_INCOMPLETE_CODE = 120;
 
-	public static final String CONTAINER_EXCEPTION_CODE = "190";
+	public static final long CONTAINER_EXCEPTION_CODE = 190;
 	
-	public static final String UNSUPPORTED_FORMAT_CODE = "130";
+	public static final long UNSUPPORTED_FORMAT_CODE = 130;
 	
 	
 }

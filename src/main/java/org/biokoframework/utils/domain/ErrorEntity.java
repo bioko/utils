@@ -35,7 +35,7 @@ public class ErrorEntity extends DomainEntity {
 	
 	@Field
 	public static final String ERROR_MESSAGE = "errorMessage";
-	@Field(type=Integer.class)
+	@Field(type=Long.class)
 	public static final String ERROR_CODE = "errorCode";
 	@Field(mandatory=false)
 	public static final String ERROR_FIELD = "errorField";
