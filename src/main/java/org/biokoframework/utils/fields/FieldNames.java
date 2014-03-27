@@ -73,6 +73,7 @@ public interface FieldNames {
 	public static final long ENTITY_ALREADY_EXISTING_CODE = 106;
 	public static final long REPOSITORY_IS_EMPTY_CODE = 107;
 	public static final long REPOSITORY_MISSING_CODE = 108;
+    public static final long ENTITY_FIELD_NOT_UNIQUE = 109;
 	
 	public static final long AUTHENTICATION_REQUIRED_CODE = 110;
 	public static final long INVALID_LOGIN_CODE = 111;
