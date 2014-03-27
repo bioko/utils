@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014																 
+ * Copyright (c) 2014
  *	Mikol Faro			<mikol.faro@gmail.com>
  *	Simone Mangano		<simone.mangano@ieee.org>
  *	Mattia Tortorelli	<mattia.tortorelli@gmail.com>
@@ -22,52 +22,31 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
- */
-
-package org.biokoframework.utils.validation;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.TypeLiteral;
-import com.google.inject.name.Names;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
-import org.biokoframework.utils.validation.impl.*;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-
-/**
- * 
- * @author Mikol Faro <mikol.faro@gmail.com>
- * @date Mar 4, 2014
  *
  */
-public class ValidationModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(new TypeLiteral<ITypeValidator<String>>() {})
-			.to(StringValidator.class);
-		
-		bind(new TypeLiteral<ITypeValidator<Long>>() {})
-			.to(LongValidator.class);
+package org.biokoframework.utils.validation.impl;
 
-        bind(new TypeLiteral<ITypeValidator<Boolean>>() {})
-            .to(BooleanValidator.class);
+import org.biokoframework.utils.validation.ValidationErrorBuilder;
 
-		bind(new TypeLiteral<ITypeValidator<String>>() {})
-			.annotatedWith(Names.named("email"))
-			.to(EmailValidator.class);
-		
-		bind(new TypeLiteral<ITypeValidator<LocalDate>>() {})
-			.to(LocalDateValidator.class);
-		
-		bind(new TypeLiteral<ITypeValidator<DateTime>>() {})
-			.to(DateTimeValidator.class);
-		
-		bind(IEntityValidatorBuilder.class)
-			.to(InjectedValidatorBuilder.class);
+import java.util.Map;
 
-	}
+/**
+ * @author Mikol Faro <mikol.faro@gmail.com>
+ * @date 2014-03-27
+ */
+public class BooleanValidator extends AbstractValidator<Boolean> {
 
+    @Override
+    protected boolean checkValid(String name, Object value) {
+        if (!(value instanceof Boolean)) {
+            addError(ValidationErrorBuilder.buildWrongTypeError(name));
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void addHints(Map<String, String> hints) {
+    }
 }
