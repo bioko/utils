@@ -32,7 +32,7 @@ import com.google.inject.Injector;
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
 import org.biokoframework.utils.domain.annotation.field.Field;
-import org.biokoframework.utils.validation.ValidationErrorBuilder;
+import org.biokoframework.utils.domain.validation.impl.AbstractAdditionalValidator;
 import org.biokoframework.utils.validation.ValidationModule;
 import org.junit.Before;
 import org.junit.Test;
@@ -87,26 +87,17 @@ public class CustomValidatorTest {
 
     }
 
-    public static class CustomValidator implements IAdditionalValidator {
+    public static class CustomValidator extends AbstractAdditionalValidator {
 
-        private ErrorEntity fError;
-
-        @Override
         public boolean isValid(DomainEntity entity) {
             String name = entity.get(CustomValidatedEntity.NAME);
             if ("gino".equals(name)) {
-                fError = null;
+                clearError();
                 return true;
             } else {
-                fError = ValidationErrorBuilder.createErrorEntity(12345L, "Name should be 'gino'");
+                setError(12345, "Name should be 'gino'");
                 return false;
             }
         }
-
-        @Override
-        public ErrorEntity getError() {
-            return fError;
-        }
-
     }
 }
