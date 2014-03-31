@@ -35,6 +35,5 @@ public interface FieldValues {
     public static final String EMPTY = "";
 	public static final String ERROR = "error";
 	public static final String NO_COMMAND_INFO = "{}";
-	public static final String TRUE = "true";
-	public static final String FALSE = "false";
+
 }
