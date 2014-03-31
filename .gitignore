@@ -13,3 +13,7 @@
 *.iml
 /.idea
 .attach_pid*
+
+# Gradle
+.gradle
+/build
