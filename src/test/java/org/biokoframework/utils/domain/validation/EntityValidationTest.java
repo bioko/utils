@@ -65,7 +65,7 @@ public class EntityValidationTest {
 		fValidator = fBuilder.createEntityValidator(AnnotatedPersonExample.class);
 		
 		fEntity = new AnnotatedPersonExample();
-		fEntity.setAll(composeFiels());
+		fEntity.setAll(composeFields());
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ public class EntityValidationTest {
 
 //	@Test
 //	public void testWithCustomValidator() {
-//		Fields input = composeFiels();		
+//		Fields input = composeFields();
 //		AnnotatedDomainEntityIntance de27ers = new AnnotatedDomainEntityIntance(input);
 //		input.put(AnnotatedDomainEntityIntance.AGE, AN_AGE_28);
 //		AnnotatedDomainEntityIntance de28ers = new AnnotatedDomainEntityIntance(input);
@@ -132,7 +132,7 @@ public class EntityValidationTest {
 //		assertThat(validatorUtil._validate(de28ers), equalTo(true));
 //	}
 	
-	private Fields composeFiels() {
+	private Fields composeFields() {
 		Fields input = new Fields(
 				AnnotatedPersonExample.NAME, A_NAME,
 				AnnotatedPersonExample.SURNAME, A_SURNAME,
