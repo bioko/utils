@@ -36,6 +36,9 @@ import org.joda.time.DateTime;
 
 import java.io.InputStream;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
 public class Matchers {
 	
 	public static final Matcher<String> anyString() {
@@ -66,17 +69,19 @@ public class Matchers {
 		return ValidEntity.valid();
 	}
 
-    public static Matcher<Fields> contains(String name, Object value) {
-        return ContainsFields.contains(name, value);
+    public static Matcher<Fields> contains(Object... keysAndValues) {
+        return is(equalTo(new Fields(keysAndValues)));
     }
 
     public static Matcher<?> error(ErrorEntity error) {
         return ContainsSameError.error(error);
     }
 
-
     public static Matcher<DateTime> after(DateTime expected) {
         return DateTimeAfter.after(expected);
     }
 
+    public static Matcher<DomainEntity> has(String fieldName, Matcher<? extends Object> fieldMatcher) {
+        return DomainEntityHas.has(fieldName, fieldMatcher);
+    }
 }
