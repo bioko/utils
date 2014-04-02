@@ -31,15 +31,15 @@ import org.biokoframework.utils.domain.DomainEntity;
 
 public class Not<DE extends DomainEntity> implements Filter<DE>{
 	
-	private final Filter<DE> _filter;
+	private final Filter<DE> fFilter;
 	
 	public Not(Filter<DE> filter) {
-		_filter = filter;
+		fFilter = filter;
 	}
 
 	@Override
 	public boolean allows(DE entity) {
-		return !_filter.allows(entity);
+		return !fFilter.allows(entity);
 	}
 
 	public static final <DE extends DomainEntity> Filter<DE> not(Filter<DE> filter) {
