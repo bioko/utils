@@ -54,8 +54,17 @@ public class DomainEntityHas extends TypeSafeMatcher<DomainEntity> {
     }
 
     @Override
+    protected void describeMismatchSafely(DomainEntity item, Description mismatchDescription) {
+        if (item == null) {
+            super.describeMismatchSafely(item, mismatchDescription);
+        } else {
+            mismatchDescription.appendText(fFieldName).appendText(" was ").appendValue(item.get(fFieldName));
+        }
+    }
+
+    @Override
     public void describeTo(Description description) {
-        description.appendText("have ").appendText(fFieldName);
+        description.appendText("have ").appendText(fFieldName).appendText(" ");
         fFieldMatcher.describeTo(description);
     }
 }
