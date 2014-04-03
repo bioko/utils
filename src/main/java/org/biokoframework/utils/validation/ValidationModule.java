@@ -30,7 +30,6 @@ package org.biokoframework.utils.validation;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.biokoframework.utils.domain.validation.IEntityValidatorBuilder;
 import org.biokoframework.utils.validation.impl.*;
 import org.joda.time.DateTime;
