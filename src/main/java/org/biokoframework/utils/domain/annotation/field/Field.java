@@ -43,7 +43,5 @@ public @interface Field {
 	Hint[] hints() default {};	
 	// TODO transform to @Hints
 	@Deprecated String format() default "";
-	@Deprecated String pattern() default "";
-	@Deprecated String dateFormat() default "";
-	
+
 }
