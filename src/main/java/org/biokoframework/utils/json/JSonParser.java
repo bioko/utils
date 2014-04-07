@@ -1,7 +1,5 @@
 package org.biokoframework.utils.json;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 import org.json.simple.JSONValue;
 
 import java.util.LinkedHashMap;
@@ -36,14 +34,6 @@ import java.util.Map;
 
 public class JSonParser {
 
-	private ObjectMapper _mapper;
-
-	public JSonParser() {
-		
-		_mapper = new ObjectMapper();
-		_mapper.registerModule(new JodaModule());
-	}
-	
 	@SuppressWarnings("unchecked")
 	public LinkedHashMap<String, Object> parseToMap(String json) {		
 		LinkedHashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
