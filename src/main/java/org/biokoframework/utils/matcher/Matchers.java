@@ -29,6 +29,7 @@ package org.biokoframework.utils.matcher;
 
 import org.biokoframework.utils.domain.DomainEntity;
 import org.biokoframework.utils.domain.ErrorEntity;
+import org.biokoframework.utils.exception.BiokoException;
 import org.biokoframework.utils.fields.Fields;
 import org.biokoframework.utils.matcher.datetime.DateTimeAfter;
 import org.hamcrest.Matcher;
@@ -83,5 +84,9 @@ public class Matchers {
 
     public static Matcher<DomainEntity> has(String fieldName, Matcher<? extends Object> fieldMatcher) {
         return DomainEntityHas.has(fieldName, fieldMatcher);
+    }
+
+    public static Matcher<BiokoException> hasError(long errorCode) {
+        return BiokoExceptionHas.error(errorCode);
     }
 }
