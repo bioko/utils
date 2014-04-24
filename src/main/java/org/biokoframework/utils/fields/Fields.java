@@ -34,10 +34,7 @@ import org.biokoframework.utils.json.JSonParser;
 import org.json.simple.JSONAware;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Fields implements Serializable, JSONAware {
 
@@ -64,6 +61,10 @@ public class Fields implements Serializable, JSONAware {
 		fields.fFields.putAll(map);
 		return fields;
 	}
+
+    public Map<String, Object> toMap() {
+        return Collections.unmodifiableMap(fFields);
+    }
 
 	public static Fields fromJson(String actualJSon) {
 		JSonParser jSonParser = new JSonParser();
