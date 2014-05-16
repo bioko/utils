@@ -51,5 +51,5 @@ public interface Query<DE extends DomainEntity> {
 	public Constraint<DE> or(String fieldName);
 
 
-	
+    Query<DE> orderBy(String fieldName);
 }

@@ -47,7 +47,7 @@ public interface Repository<DE extends DomainEntity> {
 
 	public DE retrieve(String anEntityKey);
 
-	public DE retrieveByForeignKey(String foreignKeyName, String foreignKeyValue);
+	public DE retrieveByForeignKey(String foreignKeyName, Object foreignKeyValue);
 
 	public ArrayList<DE> getEntitiesByForeignKey(String foreignKeyName, Object foreignKeyValue);
 
