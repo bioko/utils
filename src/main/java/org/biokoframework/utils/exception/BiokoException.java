@@ -28,6 +28,7 @@
 package org.biokoframework.utils.exception;
 
 import org.biokoframework.utils.domain.ErrorEntity;
+import org.json.simple.JSONValue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,4 +84,13 @@ public class BiokoException extends Exception {
 	public Throwable getCause() {
 		return exception();
 	}
+
+    @Override
+    public String getMessage() {
+        if (fErrors != null) {
+            return JSONValue.toJSONString(fErrors);
+        } else {
+            return super.getMessage();
+        }
+    }
 }
