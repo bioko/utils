@@ -40,6 +40,7 @@ public class ValidationErrorBuilder {
 	private static final long ERROR_CODE_REGEXP = 55;
 	private static final long ERROR_CODE_UNIQUE_VIOLATION = 56;
 	private static final long ERROR_CODE_READ_ONLY_VIOLATION = 57;
+    private static final long ERROR_CODE_FOREIGN_KEY = 58;
 
 	private static final String ERROR_MSG_MANDATORY = "Missing field ";
 	private static final String ERROR_MSG_TYPE = "Wrong type for field ";
@@ -48,6 +49,7 @@ public class ValidationErrorBuilder {
 	private static final String ERROR_MSG_REGEXP = "Regexp match failed for field ";
 	private static final String ERROR_MSG_UNIQUE_VIOLATION = "Field must be unique";
 	private static final String ERROR_MSG_READ_ONLY_VIOLATION = "Field is read only";
+    private static final String ERROR_MSG_FOREIGN_KEY = "Field is a reference to a non existing entity";
 
 	public static ErrorEntity buildFieldFormatNotValidError(String fieldName) {
 		return createErrorEntity(fieldName, ERROR_CODE_FORMAT, ERROR_MSG_FORMAT);
@@ -100,5 +102,9 @@ public class ValidationErrorBuilder {
 	public static ErrorEntity buildReadOnlyViolationError(String fieldName) {
 		return createErrorEntity(fieldName, ERROR_CODE_READ_ONLY_VIOLATION, ERROR_MSG_READ_ONLY_VIOLATION);
 	}
+
+    public static ErrorEntity buildForeignKeyError(String fieldName) {
+        return createErrorEntity(fieldName, ERROR_CODE_FOREIGN_KEY, ERROR_MSG_FOREIGN_KEY);
+    }
 
 }
