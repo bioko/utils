@@ -28,6 +28,7 @@
 package org.biokoframework.utils.validation.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.biokoframework.utils.validation.ValidationErrorBuilder;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -58,6 +59,7 @@ public class LocalDateValidator extends AbstractValidator<LocalDate> {
 		try {
 			fFormatter.parseLocalDate(string);
 		} catch (Exception exception) {
+            Logger.getLogger(LocalDateValidator.class).warn("Failed parse LocalDate ", exception);
 			addError(ValidationErrorBuilder.buildWrongTypeError(name));
 			return false;
 		}
