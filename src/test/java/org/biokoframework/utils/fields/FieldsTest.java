@@ -124,7 +124,12 @@ public class FieldsTest {
 	@Test
 	public void simpleFieldsAsJson() throws Exception {
 		Fields someFields = FieldsMother.twoFields();
-		assertEquals(FieldsMother.FIRST_EXPECTED, someFields.toJSONString());
+//		assertEquals(FieldsMother.FIRST_EXPECTED, someFields.toJSONString());
+        assertThat(someFields.toJSONString(), is(either(equalTo(
+                "{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}"
+        )).or(equalTo(
+                "{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"}"
+        ))));
 	}
 
 	@Test
@@ -146,10 +151,13 @@ public class FieldsTest {
 		List<AnnotatedPersonExample> theObject = domainEntityInstanceList();
 		String aFieldName = "OBJECT";
 		withObjects.put(aFieldName, theObject);
-		assertEquals(
-				"{\"OBJECT\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},"
-				+ "{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}",
-				withObjects.toJSONString());
+		assertThat(withObjects.toJSONString(), is(either(equalTo(
+                "{\"OBJECT\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},"
+                        + "{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}"
+        )).or(equalTo(
+                "{\"OBJECT\":[{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"},"
+                        + "{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"}]}"
+        ))));
 	}
 
 	private List<AnnotatedPersonExample> domainEntityInstanceList() {

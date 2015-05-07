@@ -86,6 +86,6 @@ public interface FieldNames {
 	public static final long CONTAINER_EXCEPTION_CODE = 190;
 	
 	public static final long UNSUPPORTED_FORMAT_CODE = 130;
-	
+	public static final long BINARY_ENTITY_NOT_FOUND_CODE = 131;
 	
 }

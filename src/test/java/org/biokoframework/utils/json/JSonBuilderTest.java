@@ -33,7 +33,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 
 public class JSonBuilderTest {
@@ -42,7 +44,13 @@ public class JSonBuilderTest {
 	public void testFields() throws Exception {
 		JSonBuilder jSonBuilder = new JSonBuilder();
 		String actualJSon = jSonBuilder.buildFrom(FieldsMother.twoFields());
-		assertEquals(FieldsMother.FIRST_EXPECTED, actualJSon);
+
+
+		assertThat(actualJSon, is(either(equalTo(
+				"{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}"
+		)).or(equalTo(
+				"{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"}"
+		))));
 	}
 	
 	@Test
@@ -62,8 +70,12 @@ public class JSonBuilderTest {
 		
 		String aKey = "domainEntityArray";
 		String actualJSon = jSonBuilder.buildFrom(new Fields(aKey, domainEntityArray));
-		
-		assertEquals("{\"" + aKey + "\":[" + FieldsMother.FIRST_EXPECTED + "," + FieldsMother.FIRST_EXPECTED + "]}", actualJSon);
+
+		assertThat(actualJSon, is(either(equalTo(
+				"{\"domainEntityArray\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}"
+		)).or(equalTo(
+				"{\"domainEntityArray\":[{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"},{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"}]}"
+		))));
 	}
 	
 	@Test
@@ -86,7 +98,11 @@ public class JSonBuilderTest {
 		Fields arrayOfDomainEntityAndFields = FieldsMother.twoFields().putAll(arrayOfDomainEntity);
 		String actualJSon = jSonBuilder.buildFrom(arrayOfDomainEntityAndFields);
 		
-		assertEquals(FieldsMother.FIRST_EXPECTED.substring(0, FieldsMother.FIRST_EXPECTED.length()-1) + ",\"" + aKey + "\":[" + FieldsMother.FIRST_EXPECTED + "," + FieldsMother.FIRST_EXPECTED + "]}", actualJSon);
+		assertThat(actualJSon, is(either(equalTo(
+				"{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\",\"domainEntityArray\":[{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"},{\"name\":\"Michelangelo\",\"surname\":\"Buonarroti\"}]}"
+		)).or(equalTo(
+				"{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\",\"domainEntityArray\":[{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"},{\"surname\":\"Buonarroti\",\"name\":\"Michelangelo\"}]}"
+		))));
 	}
 	
 }

@@ -28,6 +28,7 @@
 package org.biokoframework.utils.validation.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.biokoframework.utils.validation.ValidationErrorBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -51,8 +52,9 @@ public class DateTimeValidator extends AbstractValidator<DateTime> {
 		
 		try {
 			fFormatter.parseDateTime(string);
-		} catch (Exception exception) {
-			addError(ValidationErrorBuilder.buildWrongTypeError(name));
+        } catch (Exception exception) {
+            Logger.getLogger(DateTimeValidator.class).warn("Failed parse DateTime ", exception);
+            addError(ValidationErrorBuilder.buildWrongTypeError(name));
 			return false;
 		}
 

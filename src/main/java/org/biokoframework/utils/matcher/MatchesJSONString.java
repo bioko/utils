@@ -42,7 +42,8 @@ public class MatchesJSONString extends TypeSafeMatcher<String> {
 	private String _expectedString;
 	private Matcher<Object> equalTo;
 	private Matcher<Iterable<? extends Object>> itarableEqualTo;
-	
+	private ParseException fParseException = null;
+
 
 	public MatchesJSONString(String expectedString) {
 		_expectedString = expectedString;
@@ -51,6 +52,15 @@ public class MatchesJSONString extends TypeSafeMatcher<String> {
 	@Override
 	public void describeTo(Description description) {
 		description.appendValue(_expectedString);
+	}
+
+	@Override
+	public void describeMismatchSafely(String item, Description description) {
+		if (fParseException != null) {
+			description.appendText("may not be valid JSON, check the expected value too");
+		} else {
+			super.describeMismatchSafely(item, description);
+		}
 	}
 
 	@Override
@@ -69,6 +79,7 @@ public class MatchesJSONString extends TypeSafeMatcher<String> {
 				return equalTo.matches(jsonActual);
 			}
 		} catch (ParseException e) {
+			fParseException = e;
 			return false;
 		}
 		
